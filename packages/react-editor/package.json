@@ -1,0 +1,64 @@
+{
+  "name": "@page-blocks/react-editor",
+  "description": "React-based Page block editor implementation",
+  "author": "stephenwf",
+  "type": "module",
+  "version": "0.0.0",
+  "license": "MIT",
+  "bugs": "https://github.com/stephenwf/page-blocks/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stephenwf/page-blocks.git",
+    "directory": "packages/react-editor"
+  },
+  "keywords": [
+    "page-blocks"
+  ],
+  "engines": {
+    "node": ">=18.14.1"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./dist/index.css": {
+      "import": "./dist/index.css"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.tsx",
+    "dev": "tsup src/index.tsx --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@page-blocks/core": "workspace:*",
+    "@page-blocks/client": "workspace:*",
+    "@page-blocks/web-components": "workspace:*",
+    "@nanostores/react": "^0.7.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "nanostores": "^0.9.4",
+    "react-query": "^3.39.3",
+    "uniforms": "^4.0.0-alpha.5",
+    "uniforms-bridge-zod": "^4.0.0-alpha.5",
+    "uniforms-semantic": "^4.0.0-alpha.5",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.28",
+    "@types/react-dom": "^18.2.13",
+    "eslint-config-custom": "workspace:*",
+    "tsup": "^7.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

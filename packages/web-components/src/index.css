@@ -1,0 +1,162 @@
+/** Web component styles */
+
+pb-slot, pb-block {
+    display: block;
+    position: relative;
+    box-sizing: border-box;
+    outline: none;
+}
+pb-block::part(edit-bar) {
+    min-width: 300px;
+    display: flex;
+    background: #EFEFEF;
+    border-bottom: 1px solid #C7C7C7;
+    height: 42px;
+    gap: 6px;
+    align-items: center;
+    justify-items: stretch;
+    padding: 0 10px;
+}
+
+pb-block[editing="true"] {
+    z-index: 1;
+    outline: 2px solid #2196F3;
+}
+
+
+pb-slot::part(controls) {
+    display: flex;
+    gap: 4px;
+    padding-right: 8px;
+}
+
+pb-block::part(controls) {
+    display: none;
+    gap: 4px;
+}
+
+pb-block[editing="true"]::part(controls) {
+    display: flex;
+}
+
+pb-block::part(label) {
+    flex: 1;
+    color: #000;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+pb-slot::part(control),
+pb-block::part(control) {
+    background: #FFFFFF;
+    border: 1px solid #BDBDBD;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    height: 30px;
+    padding: 0 12px;
+    gap: 4px;
+}
+
+pb-block::part(control-svg) {
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+pb-slot::part(control):focus-visible,
+pb-block::part(control):focus-visible {
+    outline: none;
+    border-color: #2196F3;
+    box-shadow: 0 0 0 2px #BBDEFB;
+}
+
+pb-slot::part(control):hover,
+pb-block::part(control):hover {
+    background: #F5F5F5;
+    border-color: #9E9E9E;
+}
+
+pb-slot::part(control):active,
+pb-block::part(control):active {
+    background: #E0E0E0;
+    border-color: #9E9E9E;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.pb-editing pb-block:hover {
+    z-index: 1;
+    outline: 2px solid #2196F3;
+}
+
+.pb-editing pb-block:hover::part(controls) {
+    display: flex;
+}
+
+.pb-editing pb-block:has(pb-block:hover) {
+    outline-color: rgba(33, 150, 243, 0.4);
+}
+
+.pb-editing pb-slot:hover {
+    /*z-index: 1;*/
+    outline: 2px solid #423384;
+}
+
+.block-grid {
+    grid-template-columns: repeat(auto-fit,minmax(350px,1fr));
+}
+
+.pb-editing pb-slot:has(pb-slot:hover) {
+    outline-color: rgba(127, 33, 243, 0.4);
+}
+
+/**
+<div part="slot-bar">
+  <div part="slot-label">Some slot</div>
+  <div part="slot-controls">
+    <button part="slot-button">hide</button>
+    <button part="slot-button-primary">add</button>
+    <button part="slot-button-delete">reset</button>
+  </div>
+</div>
+ */
+
+pb-slot::part(slot-bar) {
+    background: #625197;
+    display: flex;
+    margin-bottom: 2px;
+    height: 42px;
+    align-items: center;
+    justify-items: stretch;
+}
+
+
+.pb-editing pb-slot:hover::part(slot-controls) {
+    display: flex;
+}
+pb-slot::part(slot-controls) {
+    display: none;
+    padding: 0 10px;
+}
+
+pb-slot pb-slot::part(slot-bar) {
+    background: #677DC4;
+}
+
+pb-slot::part(slot-label) {
+    background: #453089;
+    color: #FFFFFF;
+    margin-right: auto;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+
+pb-slot pb-slot::part(slot-label) {
+    background: #4255A1;
+}
+

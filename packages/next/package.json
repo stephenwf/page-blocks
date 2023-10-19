@@ -1,0 +1,44 @@
+{
+  "name": "@page-blocks/next",
+  "description": "Next.js integration for page-blocks",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "author": "stephenwf",
+  "version": "0.0.0",
+  "license": "MIT",
+  "bugs": "https://github.com/stephenwf/page-blocks/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stephenwf/page-blocks.git",
+    "directory": "packages/next"
+  },
+  "keywords": [
+    "page-blocks"
+  ],
+  "engines": {
+    "node": ">=18.14.1"
+  },
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup-node src/index.ts",
+    "dev": "tsup-node src/index.ts --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "next": "*"
+  },
+  "dependencies": {
+    "@page-blocks/core": "workspace:*",
+    "@page-blocks/node": "workspace:*"
+  },
+  "devDependencies": {
+    "tsup": "^7.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "@page-blocks/screenshots",
+  "description": "Page block extension for taking screenshots of blocks",
+  "author": "stephenwf",
+  "type": "module",
+  "version": "0.0.0",
+  "license": "MIT",
+  "bugs": "https://github.com/stephenwf/page-blocks/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stephenwf/page-blocks.git",
+    "directory": "packages/screenshots"
+  },
+  "keywords": [
+    "page-blocks"
+  ],
+  "engines": {
+    "node": ">=18.14.1"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup-node src/index.ts",
+    "dev": "tsup-node src/index.ts --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "playwright": "^1.39.0",
+    "mkdirp": "^3.0.1"
+  },
+  "devDependencies": {
+    "tsup": "^7.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

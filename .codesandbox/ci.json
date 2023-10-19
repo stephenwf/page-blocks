@@ -1,0 +1,15 @@
+{
+  "packages": [
+    "packages/client",
+    "packages/core",
+    "packages/file-system",
+    "packages/next",
+    "packages/node",
+    "packages/react",
+    "packages/react-client",
+    "packages/react-editor",
+    "packages/screenshots",
+    "packages/web-components"
+  ],
+  "node": "18"
+}

@@ -1,0 +1,39 @@
+{
+  "name": "@page-blocks/file-system",
+  "description": "File system provider for Page Blocks",
+  "author": "stephenwf",
+  "type": "module",
+  "version": "0.0.0",
+  "license": "MIT",
+  "bugs": "https://github.com/stephenwf/page-blocks/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stephenwf/page-blocks.git",
+    "directory": "packages/file-system"
+  },
+  "engines": {
+    "node": ">=18.14.1"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup-node src/index.ts",
+    "dev": "tsup-node src/index.ts --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@page-blocks/node": "workspace:*",
+    "mkdirp": "^3.0.1"
+  },
+  "devDependencies": {
+    "@page-blocks/core": "workspace:*",
+    "tsup": "^7.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

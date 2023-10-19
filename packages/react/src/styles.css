@@ -1,0 +1,49 @@
+/*
+ Why BEM? Low specificity, easy to override, easy to read, easy to maintain.
+ Do I love it? No.
+*/
+
+/** Block Archive */
+
+.block-archive {
+    /* p-2 m-4 border drop-shadow-sm bg-white rounded text-black */
+    padding: 0.5rem;
+    margin: 1rem;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    background-color: #fff;
+    border-radius: 0.25rem;
+    color: #000;
+}
+
+.block-archive__label {
+    /* text-lg font-semibold */
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.block-archive__description {
+    /* mb-2 */
+    margin-bottom: 0.5rem;
+}
+
+.block-archive__examples {
+    /* mt-4 font-medium text-md */
+    margin-top: 1rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+.block-archive__block {}
+
+.block-archive__block-label {
+    /* font-md text-slate-500 */
+    font-size: 0.875rem;
+    color: #4a5568;
+}
+
+.block-archive__block-container {}
+.block-archive__block-container:hover {
+    /* hover:outline hover:outline-2 outline-blue-700 */
+    outline: 2px solid #4c51bf;
+}

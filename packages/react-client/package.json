@@ -1,0 +1,47 @@
+{
+  "name": "@page-blocks/react-client",
+  "description": "Extra React bindings for Page blocks (client only)",
+  "author": "stephenwf",
+  "type": "module",
+  "version": "0.0.0",
+  "license": "MIT",
+  "bugs": "https://github.com/stephenwf/page-blocks/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stephenwf/page-blocks.git",
+    "directory": "packages/file-system"
+  },
+  "keywords": [
+    "page-blocks"
+  ],
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts",
+    "dev": "tsup src/index.ts --watch",
+    "dev-client": "tsup --config ./tsup.client.ts --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@page-blocks/core": "workspace:*",
+    "@page-blocks/client": "workspace:*",
+    "@nanostores/react": "^0.7.1",
+    "nanostores": "^0.9.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-query": "^3.39.3",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/react-dom": "^18.2.13",
+    "@types/react": "^18.2.28",
+    "eslint-config-custom": "workspace:*",
+    "tsup": "^7.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

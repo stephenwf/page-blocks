@@ -1,0 +1,34 @@
+{
+  "name": "footer",
+  "blocks": [
+    {
+      "id": "4kc727",
+      "type": "Card",
+      "data": {
+        "className": "",
+        "title": "DOES THIS WORK? awesome. awesome",
+        "text": "yes it does.",
+        "href": "asdasd"
+      }
+    },
+    {
+      "id": "chu0x",
+      "type": "Card",
+      "data": {
+        "title": "Example title asdasd",
+        "text": "Example text",
+        "href": "https://example.com"
+      }
+    },
+    {
+      "id": "5mcvw8",
+      "type": "Card",
+      "data": {
+        "title": "Example title it works",
+        "text": "Example text",
+        "href": "https://example.com",
+        "className": ""
+      }
+    }
+  ]
+}

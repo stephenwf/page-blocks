@@ -1,0 +1,42 @@
+{
+  "name": "@page-blocks/node",
+  "type": "module",
+  "description": "Node.js helpers for Page Blocks",
+  "author": "stephenwf",
+  "version": "0.0.0",
+  "license": "MIT",
+  "bugs": "https://github.com/stephenwf/page-blocks/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stephenwf/page-blocks.git",
+    "directory": "packages/node"
+  },
+  "keywords": [
+    "page-blocks"
+  ],
+  "engines": {
+    "node": ">=18.14.1"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup-node src/index.ts",
+    "dev": "tsup-node src/index.ts --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@page-blocks/core": "workspace:*",
+    "mkdirp": "^3.0.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "tsup": "^7.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
