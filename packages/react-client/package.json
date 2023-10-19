@@ -1,6 +1,6 @@
 {
   "name": "@page-blocks/react-client",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Extra React bindings for Page blocks (client only)",
   "author": "stephenwf",
   "type": "module",
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/stephenwf/page-blocks.git",
-    "directory": "packages/file-system"
+    "directory": "packages/react-client"
   },
   "keywords": [
     "page-blocks"
@@ -19,6 +19,10 @@
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "build": "tsup src/index.ts",
     "dev": "tsup src/index.ts --watch",
