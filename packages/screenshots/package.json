@@ -1,9 +1,9 @@
 {
   "name": "@page-blocks/screenshots",
+  "version": "0.0.1",
   "description": "Page block extension for taking screenshots of blocks",
   "author": "stephenwf",
   "type": "module",
-  "version": "0.0.0",
   "license": "MIT",
   "bugs": "https://github.com/stephenwf/page-blocks/issues",
   "repository": {

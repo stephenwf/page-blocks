@@ -1,9 +1,9 @@
 {
   "name": "@page-blocks/react-client",
+  "version": "0.0.1",
   "description": "Extra React bindings for Page blocks (client only)",
   "author": "stephenwf",
   "type": "module",
-  "version": "0.0.0",
   "license": "MIT",
   "bugs": "https://github.com/stephenwf/page-blocks/issues",
   "repository": {

@@ -1,9 +1,9 @@
 {
   "name": "@page-blocks/react",
+  "version": "0.0.1",
   "description": "React bindings for Page Blocks (server + client compatible)",
   "author": "stephenwf",
   "type": "module",
-  "version": "0.0.0",
   "license": "MIT",
   "bugs": "https://github.com/stephenwf/page-blocks/issues",
   "repository": {
