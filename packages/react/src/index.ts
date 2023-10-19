@@ -1,4 +1,4 @@
-import '@page-blocks/client/dist/index.css';
+import '@page-blocks/web-components/dist/index.css';
 import './styles.css';
 
 export * from './types';

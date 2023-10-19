@@ -1,9 +1,9 @@
 {
   "name": "@page-blocks/node",
+  "version": "0.0.1",
   "type": "module",
   "description": "Node.js helpers for Page Blocks",
   "author": "stephenwf",
-  "version": "0.0.0",
   "license": "MIT",
   "bugs": "https://github.com/stephenwf/page-blocks/issues",
   "repository": {

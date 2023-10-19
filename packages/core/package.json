@@ -1,9 +1,9 @@
 {
   "name": "@page-blocks/core",
+  "version": "0.0.1",
   "sideEffects": false,
   "author": "stephenwf",
   "type": "module",
-  "version": "0.0.0",
   "license": "MIT",
   "bugs": "https://github.com/stephenwf/page-blocks/issues",
   "repository": {

@@ -1,12 +1,12 @@
 {
   "name": "@page-blocks/next",
+  "version": "0.0.1",
   "description": "Next.js integration for page-blocks",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "author": "stephenwf",
-  "version": "0.0.0",
   "license": "MIT",
   "bugs": "https://github.com/stephenwf/page-blocks/issues",
   "repository": {

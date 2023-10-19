@@ -1,9 +1,9 @@
 {
   "name": "@page-blocks/web-components",
+  "version": "0.0.1",
   "description": "Simple self-contained Vanilla Web Component implementations of Page Blocks pb-slot and pb-block",
   "author": "stephenwf",
   "type": "module",
-  "version": "0.0.0",
   "license": "MIT",
   "bugs": "https://github.com/stephenwf/page-blocks/issues",
   "repository": {
