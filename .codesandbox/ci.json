@@ -11,5 +11,6 @@
     "packages/screenshots",
     "packages/web-components"
   ],
+  "sandboxes": ["new", "vanilla"],
   "node": "18"
 }
