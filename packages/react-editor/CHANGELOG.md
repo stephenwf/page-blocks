@@ -1,5 +1,11 @@
 # @page-blocks/react-editor
 
+## 0.0.6
+
+### Patch Changes
+
+- 02862c5: Fixed imports
+
 ## 0.0.5
 
 ### Patch Changes
