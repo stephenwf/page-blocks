@@ -13,7 +13,19 @@ interface BlockEditorProps {
   onClose?: () => void;
 }
 
-const AutoForm = uniforms.AutoForm;
+let AutoForm = uniforms.AutoForm;
+
+// @ts-expect-error
+if (typeof AutoForm === 'undefined' && uniforms.default) {
+  // @ts-expect-error
+  AutoForm = uniforms.default.AutoForm;
+}
+
+if (typeof AutoForm === 'undefined') {
+  AutoForm = (() => {
+    return <div>ERROR LOADING DEPENDENCY</div>;
+  }) as any;
+}
 
 export function BlockEditor(props: BlockEditorProps) {
   const block = props.block;
