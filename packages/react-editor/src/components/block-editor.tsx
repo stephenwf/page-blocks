@@ -1,7 +1,7 @@
 'use client';
 import ZodBridge from 'uniforms-bridge-zod';
 import { useMemo } from 'react';
-import uniforms from 'uniforms-semantic';
+import * as uniforms from 'uniforms-semantic';
 import { BlockConfig } from '@page-blocks/core';
 import '../web-components/pb-editor';
 
@@ -13,13 +13,8 @@ interface BlockEditorProps {
   onClose?: () => void;
 }
 
-let AutoForm = uniforms.AutoForm;
-
 // @ts-expect-error
-if (typeof AutoForm === 'undefined' && uniforms.default) {
-  // @ts-expect-error
-  AutoForm = uniforms.default.AutoForm;
-}
+let AutoForm = uniforms.AutoForm || (uniforms.default ? uniforms.default.AutoForm : undefined);
 
 if (typeof AutoForm === 'undefined') {
   AutoForm = (() => {
