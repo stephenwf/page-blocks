@@ -1,5 +1,11 @@
 # @page-blocks/react-editor
 
+## 0.0.4
+
+### Patch Changes
+
+- 845a469: Fix import
+
 ## 0.0.3
 
 ### Patch Changes

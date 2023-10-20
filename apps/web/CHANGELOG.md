@@ -1,5 +1,12 @@
 # web
 
+## 1.0.3
+
+### Patch Changes
+
+- Updated dependencies [845a469]
+  - @page-blocks/react-editor@0.0.4
+
 ## 1.0.2
 
 ### Patch Changes
