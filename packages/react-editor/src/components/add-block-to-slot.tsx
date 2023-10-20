@@ -1,5 +1,6 @@
 import { BlockConfig, blockSymbol, DirectoryOptions } from '@page-blocks/core';
 import { currentBlock, currentlyAddingBlock, SlotEditingClient } from '@page-blocks/client';
+import { useState } from 'react';
 
 function generateId() {
   return Math.random().toString(36).substring(7);
@@ -14,6 +15,8 @@ export function AddBlockToSlot(props: {
   const blocks = props.options.blocks;
   const blockTypes = Object.keys(blocks);
   const screens = props.options.resolver.screenshots || null;
+  const [isGeneratingScreenshots, setIsGeneratingScreenshots] = useState(false);
+  const [lastScreenshotRefresh, setLastScreenshotRefresh] = useState(Date.now());
 
   const handleAdd = (type: string, config: BlockConfig) => {
     const example = (config.examples || [])[0];
@@ -62,9 +65,14 @@ export function AddBlockToSlot(props: {
               <div className="block-add__actions">
                 {screens ? (
                   <button
+                    disabled={isGeneratingScreenshots}
                     className="block-add__gen-screens"
                     onClick={() => {
-                      props.client.generateScreenshots();
+                      setIsGeneratingScreenshots(true);
+                      props.client.generateScreenshots().then(() => {
+                        setIsGeneratingScreenshots(false);
+                        setLastScreenshotRefresh(Date.now());
+                      });
                     }}
                   >
                     Generate screenshots
@@ -100,7 +108,12 @@ export function AddBlockToSlot(props: {
                     <div onClick={() => handleAdd(type, config)} className="block-add__block" key={type}>
                       {screens ? (
                         <div className="block-add__thumbnail-container">
-                          <img src={`${screens}/${type}.jpg`} className="block-add__thumbnail" alt="" />
+                          <img
+                            src={`${screens}/${type}.jpg`}
+                            className="block-add__thumbnail"
+                            alt=""
+                            key={lastScreenshotRefresh}
+                          />
                         </div>
                       ) : null}
                       <div className="block-add__block-label">{config.label || type}</div>

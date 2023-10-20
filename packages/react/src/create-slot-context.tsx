@@ -5,7 +5,11 @@ import { SlotContext, SlotContextProps } from '@page-blocks/react-client';
 export function createSlotContext(options: DirectoryOptions<any>) {
   const loader = createRemoteLoader(options);
   function CustomSlotContext(props: SlotContextProps) {
-    return <SlotContext loader={loader} options={options} {...props} />;
+    return (
+      <SlotContext loader={loader} options={options} {...props}>
+        {props.children}
+      </SlotContext>
+    );
   }
 
   return {

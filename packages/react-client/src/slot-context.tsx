@@ -6,8 +6,8 @@ import { DirectoryOptions } from '@page-blocks/core';
 import { useSlotData } from './use-slot-data';
 
 export interface SlotContextProps {
-  name: string;
-  value: string;
+  name?: string;
+  value?: string;
   cache?: any;
   slots?: string[];
   children: ReactNode;
@@ -34,7 +34,7 @@ export function SlotContext(props: SlotContextProps & { options: DirectoryOption
   const cacheData = props.cache && !invalidCache && cacheRef.current === props.value ? props.cache : undefined;
   const context = useSlotContext();
   const newContext = useMemo(
-    () => (props.name ? { ...context, [props.name]: props.value } : context),
+    () => (props.name ? { ...context, [props.name]: props.value || '' } : context),
     [...(props.dependencies || (props.value ? [props.value] : []))]
   );
   const { data } = useSlotData(
@@ -46,7 +46,7 @@ export function SlotContext(props: SlotContextProps & { options: DirectoryOption
     }
   );
 
-  const children = data && data.isEmpty ? props.fallback : props.children;
+  const children = data && data.isEmpty ? props.fallback || props.children : props.children;
 
   let provider = props.name ? (
     <SlotReactContext.Provider value={newContext}>

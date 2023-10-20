@@ -74,6 +74,7 @@ register(
           this.shadowRoot!.innerHTML = '';
           this.shadowRoot!.appendChild($newElement);
           this.shadowRoot!.appendChild($slot);
+          return;
         }
 
         const $slotBar = el('div', { part: 'slot-bar' }, {}, [

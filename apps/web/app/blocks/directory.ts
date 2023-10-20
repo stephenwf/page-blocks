@@ -16,3 +16,4 @@ export const directory = createDirectory({
 export const Blocks = directory.Blocks;
 
 export const BlockArchive = directory.BlockArchive;
+export const SlotContext = directory.SlotContext;

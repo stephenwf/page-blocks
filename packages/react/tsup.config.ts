@@ -4,6 +4,7 @@ export default defineConfig((options: Options) => ({
   dts: true,
   target: ['es2020'],
   format: ['esm', 'cjs'],
+  platform: 'browser',
   external: [
     'react',
     'react-dom',

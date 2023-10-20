@@ -65,7 +65,7 @@ register(
         }
 
         const $editBar = el('div', { part: 'edit-bar' }, {}, [
-          el('div', { part: 'label' }, {}, ['A block']),
+          el('div', { part: 'label' }, {}, [this.blockType || 'Untitled Block']),
           el('div', { part: 'controls' }, {}, [
             el('button', { part: 'control' }, { click: this.editBlock }, ['Edit']),
             el('button', { part: 'control control-svg' }, { click: this.moveUp }, [

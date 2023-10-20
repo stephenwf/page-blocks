@@ -37,8 +37,6 @@ register(
         this.container.appendChild(this.editingContainer);
         this.container.appendChild(this.addingContainer);
         this.container.className = 'block-container';
-
-        console.log('pb-editor constructor');
       }
 
       client: SlotEditingClient | null = null;
@@ -127,7 +125,6 @@ register(
           }
 
           if (mode) {
-            console.log('currentBlock', mode);
             const slotId = mode.slotId;
             const blockId = mode.blockId;
 
@@ -171,5 +168,3 @@ register(
       };
     }
 );
-
-console.log('pb-editor loaded');

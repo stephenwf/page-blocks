@@ -102,7 +102,12 @@ export function createFileSystemLoader(options: { path: string; contexts: string
 
       await writeFile(resolved, JSON.stringify(data, null, 2));
 
-      await this.init(true);
+      const parsedSingle = parseSingleFile(relative(options.path, resolved), options.contexts);
+      if (parsedSingle) {
+        parsed.push(parsedSingle);
+      }
+
+      fresh = false;
 
       return data as any;
     },
