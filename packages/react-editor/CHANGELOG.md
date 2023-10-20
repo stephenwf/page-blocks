@@ -1,5 +1,11 @@
 # @page-blocks/react-editor
 
+## 0.0.5
+
+### Patch Changes
+
+- 60cf735: Fixed bug with imported package
+
 ## 0.0.4
 
 ### Patch Changes
