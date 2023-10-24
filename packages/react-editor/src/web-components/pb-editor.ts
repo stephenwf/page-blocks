@@ -6,6 +6,7 @@ import {
   currentBlock,
   currentlyAddingBlock,
   editingMode,
+  pendingBlockProps,
   register,
   SlotEditingClient,
 } from '@page-blocks/client';
@@ -141,6 +142,9 @@ register(
               }
               const blockComponent = this.options!.blocks[mode.blockType];
               const blockConfig = blockComponent[blockSymbol];
+
+              pendingBlockProps.set(editingBlock.data);
+
               this.editingReactRoot.render(
                 createElement(BlockEditorWrapper as any, {
                   ...mode,
