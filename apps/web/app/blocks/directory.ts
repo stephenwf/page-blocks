@@ -1,6 +1,7 @@
 import { createDirectory } from '@page-blocks/react';
 import { Card } from 'ui';
 import PokemonThumbnail from '../components/pokemon-thumbnail';
+import { FourGrid } from '../components/four-grid';
 
 export const directory = createDirectory({
   context: {},
@@ -12,6 +13,7 @@ export const directory = createDirectory({
   blocks: {
     Card,
     PokemonThumbnail,
+    FourGrid,
   },
 });
 

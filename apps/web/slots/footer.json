@@ -29,6 +29,86 @@
         "href": "https://example.com",
         "className": ""
       }
+    },
+    {
+      "id": "y6ghw",
+      "type": "FourGrid",
+      "data": {
+        "columns": 3,
+        "title": "Some pokemon"
+      },
+      "slots": {
+        "gridItems": {
+          "slot_id": "gridItems",
+          "blocks": [
+            {
+              "id": "s4bpcy",
+              "type": "PokemonThumbnail",
+              "data": {
+                "name": "pikachu",
+                "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+                "types": [
+                  "electric"
+                ]
+              }
+            },
+            {
+              "id": "ps464r",
+              "type": "PokemonThumbnail",
+              "data": {
+                "name": "bulbasaur",
+                "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+                "types": [
+                  "grass",
+                  "poison"
+                ]
+              }
+            },
+            {
+              "id": "22ymy5",
+              "type": "PokemonThumbnail",
+              "data": {
+                "name": "ditto lol",
+                "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png",
+                "types": [
+                  "normal"
+                ]
+              }
+            },
+            {
+              "id": "iib0eo",
+              "type": "PokemonThumbnail",
+              "data": {
+                "name": "charmander",
+                "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
+                "types": [
+                  "fire"
+                ]
+              }
+            },
+            {
+              "id": "nhfcyj",
+              "type": "PokemonThumbnail",
+              "data": {
+                "name": "squirtle",
+                "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png",
+                "types": [
+                  "water"
+                ]
+              }
+            },
+            {
+              "id": "t5gfhb",
+              "type": "PokemonThumbnail",
+              "data": {
+                "name": "jumpluff",
+                "types": [],
+                "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/189.png"
+              }
+            }
+          ]
+        }
+      }
     }
   ]
 }

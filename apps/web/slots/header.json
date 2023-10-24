@@ -60,6 +60,15 @@
       }
     },
     {
+      "id": "f82jxs",
+      "type": "PokemonThumbnail",
+      "data": {
+        "name": "arbok",
+        "types": [],
+        "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/24.png"
+      }
+    },
+    {
       "id": "haylb",
       "type": "PokemonThumbnail",
       "data": {
@@ -98,15 +107,6 @@
         "title": "Example title",
         "text": "Example text",
         "href": "https://example.com"
-      }
-    },
-    {
-      "id": "f82jxs",
-      "type": "PokemonThumbnail",
-      "data": {
-        "name": "arbok",
-        "types": [],
-        "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/24.png"
       }
     }
   ]

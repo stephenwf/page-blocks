@@ -7,16 +7,23 @@ interface SlotProps {
   context: Record<string, string>;
   name: string;
   children?: any;
-  className?: string;
+  class?: string;
 }
 
 export const Slot = (async (props: SlotProps) => {
-  const slotResponse = await fileSystemLoader.query(props.context, [props.name]);
+  const { name, context, children, ...htmlProps } = props;
+  const slotResponse = await fileSystemLoader.query(context, [name]);
   const options = { resolver: directory.resolver, blocks: directory.blocks };
 
   return (
-    <CustomSlot name={props.name} slot={slotResponse.slots[props.name]} context={props.context} options={options}>
-      {props.children}
+    <CustomSlot
+      name={name}
+      slot={slotResponse.slots[name]}
+      context={context}
+      options={options}
+      slotHtmlProps={htmlProps}
+    >
+      {children}
     </CustomSlot>
   );
 }) as any as FC<SlotProps>;

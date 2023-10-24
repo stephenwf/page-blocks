@@ -65,7 +65,7 @@ export default block(
   function PokemonThumbnail(props) {
     return (
       <div>
-        <Image src={props.image} alt="" />
+        <img src={props.image} alt="" />
         <h3>{props.name}</h3>
         <div>
           {props.types.map((t) => (
