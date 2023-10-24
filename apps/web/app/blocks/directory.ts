@@ -1,6 +1,6 @@
 import { createDirectory } from '@page-blocks/react';
 import { Card } from 'ui';
-import PokemonThumbnail from '../components/PokemonThumbnail';
+import PokemonThumbnail from '../components/pokemon-thumbnail';
 
 export const directory = createDirectory({
   context: {},

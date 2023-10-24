@@ -1,8 +1,7 @@
 import { BlockEditor } from './blocks/block-editor.lazy';
 import { Slot } from './blocks/slot';
-import { fileSystemLoader } from './blocks/server';
 
-export default async function Page() {
+export default function Page() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="max-w-[800px] w-full bg-white p-4 rounded">

@@ -1,6 +1,7 @@
 'use client';
 
 import { block } from '@page-blocks/react';
+import Image from 'next/image';
 import { searchPokemonProps, pokemonProps } from '../sources/pokemon';
 
 export default block(
@@ -64,7 +65,7 @@ export default block(
   function PokemonThumbnail(props) {
     return (
       <div>
-        <img src={props.image} />
+        <Image src={props.image} alt="" />
         <h3>{props.name}</h3>
         <div>
           {props.types.map((t) => (

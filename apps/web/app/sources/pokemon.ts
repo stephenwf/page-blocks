@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { block, propSource, contextSource } from '@page-blocks/react';
+import { propSource, contextSource } from '@page-blocks/react';
 
 export const pokemonProps = z.object({
   name: z.string(),

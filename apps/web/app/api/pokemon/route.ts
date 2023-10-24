@@ -1,4 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 
 const cache = { value: null } as { value: any };
 
@@ -21,10 +22,10 @@ export const GET = async (req: NextRequest) => {
     return NextResponse.json({ results: [] });
   }
 
-  const results = cached.results.filter((r) => r.name.includes(query));
+  const results = cached.results.filter((r: any) => r.name.includes(query));
 
   return NextResponse.json({
-    results: results.map((r) => {
+    results: results.map((r: any) => {
       const id = r.url.split('/').filter(Boolean).pop();
       return {
         label: r.name,
