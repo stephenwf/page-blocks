@@ -38,7 +38,7 @@ export function BlockArchive(props: { directory: DirectoryOptions<any> }) {
             {data.description ? <p className="block-archive__description">{data.description}</p> : null}
             {examples.length ? <h3 className="block-archive__examples">Examples</h3> : null}
             {examples.map((example, idx) => (
-              <section className="block-archive__block" key={idx}>
+              <section className="block-archive__block" key={idx} style={example.display}>
                 <h4 className="block-archive__block-label">{example.label}</h4>
                 <div className="block-archive__block-container" id={`example_${type}__${idx}`}>
                   <Suspense fallback={null}>

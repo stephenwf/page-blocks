@@ -46,16 +46,39 @@ export function createScreenshotGenerator(options: ScreenshotGeneratorOptions = 
 
     const blocks = data.blocks || [];
     for (const block of blocks) {
-      if (!force && existsSync(join(target, `${block.type}.jpg`))) {
+      const { type, label, examples = [] } = block;
+
+      const filesToCheck = [];
+      let doesNotExist = false;
+      if (examples.length) {
+        for (let i = 0; i < examples.length; i++) {
+          if (i === 0) {
+            if (!existsSync(`${target}/${type}.jpg`)) {
+              doesNotExist = true;
+              break;
+            }
+          } else {
+            if (!existsSync(`${target}/${type}-${i}.jpg`)) {
+              doesNotExist = true;
+              break;
+            }
+          }
+        }
+      }
+
+      if (!force && !doesNotExist) {
         continue;
       }
 
-      const { type, label, examples = [] } = block;
       if (examples.length) {
-        await page
-          .locator(`#example_${type}__0`)
-          .first()
-          .screenshot({ path: `${target}/${type}.jpg`, scale: 'device', type: 'jpeg' });
+        for (let i = 0; i < examples.length; i++) {
+          const path = i === 0 ? `${target}/${type}.jpg` : `${target}/${type}-${i}.jpg`;
+
+          await page
+            .locator(`#example_${type}__${i}`)
+            .first()
+            .screenshot({ path: path, scale: 'device', type: 'jpeg' });
+        }
       }
     }
 

@@ -12,7 +12,8 @@ export interface RenderBlockProps {
 export function RenderBlock(props: RenderBlockProps) {
   // const ref = useRef<PBBlockAttributes>(null);
   const { block, innerSlots = {}, Component, editing, parent } = props;
-  const componentProps = props.componentProps || block.data;
+  const { context, ...componentProps } = props.componentProps || block.data || {};
+  const blockContext = Object.assign({}, props.context || {}, context);
 
   const blockAttributes: any = {
     'block-type': block.type,
@@ -44,7 +45,7 @@ export function RenderBlock(props: RenderBlockProps) {
       {/*  {blockStylesheet ? <style>{blockStylesheet}</style> : null}*/}
       {/*  <slot></slot>*/}
       {/*</template>*/}
-      <Component {...(componentProps || {})} {...innerSlots} context={props.context} />
+      <Component {...(componentProps || {})} {...innerSlots} context={blockContext} />
     </pb-block>
   );
 }

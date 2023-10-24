@@ -4,4 +4,6 @@ export * from './directory-options';
 export * from './resolvers';
 export * from './web-components';
 export * from './protocol';
+export * from './prop-source';
+export * from './context-source';
 export * from './utils';
