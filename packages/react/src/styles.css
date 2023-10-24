@@ -47,3 +47,14 @@
     /* hover:outline hover:outline-2 outline-blue-700 */
     outline: 2px solid #4c51bf;
 }
+
+
+.pb-editing .pb-grid-slot {
+    padding-top: 42px;
+}
+.pb-editing .pb-grid-slot::part(slot-bar) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
