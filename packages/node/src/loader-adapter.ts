@@ -1,4 +1,10 @@
-import { BlockResponse, BlockWithSlotResponse, FullSlotLoader, SlotLoader } from '@page-blocks/core';
+import {
+  BlockResponse,
+  BlockWithOptionalSlotResponse,
+  BlockWithSlotResponse,
+  FullSlotLoader,
+  SlotLoader,
+} from '@page-blocks/core';
 
 export function loaderAdapter(loader: SlotLoader & Partial<FullSlotLoader>): FullSlotLoader {
   async function getBlockSlots(slotId: string, blockId: string, slotName: string) {
@@ -214,6 +220,39 @@ export function loaderAdapter(loader: SlotLoader & Partial<FullSlotLoader>): Ful
         slot.blocks[index] = tmp;
         await loader.update(slotId, slot);
       }
+    },
+    async querySubContextBlocks(
+      context: Record<string, string>,
+      query?: {
+        searchValue?: string;
+        slotIds?: string[];
+        blockTypes?: string[];
+      }
+    ): Promise<Array<{ context: Record<string, string>; blocks: BlockWithOptionalSlotResponse[] }>> {
+      const allMatches = [];
+
+      const foundSubContexts = await loader.querySubContext(context);
+      for (const subContext of foundSubContexts) {
+        const fullContext = { ...context, ...subContext };
+        const matches = await loader.query(fullContext, query?.slotIds);
+        const foundBlocks = [];
+        for (const slot of matches.slots) {
+          const blocks = slot.blocks.filter((block: any) => {
+            if (query?.blockTypes && !query.blockTypes.includes(block.type)) {
+              return false;
+            }
+            if (query?.searchValue) {
+              // @todo search value filtering.
+            }
+            return true;
+          });
+          foundBlocks.push(...blocks);
+        }
+
+        allMatches.push({ context: fullContext, blocks: foundBlocks });
+      }
+
+      return allMatches;
     },
     ...loader,
   };

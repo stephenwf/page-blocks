@@ -131,6 +131,22 @@ export interface GenerateScreenshotsRequest {
   type: 'generate-screenshots';
 }
 
+export interface QueryContextValuesRequest {
+  type: 'query-context-values';
+  context: string;
+}
+
+export interface QuerySubContextRequest {
+  type: 'query-sub-context';
+  context: Record<string, string>;
+}
+
+export interface QuerySubContextBlocksRequest {
+  type: 'query-sub-context-blocks';
+  context: Record<string, string>;
+  options?: { searchValue?: string; slotIds?: string[]; blockTypes?: string[] };
+}
+
 export type BlockApiRequest =
   | CreateBlockRequest
   | UpdateBlockRequest
@@ -158,7 +174,10 @@ export type SlotApiRequest =
   | CreateInnerSlotRequest
   | DeleteInnerSlotRequest
   | UpdateInnerSlotRequest
-  | GenerateScreenshotsRequest;
+  | GenerateScreenshotsRequest
+  | QueryContextValuesRequest
+  | QuerySubContextRequest
+  | QuerySubContextBlocksRequest;
 
 export interface SlotQueryResponse {
   slots: SlotResponse[];
@@ -204,12 +223,16 @@ export interface SlotLoader {
   init(force?: boolean): Promise<void>;
   query(
     context: Record<string, string>,
-    slotIds: string[]
+    slotIds?: string[]
   ): Promise<{ slots: SlotResponse[]; isEmpty: boolean; slotName: string[]; context: Record<string, string> }>;
   find(slotId: string): Promise<SlotResponse>;
   update(slotId: string, data: SlotResponse | SlotQueryRequest): Promise<void>;
   delete(slotId: string): Promise<void>;
   createSlot(request: CreateSlot): Promise<SlotResponse>;
+
+  // New queries.
+  queryContextValues(context: string): Promise<string[]>;
+  querySubContext(context: Record<string, string>): Promise<Array<Record<string, string>>>;
 }
 
 export interface FullSlotLoader extends SlotLoader {
@@ -234,4 +257,10 @@ export interface FullSlotLoader extends SlotLoader {
   reorderBlocks(slotId: string, blockIds: string[], parent?: { slotId: string; blockId: string }): Promise<void>;
   moveBlockUp(slotId: string, blockId: string, parent?: { slotId: string; blockId: string }): Promise<void>;
   moveBlockDown(slotId: string, blockId: string, parent?: { slotId: string; blockId: string }): Promise<void>;
+
+  // New queries.
+  querySubContextBlocks(
+    context: Record<string, string>,
+    options?: { searchValue?: string; slotIds?: string[]; blockTypes?: string[] }
+  ): Promise<Array<{ context: Record<string, string>; blocks: BlockWithOptionalSlotResponse[] }>>;
 }

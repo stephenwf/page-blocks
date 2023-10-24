@@ -1,4 +1,11 @@
-import { BlockApiRequest, CreateSlot, DirectoryOptions, SlotApiRequest, SlotRequest } from '@page-blocks/core';
+import {
+  BlockApiRequest,
+  CreateSlot,
+  DirectoryOptions,
+  QuerySubContextBlocksRequest,
+  SlotApiRequest,
+  SlotRequest,
+} from '@page-blocks/core';
 
 export type SlotEditingClient = ReturnType<typeof createSlotEditingClient>;
 
@@ -63,6 +70,15 @@ export function createSlotEditingClient(
     },
     moveBlockDown: (slotId: string, blockId: string, parent?: { blockId: string; slotId: string }) => {
       return makeRequest({ type: 'move-block-down', slotId, blockId, parent });
+    },
+    queryContextValues: (context: string) => {
+      return makeRequest({ type: 'query-context-values', context });
+    },
+    querySubContext: (context: Record<string, string>) => {
+      return makeRequest({ type: 'query-sub-context', context });
+    },
+    querySubContextBlocks: (context: Record<string, string>, queryOptions: QuerySubContextBlocksRequest['options']) => {
+      return makeRequest({ type: 'query-sub-context-blocks', context, options: queryOptions });
     },
     generateScreenshots() {
       return makeRequest({ type: 'generate-screenshots' });
