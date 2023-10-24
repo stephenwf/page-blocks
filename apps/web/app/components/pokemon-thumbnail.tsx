@@ -1,7 +1,6 @@
 'use client';
 
 import { block } from '@page-blocks/react';
-import Image from 'next/image';
 import { searchPokemonProps, pokemonProps } from '../sources/pokemon';
 
 export default block(

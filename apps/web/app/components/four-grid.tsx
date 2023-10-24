@@ -26,7 +26,7 @@ export const FourGrid = block(
           <h3 className="text-slate-800 text-3xl my-12 text-center place-items-center">{props.title}</h3>
         ) : null}
         {/* blockSlot(slot, htmlProps, fallback) */}
-        {blockSlot(props.gridItems, { className: gridClassName }, props.children)}
+        {blockSlot(props.gridItems, { className: gridClassName }, props.children || null)}
       </div>
     );
   }
