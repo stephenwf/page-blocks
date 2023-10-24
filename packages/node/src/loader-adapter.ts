@@ -4,6 +4,7 @@ import {
   BlockWithSlotResponse,
   FullSlotLoader,
   SlotLoader,
+  SlotResponse,
 } from '@page-blocks/core';
 
 export function loaderAdapter(loader: SlotLoader & Partial<FullSlotLoader>): FullSlotLoader {
@@ -24,6 +25,23 @@ export function loaderAdapter(loader: SlotLoader & Partial<FullSlotLoader>): Ful
   }
 
   return {
+    findInnerSlot: async (slotId: string, parent: { slotId: string; blockId: string }) => {
+      const parentSlot = await loader.find(parent!.slotId);
+
+      const parentBlock = parentSlot.blocks.find((b: any) => b.id === parent.blockId);
+      if (!parentBlock) {
+        throw new Error('Parent block not found');
+      }
+      const innerSlot = (parentBlock.slots || {})[slotId] || {};
+      const blocks = innerSlot.blocks || [];
+
+      return {
+        id: slotId,
+        slot: slotId,
+        ...(innerSlot as any),
+        blocks,
+      };
+    },
     createInnerSlot: async (slotId: string, slot: string, parent: { slotId: string; blockId: string }) => {
       const parentSlot = await loader.find(parent!.slotId);
 

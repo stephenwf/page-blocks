@@ -2,6 +2,7 @@ import './styles.css';
 
 export * from './types';
 export * from './block';
+export * from './block-slot';
 export * from './prop-source';
 export * from './context-source';
 export * from './create-directory';

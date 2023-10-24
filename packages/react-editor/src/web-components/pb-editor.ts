@@ -128,8 +128,9 @@ register(
           if (mode) {
             const slotId = mode.slotId;
             const blockId = mode.blockId;
+            const parent = mode.parent;
 
-            this.client.getSlot(slotId).then((slot) => {
+            this.client.getSlot(slotId, parent || undefined).then((slot) => {
               const editingBlock = slot.blocks.find((b: any) => b.id === blockId);
               if (!editingBlock) {
                 return;

@@ -54,7 +54,6 @@ export function createRequestHandler(options: ServerOptions<any>) {
         await options.loader.delete(slotId);
         const response = { success: true };
         if (invalidateSlots) {
-          console.log('INVALIDATING');
           await invalidateSlots();
         }
         return json(response);
@@ -66,7 +65,11 @@ export function createRequestHandler(options: ServerOptions<any>) {
         return json(response);
       }
       case 'get-slot': {
-        const { slotId } = body;
+        const { slotId, parent } = body;
+        if (parent) {
+          const response = await options.loader.findInnerSlot(slotId, parent);
+          return json(response);
+        }
         const response = await options.loader.find(slotId);
         return json(response);
       }

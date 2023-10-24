@@ -236,6 +236,7 @@ export interface SlotLoader {
 }
 
 export interface FullSlotLoader extends SlotLoader {
+  findInnerSlot(slotId: string, parent: { slotId: string; blockId: string }): Promise<SlotResponse>;
   createInnerSlot(slotId: string, slot: string, parent: { slotId: string; blockId: string }): Promise<void>;
   deleteInnerSlot(slotId: string, parent: { slotId: string; blockId: string }): Promise<void>;
   updateInnerSlot(

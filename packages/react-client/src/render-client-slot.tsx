@@ -23,13 +23,15 @@ export function RenderClientSlot(props: RenderClientSlotProps) {
   const current = useStore(currentBlockId);
   const isEditingSlot = current.slotId === props.slot?.id;
   const { slot, slotHtmlProps = {} } = props;
+  const { className, ...propsToUse } = slotHtmlProps;
   const editorProps: any = {
     'slot-name': props.name,
     'slot-id': slot ? slot.id : props.parent ? props.name : undefined,
     'slot-parent-slot-id': props.parent?.slotId,
     'slot-parent-block-id': props.parent?.blockId,
     'slot-size': slot ? (slot.blocks || []).length : 0,
-    ...slotHtmlProps,
+    ...propsToUse,
+    class: className,
   };
 
   // Because we know that the children won't change (unless the block is edited, which is a non-critical path) we can

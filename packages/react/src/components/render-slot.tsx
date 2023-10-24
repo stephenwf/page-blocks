@@ -1,4 +1,4 @@
-import { BlockConfig, DirectoryOptions, SlotResponse } from '@page-blocks/core';
+import { BlockConfig, blockSymbol, DirectoryOptions, SlotResponse } from '@page-blocks/core';
 import { Children, cloneElement, isValidElement, useMemo } from 'react';
 import { RenderBlock } from './render-block';
 
@@ -18,13 +18,15 @@ export function RenderSlot(props: RenderSlotProps) {
   // const current = useStore(currentBlockId);
   // const isEditingSlot = current.slotId === props.slot?.id;
   const { slot, slotHtmlProps = {} } = props;
+  const { className, ...propsToUse } = slotHtmlProps;
   const editorProps: any = {
     'slot-name': props.name,
     'slot-id': slot ? slot.id : props.parent ? props.name : undefined,
     'slot-parent-slot-id': props.parent?.slotId,
     'slot-parent-block-id': props.parent?.blockId,
     'slot-size': slot ? (slot.blocks || []).length : 0,
-    ...slotHtmlProps,
+    ...propsToUse,
+    class: className,
   };
 
   // Because we know that the children won't change (unless the block is edited, which is a non-critical path) we can
@@ -73,7 +75,7 @@ export function RenderSlot(props: RenderSlotProps) {
     <pb-slot key={slot.id} {...editorProps}>
       {blocks.map((block: any, k: number) => {
         const Component = blocksById[block.type];
-        const metadata = blocksConfig[block.type];
+        const metadata = blocksConfig[block.type] || Component[blockSymbol];
 
         if (!Component) {
           // @todo make a way for this block to be removed by the user. Perhaps just by wrapping it in pb-block?
@@ -93,13 +95,25 @@ export function RenderSlot(props: RenderSlotProps) {
         for (const key of keys) {
           const foundSlot = (block.slots || {})[key];
           if (foundSlot) {
-            innerSlots[key] = (
-              <RenderSlot {...props} name={key} parent={{ slotId: slot.id, blockId: block.id }} slot={foundSlot} />
+            innerSlots[key] = (htmlProps: any) => (
+              <RenderSlot
+                {...props}
+                name={key}
+                parent={{ slotId: slot.id, blockId: block.id }}
+                slot={foundSlot}
+                slotHtmlProps={htmlProps}
+              />
             );
           } else {
             // Empty slot?
-            innerSlots[key] = (
-              <RenderSlot {...props} name={key} parent={{ slotId: slot.id, blockId: block.id }} slot={undefined} />
+            innerSlots[key] = (htmlProps: any) => (
+              <RenderSlot
+                {...props}
+                name={key}
+                parent={{ slotId: slot.id, blockId: block.id }}
+                slot={undefined}
+                slotHtmlProps={htmlProps}
+              />
             );
           }
         }

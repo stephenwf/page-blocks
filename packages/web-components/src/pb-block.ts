@@ -17,6 +17,27 @@ register(
       constructor() {
         super();
 
+        this.addEventListener('parent-block-request', (event: any) => {
+          if (event.target === this) return;
+          event.stopPropagation();
+
+          if (event.detail.callback) {
+            if (!this.slotId) {
+              this.registerSelf();
+            }
+
+            console.log('parent block request!', {
+              slotId: this.slotId,
+              blockId: this.blockId,
+            });
+            // If the callback throws, propagation is already stopped
+            event.detail.callback({
+              slotId: this.slotId,
+              blockId: this.blockId,
+            });
+          }
+        });
+
         if (!this.shadowRoot) {
           this.attachShadow({ mode: 'open' });
         }
@@ -41,6 +62,16 @@ register(
         this.dispatchEvent(
           new ContextEvent(pageContext, (newContext) => {
             this.context = Object.assign(newContext, this.context || {});
+          })
+        );
+        this.dispatchEvent(
+          new CustomEvent('parent-block-request', {
+            bubbles: true,
+            detail: {
+              callback: (parentBlock: any) => {
+                this.parentBlock = parentBlock;
+              },
+            },
           })
         );
       }
@@ -148,6 +179,7 @@ register(
         this.updateContext();
         this.registerSelf();
         this.setAttribute('editing', 'true');
+
         currentBlock.set({
           blockId: this.blockId!,
           blockType: this.blockType!,
