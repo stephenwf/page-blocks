@@ -11,6 +11,8 @@ if (process.env.NODE_ENV !== 'production') {
   import('@page-blocks/react-editor/dist/index.css');
   // @ts-expect-error typescript can't resolve CSS
   import('@page-blocks/react/dist/index.css');
+  // @ts-expect-error typescript can't resolve CSS
+  import('@page-blocks/web-components/dist/index.css');
 }
 
 export const metadata: Metadata = {

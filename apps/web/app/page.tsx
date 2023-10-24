@@ -1,22 +1,22 @@
 import { BlockEditor } from './blocks/block-editor.lazy';
-import { Blocks } from './blocks/directory';
 import { Slot } from './blocks/slot';
-import styles from './page.module.css';
+import { fileSystemLoader } from './blocks/server';
 
-export default function Page(): JSX.Element {
+export default async function Page() {
   return (
-    <main className={styles.main}>
-      <h1>Testing page blocks</h1>
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <div className="max-w-[800px] w-full bg-white p-4 rounded">
+        <h1>Hello world</h1>
+        <Slot name="header" context={{}} />
 
-      <Slot name="footer" context={{}}>
-        <Blocks.Card
-          href="https://vercel.com?utm_source=create-turbo&utm_medium=basic&utm_campaign=create-turbo"
-          title="TESTING"
-          text="Deployed with Vercel"
-        />
-      </Slot>
+        {process.env.NODE_ENV !== 'production' ? <BlockEditor showToggle rsc /> : null}
 
-      {process.env.NODE_ENV !== 'production' ? <BlockEditor showToggle /> : null}
+        <div className="py-4">
+          <a className="text-blue-500 hover:underline" href="/client">
+            Client component version
+          </a>
+        </div>
+      </div>
     </main>
   );
 }

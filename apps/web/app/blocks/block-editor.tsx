@@ -5,7 +5,7 @@ import { BlockEditor as CustomBlockEditor } from '@page-blocks/react-client';
 import { BlockEditorReact } from '@page-blocks/react-editor';
 import { directory } from './directory';
 
-export default function BlockEditor(props: { showToggle?: boolean }) {
+export default function BlockEditor(props: { showToggle?: boolean; rsc?: boolean }) {
   const router = useRouter();
   return (
     <BlockEditorReact>
@@ -13,7 +13,7 @@ export default function BlockEditor(props: { showToggle?: boolean }) {
         options={directory}
         showToggle={props.showToggle}
         onRefresh={() => {
-          router.refresh();
+          if (props.rsc) router.refresh();
         }}
       />
     </BlockEditorReact>
