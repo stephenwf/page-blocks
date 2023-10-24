@@ -1,5 +1,13 @@
 # @page-blocks/next
 
+## 0.0.4
+
+### Patch Changes
+
+- Updated dependencies [a8a05d8]
+  - @page-blocks/core@0.0.4
+  - @page-blocks/node@0.0.4
+
 ## 0.0.3
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @page-blocks/web-components
 
+## 0.0.4
+
+### Patch Changes
+
+- Updated dependencies [a8a05d8]
+  - @page-blocks/client@0.0.4
+
 ## 0.0.3
 
 ### Patch Changes

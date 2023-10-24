@@ -1,6 +1,6 @@
 {
   "name": "@page-blocks/node",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "type": "module",
   "description": "Node.js helpers for Page Blocks",
   "author": "stephenwf",

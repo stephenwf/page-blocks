@@ -1,6 +1,6 @@
 {
   "name": "@page-blocks/screenshots",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Page block extension for taking screenshots of blocks",
   "author": "stephenwf",
   "type": "module",
