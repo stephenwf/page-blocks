@@ -8,7 +8,6 @@ register(
   () =>
     class PbSlot extends HTMLElement {
       context: any = null;
-      _parent: { slotId: string; blockId: string } | null = null;
       _slotOptions: any | null = null;
       _blocks: Set<any> = new Set();
       emptySlot = false;
@@ -27,17 +26,20 @@ register(
           this.registerBlock(e.target);
         });
 
-        const parentSlotId = this.attributes.getNamedItem('slot-parent-slot-id')?.value;
-        const parentBlockId = this.attributes.getNamedItem('slot-parent-block-id')?.value;
-        if (parentSlotId && parentBlockId) {
-          this._parent = { slotId: parentSlotId, blockId: parentBlockId };
-        }
-
         this.render();
 
         editingMode.listen(() => {
           this.render();
         });
+      }
+
+      get _parent() {
+        const parentSlotId = this.attributes.getNamedItem('slot-parent-slot-id')?.value;
+        const parentBlockId = this.attributes.getNamedItem('slot-parent-block-id')?.value;
+        if (parentSlotId && parentBlockId) {
+          return { slotId: parentSlotId, blockId: parentBlockId };
+        }
+        return null;
       }
 
       getClient(): SlotEditingClient | null {
