@@ -1,6 +1,6 @@
 {
   "name": "@page-blocks/react-client",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Extra React bindings for Page blocks (client only)",
   "author": "stephenwf",
   "type": "module",

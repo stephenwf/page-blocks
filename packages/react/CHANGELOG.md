@@ -1,5 +1,17 @@
 # @page-blocks/react
 
+## 0.0.5
+
+### Patch Changes
+
+- ab692b6: CSS option for CSS grid slot styling
+- 69f24b6: Fixed inner slots and changed how you render an inner slot in a block
+- Updated dependencies [69f24b6]
+  - @page-blocks/web-components@0.0.5
+  - @page-blocks/core@0.0.5
+  - @page-blocks/client@0.0.4
+  - @page-blocks/react-client@0.0.5
+
 ## 0.0.4
 
 ### Patch Changes

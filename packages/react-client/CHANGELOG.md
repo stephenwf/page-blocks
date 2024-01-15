@@ -1,5 +1,13 @@
 # @page-blocks/react-client
 
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies [69f24b6]
+  - @page-blocks/core@0.0.5
+  - @page-blocks/client@0.0.4
+
 ## 0.0.4
 
 ### Patch Changes

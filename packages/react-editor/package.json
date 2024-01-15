@@ -1,6 +1,6 @@
 {
   "name": "@page-blocks/react-editor",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "React-based Page block editor implementation",
   "author": "stephenwf",
   "type": "module",

@@ -1,6 +1,6 @@
 {
   "name": "@page-blocks/file-system",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "File system provider for Page Blocks",
   "author": "stephenwf",
   "type": "module",

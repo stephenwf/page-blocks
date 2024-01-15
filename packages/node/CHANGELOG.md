@@ -1,5 +1,13 @@
 # @page-blocks/node
 
+## 0.0.5
+
+### Patch Changes
+
+- 69f24b6: Fixed inner slots and changed how you render an inner slot in a block
+- Updated dependencies [69f24b6]
+  - @page-blocks/core@0.0.5
+
 ## 0.0.4
 
 ### Patch Changes

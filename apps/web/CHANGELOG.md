@@ -1,5 +1,19 @@
 # web
 
+## 1.0.7
+
+### Patch Changes
+
+- Updated dependencies [ab692b6]
+- Updated dependencies [69f24b6]
+  - @page-blocks/react@0.0.5
+  - @page-blocks/web-components@0.0.5
+  - ui@0.0.4
+  - @page-blocks/react-editor@0.0.8
+  - @page-blocks/file-system@0.0.5
+  - @page-blocks/next@0.0.5
+  - @page-blocks/react-client@0.0.5
+
 ## 1.0.6
 
 ### Patch Changes
