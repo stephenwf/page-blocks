@@ -1,5 +1,13 @@
 # @page-blocks/react-editor
 
+## 0.0.10
+
+### Patch Changes
+
+- 7bd80b0: Fixes for slot context
+- Updated dependencies [7bd80b0]
+  - @page-blocks/web-components@0.0.7
+
 ## 0.0.9
 
 ### Patch Changes

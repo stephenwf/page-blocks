@@ -1,5 +1,12 @@
 # ui
 
+## 0.0.6
+
+### Patch Changes
+
+- Updated dependencies [7bd80b0]
+  - @page-blocks/react@0.0.7
+
 ## 0.0.5
 
 ### Patch Changes
