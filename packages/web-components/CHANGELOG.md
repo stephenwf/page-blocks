@@ -1,5 +1,11 @@
 # @page-blocks/web-components
 
+## 0.0.6
+
+### Patch Changes
+
+- 76671a9: Fixed resolution of parent slot
+
 ## 0.0.5
 
 ### Patch Changes

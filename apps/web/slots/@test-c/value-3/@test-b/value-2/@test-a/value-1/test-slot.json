@@ -1,0 +1,14 @@
+{
+  "name": "test-slot",
+  "blocks": [
+    {
+      "id": "b1o2j",
+      "type": "PokemonThumbnail",
+      "data": {
+        "name": "squirtle",
+        "types": [],
+        "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png"
+      }
+    }
+  ]
+}

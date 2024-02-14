@@ -1,5 +1,12 @@
 # @page-blocks/react
 
+## 0.0.6
+
+### Patch Changes
+
+- Updated dependencies [76671a9]
+  - @page-blocks/web-components@0.0.6
+
 ## 0.0.5
 
 ### Patch Changes

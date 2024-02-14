@@ -9,5 +9,5 @@ export const generateScreenshots = createScreenshotGenerator({
 });
 export const fileSystemLoader = createFileSystemLoader({
   path: join(cwd(), 'slots'),
-  contexts: [],
+  contexts: ['test-a', 'test-b', 'test-c'],
 });

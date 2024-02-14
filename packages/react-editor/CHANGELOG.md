@@ -1,5 +1,12 @@
 # @page-blocks/react-editor
 
+## 0.0.9
+
+### Patch Changes
+
+- Updated dependencies [76671a9]
+  - @page-blocks/web-components@0.0.6
+
 ## 0.0.8
 
 ### Patch Changes
