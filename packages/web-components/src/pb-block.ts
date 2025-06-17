@@ -26,10 +26,6 @@ register(
               this.registerSelf();
             }
 
-            console.log('parent block request!', {
-              slotId: this.slotId,
-              blockId: this.blockId,
-            });
             // If the callback throws, propagation is already stopped
             event.detail.callback({
               slotId: this.slotId,

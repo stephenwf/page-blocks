@@ -2,15 +2,6 @@
   "name": "header",
   "blocks": [
     {
-      "id": "m7q9pi",
-      "type": "PokemonThumbnail",
-      "data": {
-        "name": "poliwag",
-        "types": [],
-        "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/60.png"
-      }
-    },
-    {
       "id": "accr7",
       "type": "PokemonThumbnail",
       "data": {
@@ -28,6 +19,15 @@
         "title": "Example title",
         "text": "Example text",
         "href": "https://example.com"
+      }
+    },
+    {
+      "id": "m7q9pi",
+      "type": "PokemonThumbnail",
+      "data": {
+        "name": "poliwag",
+        "types": [],
+        "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/60.png"
       }
     },
     {
@@ -63,7 +63,7 @@
       "id": "f82jxs",
       "type": "PokemonThumbnail",
       "data": {
-        "name": "arbok",
+        "name": "test arbok",
         "types": [],
         "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/24.png"
       }

@@ -12,25 +12,6 @@
       }
     },
     {
-      "id": "chu0x",
-      "type": "Card",
-      "data": {
-        "title": "Example title asdasd",
-        "text": "Example text",
-        "href": "https://example.com"
-      }
-    },
-    {
-      "id": "5mcvw8",
-      "type": "Card",
-      "data": {
-        "title": "Example title it works test",
-        "text": "Example text",
-        "href": "https://example.com",
-        "className": ""
-      }
-    },
-    {
       "id": "y6ghw",
       "type": "FourGrid",
       "data": {
@@ -53,6 +34,17 @@
               }
             },
             {
+              "id": "22ymy5",
+              "type": "PokemonThumbnail",
+              "data": {
+                "name": "ditto lol",
+                "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png",
+                "types": [
+                  "normal"
+                ]
+              }
+            },
+            {
               "id": "ps464r",
               "type": "PokemonThumbnail",
               "data": {
@@ -61,17 +53,6 @@
                 "types": [
                   "grass",
                   "poison"
-                ]
-              }
-            },
-            {
-              "id": "22ymy5",
-              "type": "PokemonThumbnail",
-              "data": {
-                "name": "ditto lol",
-                "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png",
-                "types": [
-                  "normal"
                 ]
               }
             },
@@ -105,9 +86,37 @@
                 "types": [],
                 "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/189.png"
               }
+            },
+            {
+              "id": "yvg3nk",
+              "type": "PokemonThumbnail",
+              "data": {
+                "name": "raticate",
+                "types": [],
+                "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/20.png"
+              }
             }
           ]
         }
+      }
+    },
+    {
+      "id": "chu0x",
+      "type": "Card",
+      "data": {
+        "title": "Example title asdasd",
+        "text": "Example text",
+        "href": "https://example.com"
+      }
+    },
+    {
+      "id": "5mcvw8",
+      "type": "Card",
+      "data": {
+        "title": "Example title it works test",
+        "text": "Example text",
+        "href": "https://example.com",
+        "className": ""
       }
     }
   ]
