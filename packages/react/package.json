@@ -1,6 +1,6 @@
 {
   "name": "@page-blocks/react",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "React bindings for Page Blocks (server + client compatible)",
   "author": "stephenwf",
   "type": "module",

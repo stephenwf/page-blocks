@@ -1,6 +1,6 @@
 {
   "name": "@page-blocks/web-components",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Simple self-contained Vanilla Web Component implementations of Page Blocks pb-slot and pb-block",
   "author": "stephenwf",
   "type": "module",

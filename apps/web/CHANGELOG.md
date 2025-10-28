@@ -1,5 +1,15 @@
 # web
 
+## 1.0.10
+
+### Patch Changes
+
+- Updated dependencies [31fbc31]
+  - @page-blocks/web-components@0.0.8
+  - @page-blocks/react@0.0.8
+  - @page-blocks/react-editor@0.0.11
+  - ui@0.0.7
+
 ## 1.0.9
 
 ### Patch Changes

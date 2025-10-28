@@ -1,5 +1,11 @@
 # @page-blocks/web-components
 
+## 0.0.8
+
+### Patch Changes
+
+- 31fbc31: Removed log
+
 ## 0.0.7
 
 ### Patch Changes
