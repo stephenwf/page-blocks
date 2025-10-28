@@ -3,7 +3,7 @@ import { currentBlock, currentlyAddingBlock, SlotEditingClient } from '@page-blo
 import { useState } from 'react';
 import { Tabs } from './tabs';
 import { SourceSearch } from './source-search';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 function generateId() {
   return Math.random().toString(36).substring(7);

@@ -11,7 +11,7 @@ export default defineConfig((options: Options) => ({
   external: [
     'react',
     'react-dom',
-    'react-query',
+    '@tanstack/react-query',
     'zod',
     '@nanostores/react',
     'nanostores',
