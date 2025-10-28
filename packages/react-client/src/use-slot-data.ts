@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { useCurrentSlotCache, useSlotContext, VisibleSlots } from './context';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { SlotApiRequest } from '@page-blocks/core';
 
 export function useSlotData(
@@ -19,8 +19,9 @@ export function useSlotData(
   const slotCacheStore = useCurrentSlotCache();
   const slotCache = cacheData || slotCacheStore;
   const [queryKey, queryFunction] = loader(slotContext, slots);
-  const resp = useQuery(queryKey, queryFunction, {
-    cacheTime: Infinity,
+  const resp = useQuery({
+    queryKey,
+    queryFn: queryFunction,
     staleTime: Infinity,
     initialData: slotCache || undefined,
   });

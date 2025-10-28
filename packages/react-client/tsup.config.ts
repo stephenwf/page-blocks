@@ -8,6 +8,6 @@ export default defineConfig((options: Options) => ({
   platform: 'browser',
   target: ['es2020'],
   format: ['esm', 'cjs'],
-  external: ['react', 'react-dom', 'react-query', 'zod', '@nanostores/react', '@page-blocks/client'],
+  external: ['react', 'react-dom', '@tanstack/react-query', 'zod', '@nanostores/react', '@page-blocks/client'],
   ...options,
 }));
