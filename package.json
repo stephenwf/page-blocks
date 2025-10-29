@@ -7,6 +7,11 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "publish-packages": "turbo run build && changeset version && changeset publish"
   },
+  "pnpm": {
+    "overrides": {
+      "@tanstack/react-query": "^5.90.5"
+    }
+  },
   "devDependencies": {
     "eslint": "^8.48.0",
     "prettier": "^3.0.3",

@@ -1,6 +1,6 @@
 import { BlockConfig, PropSource } from '@page-blocks/core';
-import { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 export function SourceSearch(props: { source: PropSource; config: BlockConfig; onAdd: (props: any) => void }) {
   if (props.source.type !== 'search') {
@@ -15,9 +15,9 @@ export function SourceSearch(props: { source: PropSource; config: BlockConfig; o
       thumbnail: string;
       props: any;
     }>
-  >(
-    ['search', { q }],
-    async (vars) => {
+  >({
+    queryKey: ['search', { q }],
+    queryFn: async (vars) => {
       if (!q) {
         // return [];
       }
@@ -28,8 +28,8 @@ export function SourceSearch(props: { source: PropSource; config: BlockConfig; o
       }
       return response;
     },
-    { keepPreviousData: true }
-  );
+    keepPreviousData: true,
+  });
 
   return (
     <div style={{ maxWidth: '100%', width: 1200 }}>

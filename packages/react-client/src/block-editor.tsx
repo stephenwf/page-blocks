@@ -2,16 +2,18 @@
 
 import { useStore } from '@nanostores/react';
 import { editingMode } from '@page-blocks/client';
-import { useEffect, useRef } from 'react';
-import { useQueryClient } from 'react-query';
+import { useEffect } from 'react';
+import { QueryClient } from '@tanstack/react-query';
 import { DirectoryOptions } from '@page-blocks/core';
 import '@page-blocks/client';
 
 export function BlockEditor({
+  client,
   options,
   showToggle,
   onRefresh,
 }: {
+  client: QueryClient;
   options: Omit<DirectoryOptions<any>, 'blocks'>;
   showToggle?: boolean;
   onRefresh?: () => void;
@@ -25,20 +27,17 @@ export function BlockEditor({
       document.body.classList.remove('edit-mode');
     }
   }, [$editMode]);
-  const ref = useRef<any>(null);
-  const client = useQueryClient();
-
-  useEffect(() => {
-    if (ref.current) {
-      ref.current.queryClient = client;
-      ref.current.options = options;
-      ref.current.onRefresh = onRefresh;
-    }
-  }, [client]);
 
   return (
     <>
-      <pb-editor ref={ref} />
+      <pb-editor
+        ref={(ref: any) => {
+          if (!ref) return;
+          ref.queryClient = client;
+          ref.options = options;
+          ref.onRefresh = onRefresh;
+        }}
+      />
 
       {showToggle ? (
         <div className="block-editor-toggle">

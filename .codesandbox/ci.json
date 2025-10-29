@@ -12,5 +12,5 @@
     "packages/web-components"
   ],
   "sandboxes": ["new", "vanilla"],
-  "node": "18"
+  "node": "20"
 }
