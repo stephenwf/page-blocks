@@ -46,11 +46,13 @@ export function createFileSystemLoader(options: { path: string; contexts: string
       for (const key of keys) {
         const hash = matches.slots[key].id;
         const fileName = base64ToText(hash);
-        const data = await readFile(join(options.path, fileName), { flag: 'rs', encoding: 'utf8' });
-        const json = JSON.parse(data);
-        json.id = json.id || hash;
-        slots[key] = json;
-        slotNames.push(key);
+        if (existsSync(join(options.path, fileName))) {
+          const data = await readFile(join(options.path, fileName), { flag: 'rs', encoding: 'utf8' });
+          const json = JSON.parse(data);
+          json.id = json.id || hash;
+          slots[key] = json;
+          slotNames.push(key);
+        }
       }
       return { slots, isEmpty: slotNames.length === 0, slotNames, context } as any;
     },

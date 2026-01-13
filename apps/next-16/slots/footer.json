@@ -1,0 +1,112 @@
+{
+  "name": "footer",
+  "blocks": [
+    {
+      "id": "4kc727",
+      "type": "Card",
+      "data": {
+        "className": "",
+        "title": "DOES THIS WORK? awesome. awesome",
+        "text": "yes it does.",
+        "href": "asdasd"
+      }
+    },
+    {
+      "id": "y6ghw",
+      "type": "FourGrid",
+      "data": {
+        "columns": 3,
+        "title": "Some pokemon"
+      },
+      "slots": {
+        "gridItems": {
+          "slot_id": "gridItems",
+          "blocks": [
+            {
+              "id": "s4bpcy",
+              "type": "PokemonThumbnail",
+              "data": {
+                "name": "pikachu",
+                "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png",
+                "types": ["electric"]
+              }
+            },
+            {
+              "id": "22ymy5",
+              "type": "PokemonThumbnail",
+              "data": {
+                "name": "ditto lol",
+                "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png",
+                "types": ["normal"]
+              }
+            },
+            {
+              "id": "ps464r",
+              "type": "PokemonThumbnail",
+              "data": {
+                "name": "bulbasaur",
+                "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+                "types": ["grass", "poison"]
+              }
+            },
+            {
+              "id": "iib0eo",
+              "type": "PokemonThumbnail",
+              "data": {
+                "name": "charmander",
+                "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png",
+                "types": ["fire"]
+              }
+            },
+            {
+              "id": "nhfcyj",
+              "type": "PokemonThumbnail",
+              "data": {
+                "name": "squirtle",
+                "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png",
+                "types": ["water"]
+              }
+            },
+            {
+              "id": "t5gfhb",
+              "type": "PokemonThumbnail",
+              "data": {
+                "name": "jumpluff",
+                "types": [],
+                "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/189.png"
+              }
+            },
+            {
+              "id": "yvg3nk",
+              "type": "PokemonThumbnail",
+              "data": {
+                "name": "raticate",
+                "types": [],
+                "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/20.png"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "chu0x",
+      "type": "Card",
+      "data": {
+        "title": "Example title asdasd",
+        "text": "Example text",
+        "href": "https://example.com"
+      }
+    },
+    {
+      "id": "5mcvw8",
+      "type": "Card",
+      "data": {
+        "title": "Example title it works test",
+        "text": "Example text",
+        "href": "https://example.com",
+        "className": ""
+      }
+    }
+  ]
+}

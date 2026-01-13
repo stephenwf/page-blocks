@@ -1,6 +1,6 @@
 'use client';
 import { useCurrentSlotCache, useVisibleSlots } from './context';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { createInvalidator, createRemoteLoader } from '@page-blocks/client';
 import { Prettify } from '@page-blocks/core';
@@ -19,11 +19,11 @@ export function ReactQuerySlot(props: ReactQuerySlotProps) {
 
   const [queryKey, queryFunction] = createRemoteLoader(props.options)(slotContext, slotsToRequest);
 
-  const { data: slotResponse, refetch } = useQuery(queryKey, queryFunction, {
-    cacheTime: Infinity,
+  const { data: slotResponse, refetch } = useQuery({
+    queryKey,
+    queryFn: queryFunction,
     staleTime: Infinity,
     initialData: slotCache || undefined,
-    keepPreviousData: true,
   });
 
   useEffect(

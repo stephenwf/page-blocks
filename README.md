@@ -2,7 +2,7 @@
 
 Page blocks are an easy way for developers to create customisable and contextual "Slots" and "Blocks" to fill those slots that can be edited in a visual interface.
 
-> [!WARNING]  
+> [!WARNING]
 > Page blocks is experimental and should only be used for static websites edited locally with the file-system provider.
 
 ## Getting started
@@ -31,7 +31,7 @@ called a "block directory". To define props, you need to install `zod`.
 
 First we will create a block.
 
-```js 
+```js
 // blocks/HelloWorld.js
 import { block } from '@page-blocks/react';
 import { z } from 'zod';
@@ -60,7 +60,7 @@ groups them together.
 import { createDirectory } from '@page-blocks/react';
 import { HelloWorld } from './HelloWorld';
 
-export const directory = createDirectory({ 
+export const directory = createDirectory({
   resolver: {
     type: 'react-query',
     endpoint: '/api/page-blocks', // defined later
@@ -73,7 +73,7 @@ export const directory = createDirectory({
 export const Slot = directory.Slot;
 ```
 
-> [!WARNING]  
+> [!WARNING]
 > If you are using Server Components you will need to follow instructions below to create a specific Slot to use. You can instead export `directory.Blocks`
 
 The directory contains some generated and type-safe components and helpers that can be used throughout your project.
@@ -109,7 +109,7 @@ export default ExamplePage() {
     <div>
       <h1>My example page</h1>
       <Slot name="header" className="bg-white p-3">
-        <Slot.HelloWorld message="Hello world" />  
+        <Slot.HelloWorld message="Hello world" />
       </Slot>
     </div>
   );
@@ -150,8 +150,8 @@ export const loader = createFileSystemLoader({
     contexts: ['page'],
 });
 
-export const POST = createNextRequestHandler({  
-  loader: fileSystemLoader,  
+export const POST = createNextRequestHandler({
+  loader: fileSystemLoader,
   directory,
 });
 ```
@@ -168,8 +168,8 @@ export const loader = createFileSystemLoader({
     contexts: ['page'],
 });
 
-export default createNextRequestHandler({  
-  loader: fileSystemLoader,  
+export default createNextRequestHandler({
+  loader: fileSystemLoader,
   directory,
 });
 ```
@@ -210,9 +210,9 @@ import { loader } from '../path/to/loader';
 
 async function example() {
   const slots = await loader.query({ page: 'example/page' }, ['header', 'footer']);
-  
+
   // ... do something, grab some blocks.
-  
+
   // Update a blocks props
   await loader.updateBlockProps('header', block.id, { message: 'Hello world' });
 }
@@ -224,7 +224,7 @@ a local build (hosted servers + authentication coming soon). It will not be incl
 In Next.js you can modify your `_app.js` file to include the editor and a top level React-Query provider.
 ```js
 // pages/_app.js
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { PageBlocksEditor } from '@page-blocks/react-edtior';
 import '@page-blocks/react-edtior/dist/index.css'; // import the editor styles
 
@@ -267,7 +267,7 @@ export const getServerSideProps = async (context) => {
 export default function PokemonPage({ slots }) {
   const router = useRouter();
   return (
-    <SlotContext 
+    <SlotContext
       name={'pokemon'} // the name/key of the slot context
       value={router.query.id} // the value of the slot context (e.g. pikachu)
       cache={props.slots} // pass the slots from the server
@@ -328,19 +328,19 @@ Like before, this will act like a "bundle" for your components, so include each 
 
 ```js
 // blocks/directory.js
-import { createDirectory } from '@page-blocks/react';  
+import { createDirectory } from '@page-blocks/react';
 import { Card } from '../components/Card';
-  
-export const directory = createDirectory({  
-  context: {},  
-  resolver: {  
-    type: 'tanstack-query',  
-    endpoint: '/api/page-blocks',  
+
+export const directory = createDirectory({
+  context: {},
+  resolver: {
+    type: 'tanstack-query',
+    endpoint: '/api/page-blocks',
     screenshots: '/blocks',
-  },  
-  blocks: {  
-    Card,  
-  },  
+  },
+  blocks: {
+    Card,
+  },
 });
 
 // An alternative to `directory.Slot` that just has the blocks
@@ -352,22 +352,22 @@ export const Blocks = directory.Blocks;
 Then we will create a `server.js` file. This will contain all the configuration for our server code.
 ```jsx
 // blocks/server.js
-import { join } from 'node:path';  
-import { cwd } from 'node:process';  
-import { createFileSystemLoader } from '@page-blocks/file-system';  
-import { createRequestHandler } from '@page-blocks/node';  
+import { join } from 'node:path';
+import { cwd } from 'node:process';
+import { createFileSystemLoader } from '@page-blocks/file-system';
+import { createRequestHandler } from '@page-blocks/node';
 import { directory } from './directory';
 
-  
-export const fileSystemLoader = createFileSystemLoader({  
-  path: join(cwd(), 'slots'),  
-  contexts: [],  
-});  
+
+export const fileSystemLoader = createFileSystemLoader({
+  path: join(cwd(), 'slots'),
+  contexts: [],
+});
 
 // Note: You could also create your next request handler here.
-export const handler = createRequestHandler({  
-  loader: fileSystemLoader,  
-  directory,  
+export const handler = createRequestHandler({
+  loader: fileSystemLoader,
+  directory,
 });
 
 ```
@@ -384,25 +384,25 @@ import { directory } from './directory';
 export async function Slot() {
   // Use the filesystem loader from our `server.js` to load the slot.
   const slotResponse = await fileSystemLoader.query(
-	props.context, 
+	props.context,
 	[props.name]
-  );  
+  );
 
-  const options = { 
-    resolver: directory.resolver, 
-    blocks: directory.blocks 
-  };  
+  const options = {
+    resolver: directory.resolver,
+    blocks: directory.blocks
+  };
 
   // Pass the <CustomSlot /> a name, data, context + directory
-  return (  
-    <CustomSlot 
-      name={props.name} 
-      slot={slotResponse.slots[props.name]} 
-      context={props.context} 
+  return (
+    <CustomSlot
+      name={props.name}
+      slot={slotResponse.slots[props.name]}
+      context={props.context}
       options={options}
-    >  
-      {props.children}  
-    </CustomSlot>  
+    >
+      {props.children}
+    </CustomSlot>
   );
 }
 ```
@@ -411,24 +411,24 @@ Next is the Block editor.  This is a "Client component" and must have the `'use 
 
 ```jsx
 // blocks/block-editor.js
-'use client';  
-  
-import { CustomBlockEditor } from '@page-blocks/react';  
+'use client';
+
+import { CustomBlockEditor } from '@page-blocks/react';
 import { BlockEditorReact } from '@page-blocks/react-editor';
-import { useRouter } from 'next/navigation';    
-import { directory } from './directory';  
-  
-export function BlockEditor(props) {  
-  const router = useRouter();  
-  return (  
-    <BlockEditorReact>  
-      <CustomBlockEditor 
-        options={directory} 
-        onRefresh={() => router.refresh()} 
+import { useRouter } from 'next/navigation';
+import { directory } from './directory';
+
+export function BlockEditor(props) {
+  const router = useRouter();
+  return (
+    <BlockEditorReact>
+      <CustomBlockEditor
+        options={directory}
+        onRefresh={() => router.refresh()}
         {...props}
-      />  
-    </BlockEditorReact>  
-  );  
+      />
+    </BlockEditorReact>
+  );
 }
 ```
 
@@ -438,11 +438,11 @@ export function BlockEditor(props) {
 There are 4 custom elements defined. By default they do not have any implementation, which is a key extension point for different frameworks. The production and framework-specific rendering queries for the correct slot on a page, and renders the web components wrapping each block in the slot.
 ```html
 <pb-slot slot-name="footer" slot-id="Zm9vdGVyLmpzb24=" slot-size="3">
-  
+
   <pb-block block-type="Card" block-id="4kc727" id="pb-4kc727">
      ... block code ...
   </pb-block>
-  
+
   <pb-block block-type="Card" block-id="chu0x" id="pb-chu0x">
      ... block code ...
   </pb-block>
@@ -483,4 +483,3 @@ Planned packages:
 - `@page-blocks/testing-framework`  - inline block testing
 - `@page-blocks/vite-plugin` - Compiler for removing block data in production
 - `@page-blocks/migrations` - component migration support
-

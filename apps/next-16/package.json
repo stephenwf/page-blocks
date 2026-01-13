@@ -1,0 +1,35 @@
+{
+  "name": "next-16",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build2": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "next": "16.0.0"
+  },
+  "devDependencies": {
+    "@page-blocks/file-system": "workspace:*",
+    "@page-blocks/next": "workspace:*",
+    "@page-blocks/react": "workspace:*",
+    "@page-blocks/react-client": "workspace:*",
+    "@page-blocks/react-editor": "workspace:*",
+    "@page-blocks/screenshots": "workspace:*",
+    "@page-blocks/web-components": "workspace:*",
+    "@tanstack/react-query": "^5.90.5",
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@tailwindcss/postcss": "^4",
+    "tailwindcss": "^4",
+    "eslint": "^9",
+    "eslint-config-next": "16.0.0",
+    "zod": "^3.22.4"
+  }
+}

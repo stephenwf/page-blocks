@@ -1,6 +1,7 @@
 import { useStore } from '@nanostores/react';
 import { currentBlock, pendingBlockProps, SlotEditingClient } from '@page-blocks/client';
 import { BlockEditor } from './block-editor';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 export function BlockEditorWrapper({
   client,

@@ -1,6 +1,6 @@
 import { createRoot, Root } from 'react-dom/client';
 import { blockSymbol, DirectoryOptions } from '@page-blocks/core';
-import { QueryClient } from 'react-query';
+import { QueryClient } from '@tanstack/react-query';
 import {
   createSlotEditingClient,
   currentBlock,
@@ -25,9 +25,8 @@ register(
       addingContainer: HTMLDivElement;
       addingReactRoot: Root | null = null;
       #options: DirectoryOptions<any> | null = null;
-      queryClient: QueryClient | null = null;
       isMounted = false;
-      onRefresh = () => {};
+      onRefresh = () => { };
 
       constructor() {
         super();
@@ -120,8 +119,8 @@ register(
         // The editor will be constructed with enough information to make API requests to a configured API, which
         // will be local by default and for this implementation.
         currentBlock.listen((mode) => {
-          if (!this.options || !this.queryClient || !this.client) {
-            console.error('Editor not configured correctly. queryClient and options must be set.');
+          if (!this.options || !this.client) {
+            console.error('Editor not configured correctly. client and options must be set.');
             return;
           }
 
