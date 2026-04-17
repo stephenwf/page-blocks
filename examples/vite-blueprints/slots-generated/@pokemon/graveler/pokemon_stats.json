@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vZ3JhdmVsZXIvcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-graveler",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 55,
+        "attack": 95,
+        "defense": 115,
+        "specialAttack": 45,
+        "specialDefense": 45,
+        "speed": 35
+      }
+    }
+  ]
+}

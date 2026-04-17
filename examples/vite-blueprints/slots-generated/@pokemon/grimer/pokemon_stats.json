@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vZ3JpbWVyL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-grimer",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 80,
+        "attack": 80,
+        "defense": 50,
+        "specialAttack": 40,
+        "specialDefense": 50,
+        "speed": 25
+      }
+    }
+  ]
+}

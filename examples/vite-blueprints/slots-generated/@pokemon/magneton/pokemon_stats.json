@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vbWFnbmV0b24vcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-magneton",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 50,
+        "attack": 60,
+        "defense": 95,
+        "specialAttack": 120,
+        "specialDefense": 70,
+        "speed": 70
+      }
+    }
+  ]
+}

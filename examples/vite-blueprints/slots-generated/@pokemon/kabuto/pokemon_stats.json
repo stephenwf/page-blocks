@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24va2FidXRvL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-kabuto",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 30,
+        "attack": 80,
+        "defense": 90,
+        "specialAttack": 55,
+        "specialDefense": 45,
+        "speed": 55
+      }
+    }
+  ]
+}

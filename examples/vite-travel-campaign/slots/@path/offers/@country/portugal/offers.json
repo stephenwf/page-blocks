@@ -1,0 +1,58 @@
+{
+  "name": "offers",
+  "blocks": [
+    {
+      "id": "offers-portugal-shelf",
+      "type": "ExperienceShelf",
+      "data": {
+        "eyebrow": "Portugal",
+        "title": "Atlantic pace, neighbourhood logic, and honest hotel picks",
+        "intro": "Both Lisbon and Porto reward slow mornings and long evenings. These packages are built around that rhythm."
+      },
+      "slots": {
+        "items": {
+          "slot_id": "items",
+          "blocks": [
+            {
+              "id": "pt-lisbon-rooftop",
+              "type": "OfferCard",
+              "data": {
+                "eyebrow": "Lisbon · 3 nights",
+                "title": "Alfama rooftops and river club check-in",
+                "summary": "A riverside hotel, tram pass, and a private food-led walk through Alfama and Mouraria. Breakfast included.",
+                "price": "From £640",
+                "meta": "3 nights · breakfast · evening food tour",
+                "href": "/offers?country=portugal&city=lisbon",
+                "image": "/travel/lisbon-tram.svg",
+                "badge": "Best seller"
+              }
+            },
+            {
+              "id": "pt-porto-cellar",
+              "type": "OfferCard",
+              "data": {
+                "eyebrow": "Porto · 3 nights",
+                "title": "Cellar tastings and a long afternoon across the Douro",
+                "summary": "A long weekend anchored by Gaia cellar visits, a market lunch, and a riverside stay near Ribeira.",
+                "price": "From £590",
+                "meta": "3 nights · cellar tastings · walking itinerary",
+                "href": "/offers?country=portugal&city=porto",
+                "image": "/travel/porto-river.svg"
+              }
+            },
+            {
+              "id": "pt-testimonial",
+              "type": "TestimonialCard",
+              "data": {
+                "quote": "Porto was the biggest surprise of the trip. We planned two nights and extended to four. The cellar tour across the bridge was the best afternoon of the whole holiday.",
+                "traveler": "Rachel & Tom W.",
+                "trip": "Portugal, 7 nights · autumn",
+                "stars": 5
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

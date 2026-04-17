@@ -212,11 +212,24 @@ export interface SlotQueryRequest {
   options?: any;
 }
 
+export interface SlotSourceContextMatch {
+  id: string;
+  type: 'exact' | 'all' | 'none' | 'filter';
+  value?: string;
+}
+
+export interface SlotSourceMetadata {
+  filePath: string;
+  matchedContexts: SlotSourceContextMatch[];
+  embeddedIn?: { slotId: string; blockId: string };
+}
+
 export interface SlotResponse {
   id: string;
   slot: string;
   blocks: BlockWithOptionalSlotResponse[];
   options?: any;
+  source?: SlotSourceMetadata;
 }
 
 export interface SlotLoader {

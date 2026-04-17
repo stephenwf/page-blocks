@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24va2luZ2xlci9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-kingler",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 99,
+        "name": "kingler",
+        "types": [
+          "water"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/99.png",
+        "description": "The large pincer has 10000 hp of crushing power. However, its huge size makes it unwieldy to use.",
+        "height": 13,
+        "weight": 600
+      }
+    }
+  ]
+}

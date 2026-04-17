@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vcmFwaWRhc2gvcG9rZW1vbl9oZXJvLmpzb24=",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-rapidash",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 78,
+        "name": "rapidash",
+        "types": [
+          "fire"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/78.png",
+        "description": "Very competitive, this POKéMON will chase anything that moves fast in the hopes of racing it.",
+        "height": 17,
+        "weight": 950
+      }
+    }
+  ]
+}

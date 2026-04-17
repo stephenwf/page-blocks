@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vc2N5dGhlci9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-scyther",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 70,
+        "attack": 110,
+        "defense": 80,
+        "specialAttack": 55,
+        "specialDefense": 80,
+        "speed": 105
+      }
+    }
+  ]
+}

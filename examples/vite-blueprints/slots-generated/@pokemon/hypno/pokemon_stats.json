@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vaHlwbm8vcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-hypno",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 85,
+        "attack": 73,
+        "defense": 70,
+        "specialAttack": 73,
+        "specialDefense": 115,
+        "speed": 67
+      }
+    }
+  ]
+}

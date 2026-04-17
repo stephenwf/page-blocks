@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vcmFpY2h1L3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-raichu",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 60,
+        "attack": 90,
+        "defense": 55,
+        "specialAttack": 90,
+        "specialDefense": 80,
+        "speed": 110
+      }
+    }
+  ]
+}

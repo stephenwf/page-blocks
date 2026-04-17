@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vc2xvd2Jyby9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-slowbro",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 95,
+        "attack": 75,
+        "defense": 110,
+        "specialAttack": 100,
+        "specialDefense": 80,
+        "speed": 30
+      }
+    }
+  ]
+}

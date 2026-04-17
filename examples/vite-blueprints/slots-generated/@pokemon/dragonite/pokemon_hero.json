@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vZHJhZ29uaXRlL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-dragonite",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 149,
+        "name": "dragonite",
+        "types": [
+          "dragon",
+          "flying"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/149.png",
+        "description": "An extremely rarely seen marine POKéMON. Its intelligence is said to match that of humans.",
+        "height": 22,
+        "weight": 2100
+      }
+    }
+  ]
+}

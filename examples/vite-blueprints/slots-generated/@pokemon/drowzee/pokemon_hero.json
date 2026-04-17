@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vZHJvd3plZS9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-drowzee",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 96,
+        "name": "drowzee",
+        "types": [
+          "psychic"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/96.png",
+        "description": "Puts enemies to sleep then eats their dreams. Occasionally gets sick from eating bad dreams.",
+        "height": 10,
+        "weight": 324
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vcG9ueXRhL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-ponyta",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 77,
+        "name": "ponyta",
+        "types": [
+          "fire"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/77.png",
+        "description": "Its hooves are 10 times harder than diamonds. It can trample anything completely flat in little time.",
+        "height": 10,
+        "weight": 300
+      }
+    }
+  ]
+}

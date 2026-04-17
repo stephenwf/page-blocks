@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vaXZ5c2F1ci9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-ivysaur",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 60,
+        "attack": 62,
+        "defense": 63,
+        "specialAttack": 80,
+        "specialDefense": 80,
+        "speed": 60
+      }
+    }
+  ]
+}

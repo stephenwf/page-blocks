@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vb21hc3Rhci9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-omastar",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 70,
+        "attack": 60,
+        "defense": 125,
+        "specialAttack": 115,
+        "specialDefense": 70,
+        "speed": 55
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vZ29sZGVlbi9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-goldeen",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 45,
+        "attack": 67,
+        "defense": 60,
+        "specialAttack": 35,
+        "specialDefense": 50,
+        "speed": 63
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vZ3lhcmFkb3MvcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-gyarados",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 95,
+        "attack": 125,
+        "defense": 79,
+        "specialAttack": 60,
+        "specialDefense": 100,
+        "speed": 81
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vb21hc3Rhci9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-omastar",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 139,
+        "name": "omastar",
+        "types": [
+          "rock",
+          "water"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/139.png",
+        "description": "A prehistoric POKéMON that died out when its heavy shell made it impossible to catch prey.",
+        "height": 10,
+        "weight": 350
+      }
+    }
+  ]
+}

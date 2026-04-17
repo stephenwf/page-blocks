@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vYnV0dGVyZnJlZS9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-butterfree",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 60,
+        "attack": 45,
+        "defense": 50,
+        "specialAttack": 90,
+        "specialDefense": 80,
+        "speed": 70
+      }
+    }
+  ]
+}

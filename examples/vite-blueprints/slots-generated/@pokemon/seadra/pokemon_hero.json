@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vc2VhZHJhL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-seadra",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 117,
+        "name": "seadra",
+        "types": [
+          "water"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/117.png",
+        "description": "Capable of swim­ ming backwards by rapidly flapping its wing-like pectoral fins and stout tail.",
+        "height": 12,
+        "weight": 250
+      }
+    }
+  ]
+}

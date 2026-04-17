@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vYWJyYS9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-abra",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 63,
+        "name": "abra",
+        "types": [
+          "psychic"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/63.png",
+        "description": "Using its ability to read minds, it will identify impending danger and TELEPORT to safety.",
+        "height": 9,
+        "weight": 195
+      }
+    }
+  ]
+}

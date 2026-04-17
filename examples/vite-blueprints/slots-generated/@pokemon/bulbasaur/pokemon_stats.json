@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vYnVsYmFzYXVyL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-bulbasaur",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 45,
+        "attack": 49,
+        "defense": 49,
+        "specialAttack": 65,
+        "specialDefense": 65,
+        "speed": 45
+      }
+    }
+  ]
+}

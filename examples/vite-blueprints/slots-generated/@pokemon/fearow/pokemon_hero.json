@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vZmVhcm93L3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-fearow",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 22,
+        "name": "fearow",
+        "types": [
+          "normal",
+          "flying"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/22.png",
+        "description": "With its huge and magnificent wings, it can keep aloft without ever having to land for rest.",
+        "height": 12,
+        "weight": 380
+      }
+    }
+  ]
+}

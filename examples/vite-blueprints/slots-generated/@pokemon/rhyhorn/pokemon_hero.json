@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vcmh5aG9ybi9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-rhyhorn",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 111,
+        "name": "rhyhorn",
+        "types": [
+          "ground",
+          "rock"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/111.png",
+        "description": "A POKéMON with a one-track mind. Once it charges,  it won't stop running until it falls asleep.",
+        "height": 10,
+        "weight": 1150
+      }
+    }
+  ]
+}

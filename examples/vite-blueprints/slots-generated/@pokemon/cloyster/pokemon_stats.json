@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vY2xveXN0ZXIvcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-cloyster",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 50,
+        "attack": 95,
+        "defense": 180,
+        "specialAttack": 85,
+        "specialDefense": 45,
+        "speed": 70
+      }
+    }
+  ]
+}

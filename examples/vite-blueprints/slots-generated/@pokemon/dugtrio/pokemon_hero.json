@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vZHVndHJpby9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-dugtrio",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 51,
+        "name": "dugtrio",
+        "types": [
+          "ground"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/51.png",
+        "description": "A team of DIGLETT triplets. It triggers huge earthquakes by burrowing 60 miles underground.",
+        "height": 7,
+        "weight": 333
+      }
+    }
+  ]
+}

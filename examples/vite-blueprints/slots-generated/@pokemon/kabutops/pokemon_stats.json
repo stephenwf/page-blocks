@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24va2FidXRvcHMvcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-kabutops",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 60,
+        "attack": 115,
+        "defense": 105,
+        "specialAttack": 65,
+        "specialDefense": 70,
+        "speed": 80
+      }
+    }
+  ]
+}

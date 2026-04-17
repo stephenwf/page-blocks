@@ -1,0 +1,16 @@
+{
+  "name": "hero",
+  "blocks": [
+    {
+      "id": "archive-intro",
+      "type": "CalloutCard",
+      "data": {
+        "eyebrow": "Path context",
+        "title": "The archive route resolves its own hero slot",
+        "body": "This file lives under slots/@path/block-archive so the Vite plugin can resolve a more specific slot without an API.",
+        "href": "/",
+        "linkLabel": "Back to the demo"
+      }
+    }
+  ]
+}

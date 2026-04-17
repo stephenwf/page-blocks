@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vd2VlZGxlL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-weedle",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 40,
+        "attack": 35,
+        "defense": 30,
+        "specialAttack": 20,
+        "specialDefense": 20,
+        "speed": 50
+      }
+    }
+  ]
+}

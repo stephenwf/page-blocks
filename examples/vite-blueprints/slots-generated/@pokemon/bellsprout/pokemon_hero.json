@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vYmVsbHNwcm91dC9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-bellsprout",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 69,
+        "name": "bellsprout",
+        "types": [
+          "grass",
+          "poison"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/69.png",
+        "description": "A carnivorous POKéMON that traps and eats bugs. It uses its root feet to soak up needed moisture.",
+        "height": 7,
+        "weight": 40
+      }
+    }
+  ]
+}

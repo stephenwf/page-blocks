@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vY2hhbnNleS9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-chansey",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 250,
+        "attack": 5,
+        "defense": 5,
+        "specialAttack": 35,
+        "specialDefense": 105,
+        "speed": 50
+      }
+    }
+  ]
+}

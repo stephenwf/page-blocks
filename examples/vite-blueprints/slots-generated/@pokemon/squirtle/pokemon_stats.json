@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vc3F1aXJ0bGUvcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-squirtle",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 44,
+        "attack": 48,
+        "defense": 65,
+        "specialAttack": 50,
+        "specialDefense": 64,
+        "speed": 43
+      }
+    }
+  ]
+}

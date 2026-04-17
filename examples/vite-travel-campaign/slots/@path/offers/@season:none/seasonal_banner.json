@@ -1,0 +1,17 @@
+{
+  "name": "seasonal_banner",
+  "blocks": [
+    {
+      "id": "offers-season-nudge",
+      "type": "TripHighlightBanner",
+      "data": {
+        "eyebrow": "Go deeper",
+        "title": "Add a season to unlock the exact offer set",
+        "body": "Spring in Kyoto and summer in Lisbon each have a dedicated package file — with timing-specific hotels, activity windows, and restaurant picks that only make sense in season.",
+        "ctaLabel": "Try Kyoto in spring",
+        "ctaHref": "/offers?country=japan&city=kyoto&season=spring",
+        "tone": "sand"
+      }
+    }
+  ]
+}

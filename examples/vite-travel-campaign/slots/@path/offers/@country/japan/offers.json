@@ -1,0 +1,58 @@
+{
+  "name": "offers",
+  "blocks": [
+    {
+      "id": "offers-japan-shelf",
+      "type": "ExperienceShelf",
+      "data": {
+        "eyebrow": "Japan",
+        "title": "Rail logic, district pacing, and cultural timing",
+        "intro": "Tokyo rewards a neighbourhood-by-neighbourhood approach. Kyoto rewards patience and early starts. These packages lean into both."
+      },
+      "slots": {
+        "items": {
+          "slot_id": "items",
+          "blocks": [
+            {
+              "id": "jp-tokyo-rail",
+              "type": "OfferCard",
+              "data": {
+                "eyebrow": "Tokyo · 4 nights",
+                "title": "Three districts, one smart rail pass",
+                "summary": "Split your stay between Asakusa and Shibuya with a dining list, rail guidance, and a late-night snack crawl included.",
+                "price": "From £1,180",
+                "meta": "4 nights · rail plan · neighbourhood guide",
+                "href": "/offers?country=japan&city=tokyo",
+                "image": "/travel/tokyo-lanterns.svg",
+                "badge": "Editor pick"
+              }
+            },
+            {
+              "id": "jp-kyoto-garden",
+              "type": "OfferCard",
+              "data": {
+                "eyebrow": "Kyoto · 4 nights",
+                "title": "Garden districts and dawn temple entries",
+                "summary": "Stay near Higashiyama with early-entry planning, a tea ceremony, and an evening walking route back through Gion.",
+                "price": "From £1,240",
+                "meta": "4 nights · tea ceremony · temple route",
+                "href": "/offers?country=japan&city=kyoto",
+                "image": "/travel/kyoto-garden.svg"
+              }
+            },
+            {
+              "id": "jp-testimonial",
+              "type": "TestimonialCard",
+              "data": {
+                "quote": "The rail guidance saved us every single day. Having a curated plan for each district meant we spent time enjoying the city rather than deciphering the metro.",
+                "traveler": "Kenji & Aoi S.",
+                "trip": "Tokyo, 4 nights · summer",
+                "stars": 5
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

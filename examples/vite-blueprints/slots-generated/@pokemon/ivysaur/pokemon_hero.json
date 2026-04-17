@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vaXZ5c2F1ci9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-ivysaur",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 2,
+        "name": "ivysaur",
+        "types": [
+          "grass",
+          "poison"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png",
+        "description": "When the bulb on its back grows large, it appears to lose the ability to stand on its hind legs.",
+        "height": 10,
+        "weight": 130
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vY2xlZmFibGUvcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-clefable",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 95,
+        "attack": 70,
+        "defense": 73,
+        "specialAttack": 95,
+        "specialDefense": 90,
+        "speed": 60
+      }
+    }
+  ]
+}

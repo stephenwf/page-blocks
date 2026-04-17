@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vc25vcmxheC9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-snorlax",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 160,
+        "attack": 110,
+        "defense": 65,
+        "specialAttack": 65,
+        "specialDefense": 110,
+        "speed": 30
+      }
+    }
+  ]
+}

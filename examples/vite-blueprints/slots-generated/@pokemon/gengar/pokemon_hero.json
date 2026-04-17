@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vZ2VuZ2FyL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-gengar",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 94,
+        "name": "gengar",
+        "types": [
+          "ghost",
+          "poison"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png",
+        "description": "Under a full moon, this POKéMON likes to mimic the shadows of people and laugh at their fright.",
+        "height": 15,
+        "weight": 405
+      }
+    }
+  ]
+}

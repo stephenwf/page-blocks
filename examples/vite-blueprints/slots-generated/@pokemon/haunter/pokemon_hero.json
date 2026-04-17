@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vaGF1bnRlci9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-haunter",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 93,
+        "name": "haunter",
+        "types": [
+          "ghost",
+          "poison"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/93.png",
+        "description": "Because of its ability to slip through block walls, it is said to be from an­ other dimension.",
+        "height": 16,
+        "weight": 1
+      }
+    }
+  ]
+}

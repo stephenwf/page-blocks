@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vcG9yeWdvbi9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-porygon",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 65,
+        "attack": 60,
+        "defense": 70,
+        "specialAttack": 85,
+        "specialDefense": 75,
+        "speed": 40
+      }
+    }
+  ]
+}

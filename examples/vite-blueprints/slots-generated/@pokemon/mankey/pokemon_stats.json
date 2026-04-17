@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vbWFua2V5L3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-mankey",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 40,
+        "attack": 80,
+        "defense": 35,
+        "specialAttack": 35,
+        "specialDefense": 45,
+        "speed": 70
+      }
+    }
+  ]
+}

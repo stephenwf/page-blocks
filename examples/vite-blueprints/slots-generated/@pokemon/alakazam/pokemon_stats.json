@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vYWxha2F6YW0vcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-alakazam",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 55,
+        "attack": 50,
+        "defense": 45,
+        "specialAttack": 135,
+        "specialDefense": 95,
+        "speed": 120
+      }
+    }
+  ]
+}

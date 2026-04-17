@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vcmh5ZG9uL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-rhydon",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 105,
+        "attack": 130,
+        "defense": 120,
+        "specialAttack": 45,
+        "specialDefense": 45,
+        "speed": 40
+      }
+    }
+  ]
+}

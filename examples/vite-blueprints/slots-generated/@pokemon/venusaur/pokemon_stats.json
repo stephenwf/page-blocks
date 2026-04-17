@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vdmVudXNhdXIvcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-venusaur",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 80,
+        "attack": 82,
+        "defense": 83,
+        "specialAttack": 100,
+        "specialDefense": 100,
+        "speed": 80
+      }
+    }
+  ]
+}

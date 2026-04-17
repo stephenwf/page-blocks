@@ -1,0 +1,321 @@
+/* ============================================================================
+   Page Blocks — Web Component Styles
+   Styles for <pb-block> and <pb-slot> custom elements.
+   Parts are exposed via the shadow DOM part="" attribute and styled with ::part().
+   ============================================================================ */
+
+/* ── CSS Custom Properties ─────────────────────────────────────────────────── */
+
+:root {
+  --pb-edit-color:            #6366f1;
+  --pb-edit-color-hover:      #4f46e5;
+  --pb-edit-outline:          rgba(99, 102, 241, 0.7);
+  --pb-edit-outline-parent:   rgba(99, 102, 241, 0.25);
+
+  --pb-slot-bg:               #5b21b6;
+  --pb-slot-bg-label:         #4c1d95;
+  --pb-slot-bg-nested:        #1d4ed8;
+  --pb-slot-bg-label-nested:  #1e40af;
+  --pb-slot-text:             #ede9fe;
+
+  --pb-bar-bg:                rgba(15, 23, 42, 0.94);
+  --pb-bar-text:              #e2e8f0;
+  --pb-bar-text-muted:        #94a3b8;
+  --pb-bar-border:            rgba(255, 255, 255, 0.08);
+  --pb-bar-height:            38px;
+
+  --pb-btn-bg:                rgba(255, 255, 255, 0.07);
+  --pb-btn-bg-hover:          rgba(255, 255, 255, 0.15);
+  --pb-btn-bg-active:         rgba(255, 255, 255, 0.22);
+  --pb-btn-border:            rgba(255, 255, 255, 0.12);
+  --pb-btn-border-hover:      rgba(255, 255, 255, 0.22);
+
+  --pb-slot-btn-bg:           rgba(255, 255, 255, 0.12);
+  --pb-slot-btn-bg-hover:     rgba(255, 255, 255, 0.22);
+  --pb-slot-btn-bg-primary:   rgba(255, 255, 255, 0.18);
+  --pb-slot-btn-bg-primary-hover: rgba(255, 255, 255, 0.30);
+  --pb-slot-btn-border:       rgba(255, 255, 255, 0.18);
+
+  --pb-danger-btn-bg-hover:   rgba(239, 68, 68, 0.22);
+  --pb-danger-btn-border-hover: rgba(239, 68, 68, 0.45);
+  --pb-danger-btn-text-hover: #fca5a5;
+
+  --pb-radius-sm:             4px;
+  --pb-radius:                6px;
+  --pb-transition:            150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --pb-font:                  -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* ── Base element styles ───────────────────────────────────────────────────── */
+
+pb-slot,
+pb-block {
+  display: block;
+  position: relative;
+  box-sizing: border-box;
+  outline: none;
+}
+
+/* ============================================================================
+   PB-BLOCK — individual content block
+   ============================================================================ */
+
+/* ── Editing outline ──────────────────────────────────────────────────────── */
+
+pb-block[editing="true"] {
+  z-index: 2;
+  outline: 2px solid var(--pb-edit-color);
+  outline-offset: 0;
+  border-radius: 1px;
+}
+
+.pb-editing pb-block:hover {
+  z-index: 2;
+  outline: 2px solid var(--pb-edit-outline);
+  border-radius: 1px;
+}
+
+/* Dim parent outline when a child is hovered */
+.pb-editing pb-block:has(pb-block:hover) {
+  outline-color: var(--pb-edit-outline-parent);
+}
+
+/* ── Edit bar (shadow part) ───────────────────────────────────────────────── */
+
+pb-block::part(edit-bar) {
+  display: flex;
+  align-items: center;
+  height: var(--pb-bar-height);
+  background: var(--pb-bar-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--pb-bar-border);
+  padding: 0 6px 0 10px;
+  gap: 4px;
+  box-sizing: border-box;
+  font-family: var(--pb-font);
+}
+
+/* Block type label */
+pb-block::part(label) {
+  flex: 1;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--pb-bar-text-muted);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding-right: 4px;
+  user-select: none;
+}
+
+/* Controls container — hidden by default, shown when editing */
+pb-block::part(controls) {
+  display: none;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+pb-block[editing="true"]::part(controls) {
+  display: flex;
+}
+
+.pb-editing pb-block:hover::part(controls) {
+  display: flex;
+}
+
+/* ── Control buttons (shared) ─────────────────────────────────────────────── */
+
+pb-block::part(control) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 26px;
+  padding: 0 9px;
+  font-family: var(--pb-font);
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--pb-bar-text);
+  background: var(--pb-btn-bg);
+  border: 1px solid var(--pb-btn-border);
+  border-radius: var(--pb-radius-sm);
+  cursor: pointer;
+  transition:
+    background var(--pb-transition),
+    border-color var(--pb-transition),
+    color var(--pb-transition);
+  gap: 5px;
+  white-space: nowrap;
+  box-sizing: border-box;
+  line-height: 1;
+}
+
+/* Icon-only control button */
+pb-block::part(control-svg) {
+  width: 26px;
+  padding: 0;
+}
+
+pb-block::part(control):hover {
+  background: var(--pb-btn-bg-hover);
+  border-color: var(--pb-btn-border-hover);
+}
+
+pb-block::part(control):active {
+  background: var(--pb-btn-bg-active);
+}
+
+pb-block::part(control):focus-visible {
+  outline: 2px solid rgba(99, 102, 241, 0.5);
+  outline-offset: 1px;
+}
+
+/* ============================================================================
+   PB-SLOT — content slot container
+   ============================================================================ */
+
+/* ── Editing outline ──────────────────────────────────────────────────────── */
+
+.pb-editing pb-slot:hover {
+  outline: 2px solid rgba(124, 58, 237, 0.65);
+  outline-offset: 0;
+  border-radius: 1px;
+}
+
+/* Dim parent slot when a child slot is hovered */
+.pb-editing pb-slot:has(pb-slot:hover) {
+  outline-color: rgba(124, 58, 237, 0.22);
+}
+
+/* ── Slot bar (shadow part) ───────────────────────────────────────────────── */
+
+pb-slot::part(slot-bar) {
+  display: flex;
+  align-items: stretch;
+  height: var(--pb-bar-height);
+  background: var(--pb-slot-bg);
+  margin-bottom: 1px;
+  box-sizing: border-box;
+  font-family: var(--pb-font);
+}
+
+/* Nested slot — slightly different shade for visual depth */
+pb-slot pb-slot::part(slot-bar) {
+  background: var(--pb-slot-bg-nested);
+  height: 32px;
+}
+
+/* ── Slot label ───────────────────────────────────────────────────────────── */
+
+pb-slot::part(slot-label) {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding: 0 12px;
+  background: var(--pb-slot-bg-label);
+  color: var(--pb-slot-text);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+  user-select: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+pb-slot pb-slot::part(slot-label) {
+  background: var(--pb-slot-bg-label-nested);
+  font-size: 10.5px;
+}
+
+/* ── Slot controls container ──────────────────────────────────────────────── */
+
+pb-slot::part(controls) {
+  display: none;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+  flex-shrink: 0;
+}
+
+.pb-editing pb-slot:hover::part(controls) {
+  display: flex;
+}
+
+/* ── Slot control buttons ─────────────────────────────────────────────────── */
+
+pb-slot::part(control) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  padding: 0 10px;
+  font-family: var(--pb-font);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--pb-slot-text);
+  background: var(--pb-slot-btn-bg);
+  border: 1px solid var(--pb-slot-btn-border);
+  border-radius: var(--pb-radius-sm);
+  cursor: pointer;
+  transition:
+    background var(--pb-transition),
+    border-color var(--pb-transition);
+  gap: 4px;
+  box-sizing: border-box;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+pb-slot::part(control):hover {
+  background: var(--pb-slot-btn-bg-hover);
+}
+
+pb-slot::part(control):active {
+  background: var(--pb-slot-btn-bg-primary);
+}
+
+pb-slot::part(control):focus-visible {
+  outline: 2px solid rgba(167, 139, 250, 0.6);
+  outline-offset: 1px;
+}
+
+/* ── Primary action (Add block) ───────────────────────────────────────────── */
+
+pb-slot::part(control-primary) {
+  background: var(--pb-slot-btn-bg-primary);
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #fff;
+}
+
+pb-slot::part(control-primary):hover {
+  background: var(--pb-slot-btn-bg-primary-hover);
+  border-color: rgba(255, 255, 255, 0.40);
+}
+
+/* ── Destructive action (Reset/Delete) ────────────────────────────────────── */
+
+pb-slot::part(control-delete) {
+  background: transparent;
+  border-color: transparent;
+  color: rgba(253, 230, 138, 0.65);
+  padding: 0 7px;
+}
+
+pb-slot::part(control-delete):hover {
+  background: var(--pb-danger-btn-bg-hover);
+  border-color: var(--pb-danger-btn-border-hover);
+  color: var(--pb-danger-btn-text-hover);
+}
+
+/* ============================================================================
+   BLOCK GRID HELPER
+   ============================================================================ */
+
+.block-grid {
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+}

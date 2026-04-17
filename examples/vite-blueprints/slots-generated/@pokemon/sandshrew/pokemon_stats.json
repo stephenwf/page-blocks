@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vc2FuZHNocmV3L3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-sandshrew",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 50,
+        "attack": 75,
+        "defense": 85,
+        "specialAttack": 20,
+        "specialDefense": 30,
+        "speed": 40
+      }
+    }
+  ]
+}

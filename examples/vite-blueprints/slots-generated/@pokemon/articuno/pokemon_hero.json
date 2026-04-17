@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vYXJ0aWN1bm8vcG9rZW1vbl9oZXJvLmpzb24=",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-articuno",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 144,
+        "name": "articuno",
+        "types": [
+          "ice",
+          "flying"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/144.png",
+        "description": "A legendary bird POKéMON that is said to appear to doomed people who are lost in icy mountains.",
+        "height": 17,
+        "weight": 554
+      }
+    }
+  ]
+}

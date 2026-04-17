@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vY2hhcm1lbGVvbi9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-charmeleon",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 5,
+        "name": "charmeleon",
+        "types": [
+          "fire"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/5.png",
+        "description": "When it swings its burning tail, it elevates the temperature to unbearably high levels.",
+        "height": 11,
+        "weight": 190
+      }
+    }
+  ]
+}

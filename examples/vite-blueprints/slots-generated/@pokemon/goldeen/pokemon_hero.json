@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vZ29sZGVlbi9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-goldeen",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 118,
+        "name": "goldeen",
+        "types": [
+          "water"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/118.png",
+        "description": "Its tail fin billows like an elegant ballroom dress, giving it the nickname of the Water Queen.",
+        "height": 6,
+        "weight": 150
+      }
+    }
+  ]
+}

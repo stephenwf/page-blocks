@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vYmxhc3RvaXNlL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-blastoise",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 79,
+        "attack": 83,
+        "defense": 100,
+        "specialAttack": 85,
+        "specialDefense": 105,
+        "speed": 78
+      }
+    }
+  ]
+}

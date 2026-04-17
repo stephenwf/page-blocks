@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vYWxha2F6YW0vcG9rZW1vbl9oZXJvLmpzb24=",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-alakazam",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 65,
+        "name": "alakazam",
+        "types": [
+          "psychic"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/65.png",
+        "description": "Its brain can out­ perform a super­ computer. Its intelligence quotient is said to be 5,000.",
+        "height": 15,
+        "weight": 480
+      }
+    }
+  ]
+}

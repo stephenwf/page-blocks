@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vcmh5aG9ybi9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-rhyhorn",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 80,
+        "attack": 85,
+        "defense": 95,
+        "specialAttack": 30,
+        "specialDefense": 30,
+        "speed": 25
+      }
+    }
+  ]
+}

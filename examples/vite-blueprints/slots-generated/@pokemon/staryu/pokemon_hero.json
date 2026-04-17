@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vc3Rhcnl1L3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-staryu",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 120,
+        "name": "staryu",
+        "types": [
+          "water"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/120.png",
+        "description": "If its body is torn, it can grow back if the red core remains. The core flashes at midnight.",
+        "height": 8,
+        "weight": 345
+      }
+    }
+  ]
+}

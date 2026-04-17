@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vdmljdHJlZWJlbC9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-victreebel",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 80,
+        "attack": 105,
+        "defense": 65,
+        "specialAttack": 100,
+        "specialDefense": 70,
+        "speed": 70
+      }
+    }
+  ]
+}

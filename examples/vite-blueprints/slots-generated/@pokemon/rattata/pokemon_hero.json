@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vcmF0dGF0YS9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-rattata",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 19,
+        "name": "rattata",
+        "types": [
+          "normal"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/19.png",
+        "description": "Bites anything when it attacks. Small and very quick, it is a common sight in many places.",
+        "height": 3,
+        "weight": 35
+      }
+    }
+  ]
+}

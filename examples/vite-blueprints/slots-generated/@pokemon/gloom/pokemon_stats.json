@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vZ2xvb20vcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-gloom",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 60,
+        "attack": 65,
+        "defense": 70,
+        "specialAttack": 85,
+        "specialDefense": 75,
+        "speed": 40
+      }
+    }
+  ]
+}

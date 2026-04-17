@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vbXVrL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-muk",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 89,
+        "name": "muk",
+        "types": [
+          "poison"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/89.png",
+        "description": "Thickly covered with a filthy, vile sludge. It is so toxic, even its footprints contain poison.",
+        "height": 12,
+        "weight": 300
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vcGluc2lyL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-pinsir",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 127,
+        "name": "pinsir",
+        "types": [
+          "bug"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/127.png",
+        "description": "If it fails to crush the victim in its pincers, it will swing it around and toss it hard.",
+        "height": 15,
+        "weight": 550
+      }
+    }
+  ]
+}

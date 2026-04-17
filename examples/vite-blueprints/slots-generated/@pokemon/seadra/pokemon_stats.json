@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vc2VhZHJhL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-seadra",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 55,
+        "attack": 65,
+        "defense": 95,
+        "specialAttack": 95,
+        "specialDefense": 45,
+        "speed": 85
+      }
+    }
+  ]
+}

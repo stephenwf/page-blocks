@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vd2FydG9ydGxlL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-wartortle",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 8,
+        "name": "wartortle",
+        "types": [
+          "water"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/8.png",
+        "description": "Often hides in water to stalk unwary prey. For swimming fast, it moves its ears to maintain balance.",
+        "height": 10,
+        "weight": 225
+      }
+    }
+  ]
+}

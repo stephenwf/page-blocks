@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vcG9saXdyYXRoL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-poliwrath",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 90,
+        "attack": 95,
+        "defense": 95,
+        "specialAttack": 70,
+        "specialDefense": 90,
+        "speed": 70
+      }
+    }
+  ]
+}

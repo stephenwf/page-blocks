@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vb21hbnl0ZS9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-omanyte",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 35,
+        "attack": 40,
+        "defense": 100,
+        "specialAttack": 90,
+        "specialDefense": 55,
+        "speed": 35
+      }
+    }
+  ]
+}

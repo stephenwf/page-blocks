@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vZWV2ZWUvcG9rZW1vbl9oZXJvLmpzb24=",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-eevee",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 133,
+        "name": "eevee",
+        "types": [
+          "normal"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/133.png",
+        "description": "Its genetic code is irregular. It may mutate if it is exposed to radiation from element STONEs.",
+        "height": 3,
+        "weight": 65
+      }
+    }
+  ]
+}

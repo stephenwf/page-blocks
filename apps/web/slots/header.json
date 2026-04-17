@@ -2,15 +2,6 @@
   "name": "header",
   "blocks": [
     {
-      "id": "m7q9pi",
-      "type": "PokemonThumbnail",
-      "data": {
-        "name": "poliwag",
-        "types": [],
-        "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/60.png"
-      }
-    },
-    {
       "id": "accr7",
       "type": "PokemonThumbnail",
       "data": {
@@ -19,6 +10,15 @@
         "types": [
           "normal"
         ]
+      }
+    },
+    {
+      "id": "m7q9pi",
+      "type": "PokemonThumbnail",
+      "data": {
+        "name": "poliwag",
+        "types": [],
+        "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/60.png"
       }
     },
     {
@@ -107,6 +107,15 @@
         "title": "Example title",
         "text": "Example text",
         "href": "https://example.com"
+      }
+    },
+    {
+      "id": "nhj6x",
+      "type": "PokemonThumbnail",
+      "data": {
+        "name": "rattata",
+        "types": [],
+        "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/19.png"
       }
     }
   ]

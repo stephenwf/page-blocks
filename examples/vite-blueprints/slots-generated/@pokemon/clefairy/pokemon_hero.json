@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vY2xlZmFpcnkvcG9rZW1vbl9oZXJvLmpzb24=",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-clefairy",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 35,
+        "name": "clefairy",
+        "types": [
+          "fairy"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/35.png",
+        "description": "Its magical and cute appeal has many admirers. It is rare and found only in certain areas.",
+        "height": 6,
+        "weight": 75
+      }
+    }
+  ]
+}

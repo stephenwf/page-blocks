@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vbWFnbWFyL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-magmar",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 126,
+        "name": "magmar",
+        "types": [
+          "fire"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/126.png",
+        "description": "Its body always burns with an orange glow that enables it to hide perfectly among flames.",
+        "height": 13,
+        "weight": 445
+      }
+    }
+  ]
+}

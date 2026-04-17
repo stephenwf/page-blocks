@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vcGlkZ2VvdC9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-pidgeot",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 18,
+        "name": "pidgeot",
+        "types": [
+          "normal",
+          "flying"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/18.png",
+        "description": "When hunting, it skims the surface of water at high speed to pick off unwary prey such as MAGIKARP.",
+        "height": 15,
+        "weight": 395
+      }
+    }
+  ]
+}

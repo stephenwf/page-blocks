@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vemFwZG9zL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-zapdos",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 90,
+        "attack": 90,
+        "defense": 85,
+        "specialAttack": 125,
+        "specialDefense": 90,
+        "speed": 100
+      }
+    }
+  ]
+}

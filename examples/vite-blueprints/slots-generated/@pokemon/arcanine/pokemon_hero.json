@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vYXJjYW5pbmUvcG9rZW1vbl9oZXJvLmpzb24=",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-arcanine",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 59,
+        "name": "arcanine",
+        "types": [
+          "fire"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/59.png",
+        "description": "A POKéMON that has been admired since the past for its beauty. It runs agilely as if on wings.",
+        "height": 19,
+        "weight": 1550
+      }
+    }
+  ]
+}

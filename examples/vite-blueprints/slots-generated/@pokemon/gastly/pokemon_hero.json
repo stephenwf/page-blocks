@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vZ2FzdGx5L3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-gastly",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 92,
+        "name": "gastly",
+        "types": [
+          "ghost",
+          "poison"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/92.png",
+        "description": "Almost invisible, this gaseous POKéMON cloaks the target and puts it to sleep without notice.",
+        "height": 13,
+        "weight": 1
+      }
+    }
+  ]
+}

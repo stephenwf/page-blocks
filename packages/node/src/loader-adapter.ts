@@ -8,6 +8,15 @@ import {
 } from '@page-blocks/core';
 
 export function loaderAdapter(loader: SlotLoader & Partial<FullSlotLoader>): FullSlotLoader {
+  const stripSlotSource = (data: any) => {
+    if (!data || typeof data !== 'object' || Array.isArray(data)) {
+      return data;
+    }
+
+    const { source, ...persisted } = data;
+    return persisted;
+  };
+
   async function getBlockSlots(slotId: string, blockId: string, slotName: string) {
     const parentSlot = await loader.find(slotId);
     const parentBlock = parentSlot.blocks.find((b: any) => b.id === blockId);
@@ -34,12 +43,23 @@ export function loaderAdapter(loader: SlotLoader & Partial<FullSlotLoader>): Ful
       }
       const innerSlot = (parentBlock.slots || {})[slotId] || {};
       const blocks = innerSlot.blocks || [];
+      const source = parentSlot.source
+        ? {
+            filePath: parentSlot.source.filePath,
+            matchedContexts: [...parentSlot.source.matchedContexts],
+            embeddedIn: {
+              slotId: parent.slotId,
+              blockId: parent.blockId,
+            },
+          }
+        : undefined;
 
       return {
         id: slotId,
         slot: slotId,
         ...(innerSlot as any),
         blocks,
+        source,
       };
     },
     createInnerSlot: async (slotId: string, slot: string, parent: { slotId: string; blockId: string }) => {
@@ -71,7 +91,7 @@ export function loaderAdapter(loader: SlotLoader & Partial<FullSlotLoader>): Ful
       const [parentBlock, updateParentSlot] = await getBlockSlots(parent.slotId, parent.blockId, slotId);
 
       if (parentBlock.slots) {
-        parentBlock.slots[slotId] = data;
+        parentBlock.slots[slotId] = stripSlotSource(data);
       }
 
       await updateParentSlot();

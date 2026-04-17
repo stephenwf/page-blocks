@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vZHJhZ29uYWlyL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-dragonair",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 148,
+        "name": "dragonair",
+        "types": [
+          "dragon"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/148.png",
+        "description": "A mystical POKéMON that exudes a gentle aura. Has the ability to change climate conditions.",
+        "height": 40,
+        "weight": 165
+      }
+    }
+  ]
+}

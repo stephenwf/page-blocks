@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vY2xlZmFpcnkvcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-clefairy",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 70,
+        "attack": 45,
+        "defense": 48,
+        "specialAttack": 60,
+        "specialDefense": 65,
+        "speed": 35
+      }
+    }
+  ]
+}

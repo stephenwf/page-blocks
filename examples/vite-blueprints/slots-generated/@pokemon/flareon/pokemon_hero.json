@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vZmxhcmVvbi9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-flareon",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 136,
+        "name": "flareon",
+        "types": [
+          "fire"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/136.png",
+        "description": "When storing thermal energy in its body, its temperature could soar to over 1600 degrees.",
+        "height": 9,
+        "weight": 250
+      }
+    }
+  ]
+}

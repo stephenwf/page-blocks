@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vaHlwbm8vcG9rZW1vbl9oZXJvLmpzb24=",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-hypno",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 97,
+        "name": "hypno",
+        "types": [
+          "psychic"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/97.png",
+        "description": "When it locks eyes with an enemy, it will use a mix of PSI moves such as HYPNOSIS and CONFUSION.",
+        "height": 16,
+        "weight": 756
+      }
+    }
+  ]
+}

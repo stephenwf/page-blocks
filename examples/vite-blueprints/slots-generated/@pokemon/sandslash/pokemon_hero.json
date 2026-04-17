@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vc2FuZHNsYXNoL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-sandslash",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 28,
+        "name": "sandslash",
+        "types": [
+          "ground"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/28.png",
+        "description": "Curls up into a spiny ball when threatened. It can roll while curled up to attack or escape.",
+        "height": 10,
+        "weight": 295
+      }
+    }
+  ]
+}

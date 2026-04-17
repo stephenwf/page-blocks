@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vc2Vha2luZy9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-seaking",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 119,
+        "name": "seaking",
+        "types": [
+          "water"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/119.png",
+        "description": "In the autumn spawning season, they can be seen swimming powerfully up rivers and creeks.",
+        "height": 13,
+        "weight": 390
+      }
+    }
+  ]
+}

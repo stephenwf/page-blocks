@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vaGl0bW9uY2hhbi9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-hitmonchan",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 50,
+        "attack": 105,
+        "defense": 79,
+        "specialAttack": 35,
+        "specialDefense": 110,
+        "speed": 76
+      }
+    }
+  ]
+}

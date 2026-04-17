@@ -1,0 +1,54 @@
+{
+  "name": "content",
+  "blocks": [
+    {
+      "id": "guides-kyoto-shelf",
+      "type": "ExperienceShelf",
+      "data": {
+        "eyebrow": "Kyoto city guide",
+        "title": "Anchor the morning in one district and let the rest follow",
+        "intro": "Kyoto rewards patience. Higashiyama is best before 9am, Arashiyama before the tour groups arrive. Plan around that and the city opens up."
+      },
+      "slots": {
+        "items": {
+          "slot_id": "items",
+          "blocks": [
+            {
+              "id": "kyoto-guide-note",
+              "type": "PlanningNote",
+              "data": {
+                "eyebrow": "First morning",
+                "title": "Start at Fushimi Inari at sunrise, then walk back down before the crowds reach the mid-gate",
+                "body": "The upper trail is genuinely quiet before 7am. The light through the torii gates at that hour is unlike anything later in the day. Everything else in the itinerary is flexible — this single call is not.",
+                "tone": "sand"
+              }
+            },
+            {
+              "id": "kyoto-guide-offer",
+              "type": "OfferCard",
+              "data": {
+                "eyebrow": "Kyoto · 4 nights",
+                "title": "Garden districts and dawn temple entries",
+                "summary": "Stay near Higashiyama with early-entry planning, a tea ceremony, and a walkable evening route back through Gion.",
+                "price": "From £1,240",
+                "meta": "4 nights · tea ceremony · temple route",
+                "href": "/offers?country=japan&city=kyoto",
+                "image": "/travel/kyoto-garden.svg"
+              }
+            },
+            {
+              "id": "kyoto-guide-testimonial",
+              "type": "TestimonialCard",
+              "data": {
+                "quote": "Arashiyama at dawn was the first time I’d ever felt genuinely alone in a travel destination. Worth every early start — and the itinerary made it easy to do.",
+                "traveler": "Margot D.",
+                "trip": "Kyoto, 5 nights · spring",
+                "stars": 5
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

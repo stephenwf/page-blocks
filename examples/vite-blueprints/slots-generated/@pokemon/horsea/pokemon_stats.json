@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vaG9yc2VhL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-horsea",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 30,
+        "attack": 40,
+        "defense": 70,
+        "specialAttack": 70,
+        "specialDefense": 25,
+        "speed": 60
+      }
+    }
+  ]
+}

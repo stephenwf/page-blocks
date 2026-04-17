@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vcG9saXdhZy9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-poliwag",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 60,
+        "name": "poliwag",
+        "types": [
+          "water"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/60.png",
+        "description": "Its newly grown legs prevent it from running. It appears to prefer swimming than trying to stand.",
+        "height": 6,
+        "weight": 124
+      }
+    }
+  ]
+}

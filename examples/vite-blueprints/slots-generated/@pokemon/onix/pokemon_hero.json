@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vb25peC9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-onix",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 95,
+        "name": "onix",
+        "types": [
+          "rock",
+          "ground"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/95.png",
+        "description": "As it grows, the stone portions of its body harden to become similar to a diamond, but colored black.",
+        "height": 88,
+        "weight": 2100
+      }
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "name": "offers",
+  "blocks": [
+    {
+      "id": "offers-lisbon-summer-shelf",
+      "type": "ExperienceShelf",
+      "data": {
+        "eyebrow": "Lisbon · Summer",
+        "title": "Waterfront evenings, shaded afternoons, and late-light dining",
+        "intro": "Lisbon in summer is about protecting the middle of the day so the evenings can stretch. These packages are built around that rhythm."
+      },
+      "slots": {
+        "items": {
+          "slot_id": "items",
+          "blocks": [
+            {
+              "id": "lisbon-summer-note",
+              "type": "PlanningNote",
+              "data": {
+                "eyebrow": "Summer pacing",
+                "title": "Keep the middle of the day cool so the evenings can stretch long",
+                "body": "The waterfront at Santos doesn’t get interesting until after 7pm. Plan the afternoon around shade — a museum interior, a long lunch, a gallery — and save the energy for later.",
+                "tone": "sea"
+              }
+            },
+            {
+              "id": "lisbon-summer-waterfront",
+              "type": "OfferCard",
+              "data": {
+                "eyebrow": "Lisbon · Summer · 4 nights",
+                "title": "Waterfront afternoons and rooftop dinners",
+                "summary": "Shaded museum stops, a sunset sailing slot, and two dinner reservations near Santos. Built for the warm-weather version of the city.",
+                "price": "From £810",
+                "meta": "4 nights · sailing add-on · rooftop dining",
+                "href": "/offers?country=portugal&city=lisbon&season=summer",
+                "image": "/travel/lisbon-tram.svg",
+                "badge": "Summer edit"
+              }
+            },
+            {
+              "id": "lisbon-summer-base",
+              "type": "OfferCard",
+              "data": {
+                "eyebrow": "Lisbon · 3 nights",
+                "title": "Alfama rooftops and river club check-in",
+                "summary": "The year-round Lisbon stay — a riverside hotel, tram pass, and an Alfama food walk that works in any season.",
+                "price": "From £640",
+                "meta": "3 nights · breakfast · evening food tour",
+                "href": "/offers?country=portugal&city=lisbon",
+                "image": "/travel/lisbon-tram.svg"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

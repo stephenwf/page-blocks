@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vYnVsYmFzYXVyL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-bulbasaur",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 1,
+        "name": "bulbasaur",
+        "types": [
+          "grass",
+          "poison"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
+        "description": "A strange seed was planted on its back at birth. The plant sprouts and grows with this POKéMON.",
+        "height": 7,
+        "weight": 69
+      }
+    }
+  ]
+}

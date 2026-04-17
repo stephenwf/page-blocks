@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vdmVub21vdGgvcG9rZW1vbl9oZXJvLmpzb24=",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-venomoth",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 49,
+        "name": "venomoth",
+        "types": [
+          "bug",
+          "poison"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/49.png",
+        "description": "The dustlike scales covering its wings are color-coded to indicate the kinds of poison it has.",
+        "height": 15,
+        "weight": 125
+      }
+    }
+  ]
+}

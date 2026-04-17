@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vYmVsbHNwcm91dC9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-bellsprout",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 50,
+        "attack": 75,
+        "defense": 35,
+        "specialAttack": 70,
+        "specialDefense": 30,
+        "speed": 40
+      }
+    }
+  ]
+}

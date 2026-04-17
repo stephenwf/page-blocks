@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vdmFwb3Jlb24vcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-vaporeon",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 130,
+        "attack": 65,
+        "defense": 60,
+        "specialAttack": 110,
+        "specialDefense": 95,
+        "speed": 65
+      }
+    }
+  ]
+}

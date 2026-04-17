@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vcGFyYXNlY3QvcG9rZW1vbl9oZXJvLmpzb24=",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-parasect",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 47,
+        "name": "parasect",
+        "types": [
+          "bug",
+          "grass"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/47.png",
+        "description": "A host-parasite pair in which the parasite mushroom has taken over the host bug. Prefers damp places.",
+        "height": 10,
+        "weight": 295
+      }
+    }
+  ]
+}

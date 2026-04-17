@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vY2hhbnNleS9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-chansey",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 113,
+        "name": "chansey",
+        "types": [
+          "normal"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/113.png",
+        "description": "A rare and elusive POKéMON that is said to bring happiness to those who manage to get it.",
+        "height": 11,
+        "weight": 346
+      }
+    }
+  ]
+}

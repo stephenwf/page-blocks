@@ -1,0 +1,17 @@
+{
+  "name": "seasonal_banner",
+  "blocks": [
+    {
+      "id": "seasonal-banner-active",
+      "type": "TripHighlightBanner",
+      "data": {
+        "eyebrow": "Seasonal edit active",
+        "title": "You’ve unlocked the seasonal offer layer",
+        "body": "Season-specific packages and itinerary guidance are now live. Head to the offers page to see what’s changed for your chosen time of year.",
+        "ctaLabel": "View seasonal offers",
+        "ctaHref": "/offers",
+        "tone": "teal"
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vYXJib2svcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-arbok",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 60,
+        "attack": 95,
+        "defense": 69,
+        "specialAttack": 65,
+        "specialDefense": 79,
+        "speed": 80
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vZGV3Z29uZy9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-dewgong",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 87,
+        "name": "dewgong",
+        "types": [
+          "water",
+          "ice"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/87.png",
+        "description": "Stores thermal energy in its body. Swims at a steady 8 knots even in intensely cold waters.",
+        "height": 17,
+        "weight": 1200
+      }
+    }
+  ]
+}

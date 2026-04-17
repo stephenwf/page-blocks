@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vZ29sZW0vcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-golem",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 80,
+        "attack": 120,
+        "defense": 130,
+        "specialAttack": 55,
+        "specialDefense": 65,
+        "speed": 45
+      }
+    }
+  ]
+}

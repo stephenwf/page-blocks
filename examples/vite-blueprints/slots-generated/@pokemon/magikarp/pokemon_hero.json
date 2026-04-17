@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vbWFnaWthcnAvcG9rZW1vbl9oZXJvLmpzb24=",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-magikarp",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 129,
+        "name": "magikarp",
+        "types": [
+          "water"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/129.png",
+        "description": "In the distant past, it was somewhat stronger than the horribly weak descendants that exist today.",
+        "height": 9,
+        "weight": 100
+      }
+    }
+  ]
+}

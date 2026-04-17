@@ -1,0 +1,287 @@
+{
+  "name": "page-blocks",
+  "version": "0.0.0",
+  "description": "Page Blocks libraries in a single package",
+  "author": "stephenwf",
+  "type": "module",
+  "license": "MIT",
+  "bugs": "https://github.com/stephenwf/page-blocks/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stephenwf/page-blocks.git",
+    "directory": "page-blocks"
+  },
+  "keywords": [
+    "page-blocks"
+  ],
+  "engines": {
+    "node": ">=18.14.1"
+  },
+  "main": "./dist/core/index.cjs",
+  "module": "./dist/core/index.js",
+  "types": "./dist/core/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/core/index.d.ts",
+        "default": "./dist/core/index.js"
+      },
+      "require": {
+        "types": "./dist/core/index.d.cts",
+        "default": "./dist/core/index.cjs"
+      }
+    },
+    "./core": {
+      "import": {
+        "types": "./dist/core/index.d.ts",
+        "default": "./dist/core/index.js"
+      },
+      "require": {
+        "types": "./dist/core/index.d.cts",
+        "default": "./dist/core/index.cjs"
+      }
+    },
+    "./client": {
+      "import": {
+        "types": "./dist/client/index.d.ts",
+        "default": "./dist/client/index.js"
+      },
+      "require": {
+        "types": "./dist/client/index.d.cts",
+        "default": "./dist/client/index.cjs"
+      }
+    },
+    "./node": {
+      "import": {
+        "types": "./dist/node/index.d.ts",
+        "default": "./dist/node/index.js"
+      },
+      "require": {
+        "types": "./dist/node/index.d.cts",
+        "default": "./dist/node/index.cjs"
+      }
+    },
+    "./next": {
+      "import": {
+        "types": "./dist/next/index.d.ts",
+        "default": "./dist/next/index.js"
+      },
+      "require": {
+        "types": "./dist/next/index.d.cts",
+        "default": "./dist/next/index.cjs"
+      }
+    },
+    "./vite": {
+      "import": {
+        "types": "./dist/vite/index.d.mts",
+        "default": "./dist/vite/index.mjs"
+      },
+      "require": {
+        "types": "./dist/vite/index.d.cts",
+        "default": "./dist/vite/index.cjs"
+      }
+    },
+    "./vite/server": {
+      "import": {
+        "types": "./dist/vite/server.d.mts",
+        "default": "./dist/vite/server.mjs"
+      },
+      "require": {
+        "types": "./dist/vite/server.d.cts",
+        "default": "./dist/vite/server.cjs"
+      }
+    },
+    "./file-system": {
+      "import": {
+        "types": "./dist/file-system/index.d.ts",
+        "default": "./dist/file-system/index.js"
+      },
+      "require": {
+        "types": "./dist/file-system/index.d.cts",
+        "default": "./dist/file-system/index.cjs"
+      }
+    },
+    "./designer": {
+      "import": {
+        "types": "./dist/designer/index.d.mts",
+        "default": "./dist/designer/index.mjs"
+      },
+      "require": {
+        "types": "./dist/designer/index.d.cts",
+        "default": "./dist/designer/index.cjs"
+      }
+    },
+    "./screenshots": {
+      "import": {
+        "types": "./dist/screenshots/index.d.ts",
+        "default": "./dist/screenshots/index.js"
+      },
+      "require": {
+        "types": "./dist/screenshots/index.d.cts",
+        "default": "./dist/screenshots/index.cjs"
+      }
+    },
+    "./react-client": {
+      "import": {
+        "types": "./dist/react-client/index.d.ts",
+        "default": "./dist/react-client/index.js"
+      },
+      "require": {
+        "types": "./dist/react-client/index.d.cts",
+        "default": "./dist/react-client/index.cjs"
+      }
+    },
+    "./react": {
+      "import": {
+        "types": "./dist/react/index.d.ts",
+        "default": "./dist/react/index.js"
+      },
+      "require": {
+        "types": "./dist/react/index.d.cts",
+        "default": "./dist/react/index.cjs"
+      }
+    },
+    "./react-editor": {
+      "import": {
+        "types": "./dist/react-editor/index.d.ts",
+        "default": "./dist/react-editor/index.js"
+      },
+      "require": {
+        "types": "./dist/react-editor/index.d.cts",
+        "default": "./dist/react-editor/index.cjs"
+      }
+    },
+    "./web-components": {
+      "import": {
+        "types": "./dist/web-components/index.d.ts",
+        "default": "./dist/web-components/index.js"
+      },
+      "require": {
+        "types": "./dist/web-components/index.d.cts",
+        "default": "./dist/web-components/index.cjs"
+      }
+    },
+    "./react/style.css": {
+      "types": "./dist/style.d.ts",
+      "import": "./dist/react/style.css",
+      "default": "./dist/react/style.css"
+    },
+    "./react/dist/index.css": {
+      "types": "./dist/style.d.ts",
+      "import": "./dist/react/style.css",
+      "default": "./dist/react/style.css"
+    },
+    "./react-editor/style.css": {
+      "types": "./dist/style.d.ts",
+      "import": "./dist/react-editor/style.css",
+      "default": "./dist/react-editor/style.css"
+    },
+    "./react-editor/dist/index.css": {
+      "types": "./dist/style.d.ts",
+      "import": "./dist/react-editor/style.css",
+      "default": "./dist/react-editor/style.css"
+    },
+    "./web-components/style.css": {
+      "types": "./dist/style.d.ts",
+      "import": "./dist/web-components/style.css",
+      "default": "./dist/web-components/style.css"
+    },
+    "./web-components/dist/index.css": {
+      "types": "./dist/style.d.ts",
+      "import": "./dist/web-components/style.css",
+      "default": "./dist/web-components/style.css"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist/**",
+    "README.md"
+  ],
+  "sideEffects": [
+    "./dist/react-editor/index.js",
+    "./dist/react-editor/index.cjs",
+    "./dist/web-components/index.js",
+    "./dist/web-components/index.cjs",
+    "./dist/react/style.css",
+    "./dist/react-editor/style.css",
+    "./dist/web-components/style.css"
+  ],
+  "scripts": {
+    "build": "rm -rf ./dist && tsdown && node ./scripts/copy-css.mjs",
+    "test": "node --test ./test/**/*.test.mjs",
+    "typecheck": "tsc -p ./tsconfig.json --noEmit && tsc -p ./tsconfig.smoke.json --noEmit",
+    "verify:esm": "node ./smoke/esm.mjs",
+    "verify:cjs": "node ./smoke/cjs.cjs",
+    "publint": "publint --strict"
+  },
+  "dependencies": {
+    "mkdirp": "^3.0.1",
+    "nanostores": "^0.9.4",
+    "zod": "^3.22.4"
+  },
+  "peerDependencies": {
+    "@nanostores/react": "^0.7.1",
+    "next": "*",
+    "playwright": "^1.39.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-query": "^3.39.3",
+    "uniforms": "^4.0.0-alpha.5",
+    "uniforms-bridge-zod": "^4.0.0-alpha.5",
+    "uniforms-semantic": "^4.0.0-alpha.5",
+    "vite": "^5.4.10"
+  },
+  "peerDependenciesMeta": {
+    "@nanostores/react": {
+      "optional": true
+    },
+    "next": {
+      "optional": true
+    },
+    "playwright": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    },
+    "react-query": {
+      "optional": true
+    },
+    "uniforms": {
+      "optional": true
+    },
+    "uniforms-bridge-zod": {
+      "optional": true
+    },
+    "uniforms-semantic": {
+      "optional": true
+    },
+    "vite": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@nanostores/react": "^0.7.1",
+    "@types/node": "^20.5.2",
+    "@types/react": "^18.2.28",
+    "@types/react-dom": "^18.2.13",
+    "next": "^13.5.4",
+    "playwright": "^1.39.0",
+    "publint": "^0.3.18",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-query": "^3.39.3",
+    "tsdown": "^0.21.7",
+    "typescript": "^5.8.2",
+    "uniforms": "^4.0.0-alpha.5",
+    "uniforms-bridge-zod": "^4.0.0-alpha.5",
+    "uniforms-semantic": "^4.0.0-alpha.5",
+    "vite": "^5.4.10"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

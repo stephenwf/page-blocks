@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vcGVyc2lhbi9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-persian",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 65,
+        "attack": 70,
+        "defense": 60,
+        "specialAttack": 65,
+        "specialDefense": 65,
+        "speed": 115
+      }
+    }
+  ]
+}

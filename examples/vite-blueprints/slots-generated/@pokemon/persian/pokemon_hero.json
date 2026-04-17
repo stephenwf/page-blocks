@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vcGVyc2lhbi9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-persian",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 53,
+        "name": "persian",
+        "types": [
+          "normal"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/53.png",
+        "description": "Although its fur has many admirers, it is tough to raise as a pet because of its fickle meanness.",
+        "height": 10,
+        "weight": 320
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vbW9sdHJlcy9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-moltres",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 146,
+        "name": "moltres",
+        "types": [
+          "fire",
+          "flying"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/146.png",
+        "description": "Known as the legendary bird of fire. Every flap of its wings creates a dazzling flash of flames.",
+        "height": 20,
+        "weight": 600
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vc2FuZHNsYXNoL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-sandslash",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 75,
+        "attack": 100,
+        "defense": 110,
+        "specialAttack": 45,
+        "specialDefense": 55,
+        "speed": 65
+      }
+    }
+  ]
+}

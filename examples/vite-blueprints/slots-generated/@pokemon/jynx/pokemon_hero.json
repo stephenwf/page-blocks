@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vanlueC9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-jynx",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 124,
+        "name": "jynx",
+        "types": [
+          "ice",
+          "psychic"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/124.png",
+        "description": "It seductively wiggles its hips as it walks. It can cause people to dance in unison with it.",
+        "height": 14,
+        "weight": 406
+      }
+    }
+  ]
+}

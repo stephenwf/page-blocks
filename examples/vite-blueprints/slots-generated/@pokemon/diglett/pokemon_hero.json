@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vZGlnbGV0dC9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-diglett",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 50,
+        "name": "diglett",
+        "types": [
+          "ground"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/50.png",
+        "description": "Lives about one yard underground where it feeds on plant roots. It sometimes appears above ground.",
+        "height": 2,
+        "weight": 8
+      }
+    }
+  ]
+}

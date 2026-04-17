@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vbWFjaGFtcC9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-machamp",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 68,
+        "name": "machamp",
+        "types": [
+          "fighting"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/68.png",
+        "description": "Using its heavy muscles, it throws powerful punches that can send the victim clear over the horizon.",
+        "height": 16,
+        "weight": 1300
+      }
+    }
+  ]
+}

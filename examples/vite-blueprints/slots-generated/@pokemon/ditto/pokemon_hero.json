@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vZGl0dG8vcG9rZW1vbl9oZXJvLmpzb24=",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-ditto",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 132,
+        "name": "ditto",
+        "types": [
+          "normal"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/132.png",
+        "description": "Capable of copying an enemy's genetic code to instantly transform itself into a duplicate of the enemy.",
+        "height": 3,
+        "weight": 40
+      }
+    }
+  ]
+}

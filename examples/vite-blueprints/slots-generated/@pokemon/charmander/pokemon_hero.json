@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vY2hhcm1hbmRlci9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-charmander",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 4,
+        "name": "charmander",
+        "types": [
+          "fire"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png",
+        "description": "Obviously prefers hot places. When it rains, steam is said to spout from the tip of its tail.",
+        "height": 6,
+        "weight": 85
+      }
+    }
+  ]
+}

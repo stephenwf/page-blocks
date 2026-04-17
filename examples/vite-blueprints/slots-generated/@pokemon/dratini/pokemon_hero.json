@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vZHJhdGluaS9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-dratini",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 147,
+        "name": "dratini",
+        "types": [
+          "dragon"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/147.png",
+        "description": "Long considered a mythical POKéMON until recently when a small colony was found living underwater.",
+        "height": 18,
+        "weight": 33
+      }
+    }
+  ]
+}

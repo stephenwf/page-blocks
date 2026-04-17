@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vY2xlZmFibGUvcG9rZW1vbl9oZXJvLmpzb24=",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-clefable",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 36,
+        "name": "clefable",
+        "types": [
+          "fairy"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/36.png",
+        "description": "A timid fairy POKéMON that is rarely seen. It will run and hide the moment it senses people.",
+        "height": 13,
+        "weight": 400
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vcHJpbWVhcGUvcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-primeape",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 65,
+        "attack": 105,
+        "defense": 60,
+        "specialAttack": 60,
+        "specialDefense": 70,
+        "speed": 95
+      }
+    }
+  ]
+}

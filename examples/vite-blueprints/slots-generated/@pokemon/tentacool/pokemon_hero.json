@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vdGVudGFjb29sL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-tentacool",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 72,
+        "name": "tentacool",
+        "types": [
+          "water",
+          "poison"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/72.png",
+        "description": "Drifts in shallow seas. Anglers who hook them by accident are often punished by its stinging acid.",
+        "height": 9,
+        "weight": 455
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vc3BlYXJvdy9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-spearow",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 21,
+        "name": "spearow",
+        "types": [
+          "normal",
+          "flying"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/21.png",
+        "description": "It flaps its small wings busily to fly. Using its beak, it searches in grass for prey.",
+        "height": 3,
+        "weight": 20
+      }
+    }
+  ]
+}

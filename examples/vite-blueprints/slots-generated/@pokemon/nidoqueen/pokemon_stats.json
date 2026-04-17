@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vbmlkb3F1ZWVuL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-nidoqueen",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 90,
+        "attack": 92,
+        "defense": 87,
+        "specialAttack": 75,
+        "specialDefense": 85,
+        "speed": 76
+      }
+    }
+  ]
+}

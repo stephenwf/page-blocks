@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24va2FidXRvL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-kabuto",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 140,
+        "name": "kabuto",
+        "types": [
+          "rock",
+          "water"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/140.png",
+        "description": "A POKéMON that was resurrected from a fossil found in what was once the ocean floor eons ago.",
+        "height": 5,
+        "weight": 115
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vc2FuZHNocmV3L3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-sandshrew",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 27,
+        "name": "sandshrew",
+        "types": [
+          "ground"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/27.png",
+        "description": "Burrows deep underground in arid locations far from water. It only emerges to hunt for food.",
+        "height": 6,
+        "weight": 120
+      }
+    }
+  ]
+}

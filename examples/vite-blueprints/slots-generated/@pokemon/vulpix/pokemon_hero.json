@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vdnVscGl4L3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-vulpix",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 37,
+        "name": "vulpix",
+        "types": [
+          "fire"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/37.png",
+        "description": "At the time of birth, it has just one tail. The tail splits from its tip as it grows older.",
+        "height": 6,
+        "weight": 99
+      }
+    }
+  ]
+}

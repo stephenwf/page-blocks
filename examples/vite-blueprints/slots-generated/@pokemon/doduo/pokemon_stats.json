@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vZG9kdW8vcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-doduo",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 35,
+        "attack": 85,
+        "defense": 45,
+        "specialAttack": 35,
+        "specialDefense": 35,
+        "speed": 75
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vbmlkb3Jhbi1tL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-nidoran-m",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 46,
+        "attack": 57,
+        "defense": 40,
+        "specialAttack": 40,
+        "specialDefense": 40,
+        "speed": 50
+      }
+    }
+  ]
+}

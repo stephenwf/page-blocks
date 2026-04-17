@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vamlnZ2x5cHVmZi9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-jigglypuff",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 39,
+        "name": "jigglypuff",
+        "types": [
+          "normal",
+          "fairy"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/39.png",
+        "description": "When its huge eyes light up, it sings a mysteriously soothing melody that lulls its enemies to sleep.",
+        "height": 5,
+        "weight": 55
+      }
+    }
+  ]
+}

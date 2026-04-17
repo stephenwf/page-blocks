@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vcGlkZ2V5L3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-pidgey",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 40,
+        "attack": 45,
+        "defense": 40,
+        "specialAttack": 35,
+        "specialDefense": 35,
+        "speed": 56
+      }
+    }
+  ]
+}

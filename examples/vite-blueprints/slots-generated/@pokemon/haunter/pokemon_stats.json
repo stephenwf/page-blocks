@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vaGF1bnRlci9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-haunter",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 45,
+        "attack": 50,
+        "defense": 45,
+        "specialAttack": 115,
+        "specialDefense": 55,
+        "speed": 95
+      }
+    }
+  ]
+}

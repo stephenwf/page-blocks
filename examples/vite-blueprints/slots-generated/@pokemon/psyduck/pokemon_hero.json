@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vcHN5ZHVjay9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-psyduck",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 54,
+        "name": "psyduck",
+        "types": [
+          "water"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/54.png",
+        "description": "While lulling its enemies with its vacant look, this wily POKéMON will use psychokinetic powers.",
+        "height": 8,
+        "weight": 196
+      }
+    }
+  ]
+}

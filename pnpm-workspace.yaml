@@ -1,4 +1,6 @@
 packages:
+  - "page-blocks"
+  - "examples/*"
   - "apps/*"
   - "packages/*"
   - "config/*"

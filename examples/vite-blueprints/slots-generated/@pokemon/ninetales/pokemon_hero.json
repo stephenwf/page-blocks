@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vbmluZXRhbGVzL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-ninetales",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 38,
+        "name": "ninetales",
+        "types": [
+          "fire"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/38.png",
+        "description": "Very smart and very vengeful. Grabbing one of its many tails could result in a 1000-year curse.",
+        "height": 11,
+        "weight": 199
+      }
+    }
+  ]
+}

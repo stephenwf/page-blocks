@@ -1,0 +1,58 @@
+{
+  "name": "offers",
+  "blocks": [
+    {
+      "id": "offers-kyoto-spring-shelf",
+      "type": "ExperienceShelf",
+      "data": {
+        "eyebrow": "Kyoto · Spring",
+        "title": "Blossom windows, early garden access, and slower dinners",
+        "intro": "Cherry season changes the rhythm of the entire city. These packages shift the timing, add garden reservations, and build in the kaiseki evening pace that spring deserves."
+      },
+      "slots": {
+        "items": {
+          "slot_id": "items",
+          "blocks": [
+            {
+              "id": "kyoto-spring-note",
+              "type": "PlanningNote",
+              "data": {
+                "eyebrow": "Spring timing",
+                "title": "Book garden districts before midday and let the evening become ritual, not transit",
+                "body": "Maruyama Park at peak blossom needs an early start. By 8am it’s quiet; by 10am you’re sharing it with half of Kyoto. The kaiseki evening pacing more than compensates.",
+                "tone": "sand"
+              }
+            },
+            {
+              "id": "kyoto-spring-blossom",
+              "type": "OfferCard",
+              "data": {
+                "eyebrow": "Kyoto · Spring · 5 nights",
+                "title": "Cherry blossom timing with quiet morning routes",
+                "summary": "Shifts temple visits to first light, adds garden reservations at Shinjuan and Daisen-in, and layers in an evening kaiseki dinner progression.",
+                "price": "From £1,420",
+                "meta": "5 nights · blossom timing · garden reservations",
+                "href": "/offers?country=japan&city=kyoto&season=spring",
+                "image": "/travel/kyoto-garden.svg",
+                "badge": "Spring edit"
+              }
+            },
+            {
+              "id": "kyoto-spring-base",
+              "type": "OfferCard",
+              "data": {
+                "eyebrow": "Kyoto · 4 nights",
+                "title": "Garden districts and dawn temple entries",
+                "summary": "The year-round Kyoto stay — Higashiyama base, early-entry planning, tea ceremony, and a Gion evening route.",
+                "price": "From £1,240",
+                "meta": "4 nights · tea ceremony · temple route",
+                "href": "/offers?country=japan&city=kyoto",
+                "image": "/travel/kyoto-garden.svg"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

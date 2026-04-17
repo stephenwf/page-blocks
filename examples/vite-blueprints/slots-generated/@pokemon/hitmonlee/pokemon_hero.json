@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vaGl0bW9ubGVlL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-hitmonlee",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 106,
+        "name": "hitmonlee",
+        "types": [
+          "fighting"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/106.png",
+        "description": "When in a hurry, its legs lengthen progressively. It runs smoothly with extra long, loping strides.",
+        "height": 15,
+        "weight": 498
+      }
+    }
+  ]
+}

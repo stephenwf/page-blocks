@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vcGlkZ2VvdHRvL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-pidgeotto",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 63,
+        "attack": 60,
+        "defense": 55,
+        "specialAttack": 50,
+        "specialDefense": 50,
+        "speed": 71
+      }
+    }
+  ]
+}

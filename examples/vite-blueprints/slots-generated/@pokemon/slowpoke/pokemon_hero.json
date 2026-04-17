@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vc2xvd3Bva2UvcG9rZW1vbl9oZXJvLmpzb24=",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-slowpoke",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 79,
+        "name": "slowpoke",
+        "types": [
+          "water",
+          "psychic"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/79.png",
+        "description": "Incredibly slow and dopey. It takes 5 seconds for it to feel pain when under attack.",
+        "height": 12,
+        "weight": 360
+      }
+    }
+  ]
+}

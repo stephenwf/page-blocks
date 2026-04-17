@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vd2VlZGxlL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-weedle",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 13,
+        "name": "weedle",
+        "types": [
+          "bug",
+          "poison"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/13.png",
+        "description": "Often found in forests, eating leaves. It has a sharp venomous stinger on its head.",
+        "height": 3,
+        "weight": 32
+      }
+    }
+  ]
+}

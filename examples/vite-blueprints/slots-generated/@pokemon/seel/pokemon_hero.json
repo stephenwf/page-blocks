@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vc2VlbC9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-seel",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 86,
+        "name": "seel",
+        "types": [
+          "water"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/86.png",
+        "description": "The protruding horn on its head is very hard. It is used for bashing through thick ice.",
+        "height": 11,
+        "weight": 900
+      }
+    }
+  ]
+}

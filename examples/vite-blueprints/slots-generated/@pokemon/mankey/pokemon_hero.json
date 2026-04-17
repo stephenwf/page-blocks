@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vbWFua2V5L3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-mankey",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 56,
+        "name": "mankey",
+        "types": [
+          "fighting"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/56.png",
+        "description": "Extremely quick to anger. It could be docile one moment then thrashing away the next instant.",
+        "height": 5,
+        "weight": 280
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vdmVub21vdGgvcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-venomoth",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 70,
+        "attack": 65,
+        "defense": 60,
+        "specialAttack": 90,
+        "specialDefense": 75,
+        "speed": 90
+      }
+    }
+  ]
+}

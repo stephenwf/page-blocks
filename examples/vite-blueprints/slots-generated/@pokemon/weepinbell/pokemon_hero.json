@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vd2VlcGluYmVsbC9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-weepinbell",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 70,
+        "name": "weepinbell",
+        "types": [
+          "grass",
+          "poison"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/70.png",
+        "description": "It spits out POISONPOWDER to immobilize the enemy and then finishes it with a spray of ACID.",
+        "height": 10,
+        "weight": 64
+      }
+    }
+  ]
+}

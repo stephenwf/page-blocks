@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vZ2VvZHVkZS9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-geodude",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 40,
+        "attack": 80,
+        "defense": 100,
+        "specialAttack": 30,
+        "specialDefense": 30,
+        "speed": 20
+      }
+    }
+  ]
+}

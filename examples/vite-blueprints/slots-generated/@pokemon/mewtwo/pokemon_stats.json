@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vbWV3dHdvL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-mewtwo",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 106,
+        "attack": 110,
+        "defense": 90,
+        "specialAttack": 154,
+        "specialDefense": 90,
+        "speed": 130
+      }
+    }
+  ]
+}

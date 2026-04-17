@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vbW9sdHJlcy9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-moltres",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 90,
+        "attack": 100,
+        "defense": 90,
+        "specialAttack": 125,
+        "specialDefense": 85,
+        "speed": 90
+      }
+    }
+  ]
+}

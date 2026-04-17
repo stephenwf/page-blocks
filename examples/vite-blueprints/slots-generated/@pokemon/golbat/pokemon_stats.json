@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vZ29sYmF0L3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-golbat",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 75,
+        "attack": 80,
+        "defense": 70,
+        "specialAttack": 65,
+        "specialDefense": 75,
+        "speed": 90
+      }
+    }
+  ]
+}

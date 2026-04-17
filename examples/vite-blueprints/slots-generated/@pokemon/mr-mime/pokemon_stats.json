@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vbXItbWltZS9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-mr-mime",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 40,
+        "attack": 45,
+        "defense": 65,
+        "specialAttack": 100,
+        "specialDefense": 120,
+        "speed": 90
+      }
+    }
+  ]
+}

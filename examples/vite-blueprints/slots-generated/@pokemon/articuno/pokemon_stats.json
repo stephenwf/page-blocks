@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vYXJ0aWN1bm8vcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-articuno",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 90,
+        "attack": 85,
+        "defense": 100,
+        "specialAttack": 95,
+        "specialDefense": 125,
+        "speed": 85
+      }
+    }
+  ]
+}

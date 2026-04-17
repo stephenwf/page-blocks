@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vbWFjaG9wL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-machop",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 66,
+        "name": "machop",
+        "types": [
+          "fighting"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/66.png",
+        "description": "Loves to build its muscles. It trains in all styles of martial arts to become even stronger.",
+        "height": 8,
+        "weight": 195
+      }
+    }
+  ]
+}

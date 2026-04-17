@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vbmlkb3Jhbi1tL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-nidoran-m",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 32,
+        "name": "nidoran-m",
+        "types": [
+          "poison"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/32.png",
+        "description": "Stiffens its ears to sense danger. The larger its horns, the more powerful its secreted venom.",
+        "height": 5,
+        "weight": 90
+      }
+    }
+  ]
+}

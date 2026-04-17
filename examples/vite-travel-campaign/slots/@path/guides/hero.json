@@ -1,0 +1,23 @@
+{
+  "name": "hero",
+  "blocks": [
+    {
+      "id": "guides-hero",
+      "type": "CampaignHero",
+      "data": {
+        "eyebrow": "Destination guides",
+        "title": "How to pace a city, not just what to book",
+        "body": "Each guide is built around neighbourhood logic — morning direction, afternoon shade, and evening reservation timing — rather than a list of sights.",
+        "image": "/travel/atlas-window.svg",
+        "ctaLabel": "Try the Lisbon guide",
+        "ctaHref": "/guides?country=portugal&city=lisbon",
+        "statOneLabel": "Format",
+        "statOneValue": "Day-by-day",
+        "statTwoLabel": "Focus",
+        "statTwoValue": "Neighbourhoods",
+        "statThreeLabel": "Cities covered",
+        "statThreeValue": "4"
+      }
+    }
+  ]
+}

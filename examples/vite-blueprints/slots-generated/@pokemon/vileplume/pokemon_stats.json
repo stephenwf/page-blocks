@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vdmlsZXBsdW1lL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-vileplume",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 75,
+        "attack": 80,
+        "defense": 85,
+        "specialAttack": 110,
+        "specialDefense": 90,
+        "speed": 50
+      }
+    }
+  ]
+}

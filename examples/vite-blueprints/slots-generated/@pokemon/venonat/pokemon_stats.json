@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vdmVub25hdC9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-venonat",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 60,
+        "attack": 55,
+        "defense": 50,
+        "specialAttack": 40,
+        "specialDefense": 55,
+        "speed": 45
+      }
+    }
+  ]
+}

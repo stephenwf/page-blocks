@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vbWFyb3dhay9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-marowak",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 105,
+        "name": "marowak",
+        "types": [
+          "ground"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/105.png",
+        "description": "The bone it holds is its key weapon. It throws the bone skillfully like a boomerang to KO targets.",
+        "height": 10,
+        "weight": 450
+      }
+    }
+  ]
+}

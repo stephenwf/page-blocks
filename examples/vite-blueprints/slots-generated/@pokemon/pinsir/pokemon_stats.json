@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vcGluc2lyL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-pinsir",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 65,
+        "attack": 125,
+        "defense": 100,
+        "specialAttack": 55,
+        "specialDefense": 70,
+        "speed": 85
+      }
+    }
+  ]
+}

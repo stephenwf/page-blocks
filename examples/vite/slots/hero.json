@@ -1,0 +1,16 @@
+{
+  "name": "hero",
+  "blocks": [
+    {
+      "id": "hero-intro",
+      "type": "CalloutCard",
+      "data": {
+        "eyebrow": "Single package test",
+        "title": "Vite is now the primary example",
+        "body": "This page uses the workspace page-blocks package, the native Vite plugin, and filesystem-backed slots that you can edit locally.",
+        "href": "/block-archive",
+        "linkLabel": "Open the block archive"
+      }
+    }
+  ]
+}

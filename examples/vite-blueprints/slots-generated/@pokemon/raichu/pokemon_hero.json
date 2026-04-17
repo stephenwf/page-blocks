@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vcmFpY2h1L3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-raichu",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 26,
+        "name": "raichu",
+        "types": [
+          "electric"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/26.png",
+        "description": "Its long tail serves as a ground to protect itself from its own high-voltage power.",
+        "height": 8,
+        "weight": 300
+      }
+    }
+  ]
+}

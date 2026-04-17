@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vZGl0dG8vcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-ditto",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 48,
+        "attack": 48,
+        "defense": 48,
+        "specialAttack": 48,
+        "specialDefense": 48,
+        "speed": 48
+      }
+    }
+  ]
+}

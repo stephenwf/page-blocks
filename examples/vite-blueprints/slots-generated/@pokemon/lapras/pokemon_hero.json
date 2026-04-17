@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vbGFwcmFzL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-lapras",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 131,
+        "name": "lapras",
+        "types": [
+          "water",
+          "ice"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/131.png",
+        "description": "A POKéMON that has been over­ hunted almost to extinction. It can ferry people across the water.",
+        "height": 25,
+        "weight": 2200
+      }
+    }
+  ]
+}

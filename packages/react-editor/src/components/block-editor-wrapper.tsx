@@ -1,5 +1,6 @@
 import { useStore } from '@nanostores/react';
 import { currentBlock, pendingBlockProps, SlotEditingClient } from '@page-blocks/client';
+import { SlotResponse } from '@page-blocks/core';
 import { BlockEditor } from './block-editor';
 
 export function BlockEditorWrapper({
@@ -11,6 +12,7 @@ export function BlockEditorWrapper({
   blockId: string;
   blockConfig: any;
   data: any;
+  slotSource?: SlotResponse['source'];
 }) {
   const current = useStore(currentBlock);
   if ((!props.slotId && !current?.parent) || !current) {
@@ -25,6 +27,8 @@ export function BlockEditorWrapper({
           key={props.blockId + '@@' + props.slotId}
           block={props.blockConfig}
           data={props.data || {}}
+          slotSource={props.slotSource}
+          activeContext={current.context || {}}
           onClose={() => {
             pendingBlockProps.set(undefined);
             currentBlock.set(undefined);

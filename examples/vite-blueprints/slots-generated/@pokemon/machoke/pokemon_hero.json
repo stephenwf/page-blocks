@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vbWFjaG9rZS9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-machoke",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 67,
+        "name": "machoke",
+        "types": [
+          "fighting"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/67.png",
+        "description": "Its muscular body is so powerful, it must wear a power save belt to be able to regulate its motions.",
+        "height": 15,
+        "weight": 705
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vdmFwb3Jlb24vcG9rZW1vbl9oZXJvLmpzb24=",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-vaporeon",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 134,
+        "name": "vaporeon",
+        "types": [
+          "water"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/134.png",
+        "description": "Lives close to water. Its long tail is ridged with a fin which is often mistaken for a mermaid's.",
+        "height": 10,
+        "weight": 290
+      }
+    }
+  ]
+}

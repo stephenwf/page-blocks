@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vc2hlbGxkZXIvcG9rZW1vbl9oZXJvLmpzb24=",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-shellder",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 90,
+        "name": "shellder",
+        "types": [
+          "water"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/90.png",
+        "description": "Its hard shell repels any kind of attack. It is vulnerable only when its shell is open.",
+        "height": 3,
+        "weight": 40
+      }
+    }
+  ]
+}

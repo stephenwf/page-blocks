@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vbmlkb2tpbmcvcG9rZW1vbl9oZXJvLmpzb24=",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-nidoking",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 34,
+        "name": "nidoking",
+        "types": [
+          "poison",
+          "ground"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/34.png",
+        "description": "It uses its powerful tail in battle to smash, constrict, then break the prey's bones.",
+        "height": 14,
+        "weight": 620
+      }
+    }
+  ]
+}

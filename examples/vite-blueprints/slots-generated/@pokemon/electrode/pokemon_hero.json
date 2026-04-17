@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vZWxlY3Ryb2RlL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-electrode",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 101,
+        "name": "electrode",
+        "types": [
+          "electric"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/101.png",
+        "description": "It stores electric energy under very high pressure. It often explodes with little or no provocation.",
+        "height": 12,
+        "weight": 666
+      }
+    }
+  ]
+}

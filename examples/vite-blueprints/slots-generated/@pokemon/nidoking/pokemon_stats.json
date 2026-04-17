@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vbmlkb2tpbmcvcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-nidoking",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 81,
+        "attack": 102,
+        "defense": 77,
+        "specialAttack": 85,
+        "specialDefense": 75,
+        "speed": 85
+      }
+    }
+  ]
+}

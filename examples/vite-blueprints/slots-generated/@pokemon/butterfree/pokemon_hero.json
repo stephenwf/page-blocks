@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vYnV0dGVyZnJlZS9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-butterfree",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 12,
+        "name": "butterfree",
+        "types": [
+          "bug",
+          "flying"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/12.png",
+        "description": "In battle, it flaps its wings at high speed to release highly toxic dust into the air.",
+        "height": 11,
+        "weight": 320
+      }
+    }
+  ]
+}

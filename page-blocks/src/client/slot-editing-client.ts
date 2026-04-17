@@ -1,0 +1,105 @@
+import {
+  BlockApiRequest,
+  CreateSlot,
+  DirectoryOptions,
+  QuerySubContextBlocksRequest,
+  SlotApiRequest,
+  SlotRequest,
+} from '../core';
+import { isPageBlocksReadOnly, mergePageBlocksContext, resolveDirectoryResolver } from '../vite/runtime';
+
+export type SlotEditingClient = ReturnType<typeof createSlotEditingClient>;
+
+export function createSlotEditingClient(
+  options: DirectoryOptions<any>,
+  config?: { onMutation?: (req: SlotApiRequest, resp: any) => void | Promise<void> }
+) {
+  //
+  const makeRequest = async (req: SlotApiRequest) => {
+    if (isPageBlocksReadOnly()) {
+      throw new Error('Page Blocks editing is disabled in read-only builds.');
+    }
+
+    const resolver = resolveDirectoryResolver(options);
+    if (!resolver.endpoint) {
+      throw new Error('page-blocks could not resolve an editor endpoint for this build.');
+    }
+
+    let request = req;
+    if ('context' in request && request.context && typeof request.context !== 'string') {
+      request = {
+        ...request,
+        context: mergePageBlocksContext((options.context as Record<string, string>) || {}, request.context),
+      } as SlotApiRequest;
+    }
+
+    const response = await fetch(resolver.endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(request),
+    }).then((res) => res.json());
+
+    if (config && config.onMutation) {
+      await config.onMutation(request, response);
+    }
+    return response;
+  };
+
+  return {
+    getSlot: (slotId: string, parent?: { blockId: string; slotId: string }) => {
+      return makeRequest({ type: 'get-slot', slotId, parent });
+    },
+    getSlotList: (context: any, slots: string[], parent?: { blockId: string; slotId: string }) => {
+      return makeRequest({ type: 'request-slots', context, slots, parent });
+    },
+    updateSlot: (slotId: string, data: any, parent?: { blockId: string; slotId: string }) => {
+      return makeRequest({ type: 'update-slot', slotId, data, parent });
+    },
+    createSlot: (slot: string, matches: CreateSlot['matches'], parent?: { blockId: string; slotId: string }) => {
+      if (parent) {
+        throw new Error('Cannot create slot within a block.');
+      }
+      return makeRequest({ type: 'create-slot', slot, matches });
+    },
+    deleteSlot: (slotId: string, parent?: { blockId: string; slotId: string }) => {
+      return makeRequest({ type: 'delete-slot', slotId, parent });
+    },
+    createBlock: (slotId: string, block: any, parent?: { blockId: string; slotId: string }) => {
+      return makeRequest({ type: 'create-block', slotId, block, parent });
+    },
+    deleteBlock: (slotId: string, blockId: string, parent?: { blockId: string; slotId: string }) => {
+      return makeRequest({ type: 'delete-block', slotId, blockId, parent });
+    },
+    updateBlock: (slotId: string, blockId: string, block: any, parent?: { blockId: string; slotId: string }) => {
+      return makeRequest({ type: 'update-block', slotId, blockId, block, parent });
+    },
+    updateBlockProps: (slotId: string, blockId: string, props: any, parent?: { blockId: string; slotId: string }) => {
+      return makeRequest({ type: 'update-block-props', slotId, blockId, props, parent });
+    },
+    reorderBlocks: (slotId: string, blockIds: string[], parent?: { blockId: string; slotId: string }) => {
+      // queryClient.invalidateQueries(['slot', slotId]);
+      return makeRequest({ type: 'reorder-blocks', slotId, blockIds, parent });
+    },
+    updateSlotOptions: (slotId: string, options: any, parent?: { blockId: string; slotId: string }) => {
+      return makeRequest({ type: 'update-slot-options', slotId, options, parent });
+    },
+    moveBlockUp: (slotId: string, blockId: string, parent?: { blockId: string; slotId: string }) => {
+      return makeRequest({ type: 'move-block-up', slotId, blockId, parent });
+    },
+    moveBlockDown: (slotId: string, blockId: string, parent?: { blockId: string; slotId: string }) => {
+      return makeRequest({ type: 'move-block-down', slotId, blockId, parent });
+    },
+    queryContextValues: (context: string) => {
+      return makeRequest({ type: 'query-context-values', context });
+    },
+    querySubContext: (context: Record<string, string>) => {
+      return makeRequest({ type: 'query-sub-context', context });
+    },
+    querySubContextBlocks: (context: Record<string, string>, queryOptions: QuerySubContextBlocksRequest['options']) => {
+      return makeRequest({ type: 'query-sub-context-blocks', context, options: queryOptions });
+    },
+    generateScreenshots() {
+      return makeRequest({ type: 'generate-screenshots' });
+    },
+  };
+}

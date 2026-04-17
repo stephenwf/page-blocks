@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vbXItbWltZS9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-mr-mime",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 122,
+        "name": "mr-mime",
+        "types": [
+          "psychic",
+          "fairy"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/122.png",
+        "description": "If interrupted while it is miming, it will slap around the offender with its broad hands.",
+        "height": 13,
+        "weight": 545
+      }
+    }
+  ]
+}

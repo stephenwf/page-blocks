@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vZ3JpbWVyL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-grimer",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 88,
+        "name": "grimer",
+        "types": [
+          "poison"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/88.png",
+        "description": "Appears in filthy areas. Thrives by sucking up polluted sludge that is pumped out of factories.",
+        "height": 9,
+        "weight": 300
+      }
+    }
+  ]
+}

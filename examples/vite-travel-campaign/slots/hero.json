@@ -1,0 +1,23 @@
+{
+  "name": "hero",
+  "blocks": [
+    {
+      "id": "landing-hero",
+      "type": "CampaignHero",
+      "data": {
+        "eyebrow": "Curated travel",
+        "title": "Two countries. Four cities. One unhurried pace.",
+        "body": "We build itineraries around neighbourhoods, not checklists — with early-entry timing, honest hotel picks, and no wasted midday hours.",
+        "image": "/travel/atlas-window.svg",
+        "ctaLabel": "Start with Portugal",
+        "ctaHref": "/guides?country=portugal&city=lisbon",
+        "statOneLabel": "Countries",
+        "statOneValue": "Portugal & Japan",
+        "statTwoLabel": "Stay length",
+        "statTwoValue": "3–7 nights",
+        "statThreeLabel": "Est.",
+        "statThreeValue": "2012"
+      }
+    }
+  ]
+}

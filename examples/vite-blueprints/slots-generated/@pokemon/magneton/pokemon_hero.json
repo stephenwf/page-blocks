@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vbWFnbmV0b24vcG9rZW1vbl9oZXJvLmpzb24=",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-magneton",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 82,
+        "name": "magneton",
+        "types": [
+          "electric",
+          "steel"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/82.png",
+        "description": "Formed by several MAGNEMITEs linked together. They frequently appear when sunspots flare up.",
+        "height": 10,
+        "weight": 600
+      }
+    }
+  ]
+}

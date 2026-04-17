@@ -1,0 +1,23 @@
+{
+  "name": "hero",
+  "blocks": [
+    {
+      "id": "offers-hero",
+      "type": "CampaignHero",
+      "data": {
+        "eyebrow": "Curated packages",
+        "title": "Packages that change with where and when you go",
+        "body": "Use the destination controls to narrow the offer set. Country changes the mix; adding a season sharpens it to the best available timing.",
+        "image": "/travel/porto-river.svg",
+        "ctaLabel": "Try Lisbon in summer",
+        "ctaHref": "/offers?country=portugal&city=lisbon&season=summer",
+        "statOneLabel": "Portugal from",
+        "statOneValue": "£590",
+        "statTwoLabel": "Japan from",
+        "statTwoValue": "£1,180",
+        "statThreeLabel": "Max. group",
+        "statThreeValue": "8 guests"
+      }
+    }
+  ]
+}

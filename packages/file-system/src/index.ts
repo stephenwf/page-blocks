@@ -1,10 +1,17 @@
 import { readFile, unlink, writeFile } from 'fs/promises';
-import { join, relative } from 'path';
+import { join, relative, resolve } from 'path';
 import { mkdirp } from 'mkdirp';
 import { existsSync } from 'fs';
-import { base64ToText, readAllFiles } from './utils';
+import { base64ToText, readAllFiles, textToBase64 } from './utils';
 import { loaderAdapter } from '@page-blocks/node';
-import { BlockWithOptionalSlotResponse, CreateSlot, FullSlotLoader } from '@page-blocks/core';
+import {
+  BlockWithOptionalSlotResponse,
+  CreateSlot,
+  FullSlotLoader,
+  SlotResponse,
+  SlotSourceContextMatch,
+  SlotSourceMetadata,
+} from '@page-blocks/core';
 import { ContextFlatNode } from './types';
 import { parseSingleFile } from './parse-single-file';
 import { findMatch } from './find-match';
@@ -15,9 +22,74 @@ export function createFileSystemLoader(options: { path: string; contexts: string
 
   let parsed: ContextFlatNode[] = [];
   let fresh = false;
+  const toAbsoluteFilePath = (filePath: string) => resolve(options.path, filePath);
+
+  const sortByContextOrder = <T extends { id: string }>(values: T[]) => {
+    return [...values].sort((left, right) => options.contexts.indexOf(left.id) - options.contexts.indexOf(right.id));
+  };
+
+  const toMatchedContexts = (
+    entry?: ContextFlatNode | null,
+    fallbackMatches?: CreateSlot['matches']
+  ): SlotSourceContextMatch[] => {
+    if (entry) {
+      return sortByContextOrder(entry.contexts).map((context) => {
+        if (context.match.type === 'exact') {
+          return { id: context.id, type: 'exact', value: context.match.value };
+        }
+        if (context.match.type === 'filter') {
+          return { id: context.id, type: 'filter', value: context.match.included.join(', ') };
+        }
+        return { id: context.id, type: context.match.type };
+      });
+    }
+
+    if (!fallbackMatches) {
+      return [];
+    }
+
+    return sortByContextOrder(fallbackMatches).map((match) => {
+      if (match.type === 'exact') {
+        return { id: match.id, type: 'exact', value: match.value };
+      }
+      return { id: match.id, type: match.type };
+    });
+  };
+
+  const createSourceMetadata = (
+    filePath: string,
+    entry?: ContextFlatNode | null,
+    fallbackMatches?: CreateSlot['matches']
+  ): SlotSourceMetadata => ({
+    filePath,
+    matchedContexts: toMatchedContexts(entry, fallbackMatches),
+  });
+
+  const normalizeSlotResponse = (
+    slotId: string,
+    slotName: string,
+    data: any,
+    source?: SlotSourceMetadata
+  ): SlotResponse => ({
+    ...data,
+    id: data.id || slotId,
+    slot: data.slot || data.name || slotName,
+    source,
+  });
+
+  const stripSlotSource = (data: any) => {
+    if (!data || typeof data !== 'object' || Array.isArray(data)) {
+      return data;
+    }
+
+    const { source, ...persisted } = data;
+    return persisted;
+  };
 
   return loaderAdapter({
     async init(force = false) {
+      await mkdirp(options.path);
+
       if (!force && !fresh) {
         const files = Array.from(readAllFiles(options.path));
         parsed = [];
@@ -44,12 +116,13 @@ export function createFileSystemLoader(options: { path: string; contexts: string
       const slots: Record<string, any> = {};
       const slotNames: string[] = [];
       for (const key of keys) {
-        const hash = matches.slots[key].id;
+        const matchedSlot = matches.slots[key];
+        const hash = matchedSlot.id;
         const fileName = base64ToText(hash);
-        const data = await readFile(join(options.path, fileName), { flag: 'rs', encoding: 'utf8' });
+        const absoluteFilePath = toAbsoluteFilePath(fileName);
+        const data = await readFile(absoluteFilePath, { flag: 'rs', encoding: 'utf8' });
         const json = JSON.parse(data);
-        json.id = json.id || hash;
-        slots[key] = json;
+        slots[key] = normalizeSlotResponse(hash, matchedSlot.slot, json, createSourceMetadata(absoluteFilePath, matchedSlot));
         slotNames.push(key);
       }
       return { slots, isEmpty: slotNames.length === 0, slotNames, context } as any;
@@ -59,15 +132,23 @@ export function createFileSystemLoader(options: { path: string; contexts: string
         await this.init();
       }
       const fileName = base64ToText(slotId);
-      const data = await readFile(join(options.path, fileName), 'utf8');
-      return JSON.parse(data);
+      const absoluteFilePath = toAbsoluteFilePath(fileName);
+      const data = await readFile(absoluteFilePath, 'utf8');
+      const json = JSON.parse(data);
+      const matchedSlot = parsed.find((entry) => entry.id === slotId) || parseSingleFile(fileName, options.contexts);
+      return normalizeSlotResponse(
+        slotId,
+        matchedSlot?.slot || json.slot || json.name || slotId,
+        json,
+        createSourceMetadata(absoluteFilePath, matchedSlot)
+      );
     },
     async update(slotId: string, data: any) {
       if (!fresh) {
         await this.init();
       }
       const fileName = base64ToText(slotId);
-      await writeFile(join(options.path, fileName), JSON.stringify(data, null, 2));
+      await writeFile(toAbsoluteFilePath(fileName), JSON.stringify(stripSlotSource(data), null, 2));
 
       await this.init(true);
     },
@@ -110,7 +191,12 @@ export function createFileSystemLoader(options: { path: string; contexts: string
 
       fresh = false;
 
-      return data as any;
+      return normalizeSlotResponse(
+        textToBase64(pathToFile),
+        slot,
+        data,
+        createSourceMetadata(resolve(resolved), parsedSingle, matches)
+      );
     },
     async delete(slotId: string) {
       if (!fresh) {

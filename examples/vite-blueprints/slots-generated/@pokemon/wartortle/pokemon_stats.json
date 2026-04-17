@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vd2FydG9ydGxlL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-wartortle",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 59,
+        "attack": 63,
+        "defense": 80,
+        "specialAttack": 65,
+        "specialDefense": 80,
+        "speed": 58
+      }
+    }
+  ]
+}

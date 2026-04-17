@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vcG9saXdyYXRoL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-poliwrath",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 62,
+        "name": "poliwrath",
+        "types": [
+          "water",
+          "fighting"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/62.png",
+        "description": "An adept swimmer at both the front crawl and breast stroke. Easily overtakes the best human swimmers.",
+        "height": 13,
+        "weight": 540
+      }
+    }
+  ]
+}

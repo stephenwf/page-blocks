@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24venViYXQvcG9rZW1vbl9oZXJvLmpzb24=",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-zubat",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 41,
+        "name": "zubat",
+        "types": [
+          "poison",
+          "flying"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/41.png",
+        "description": "Forms colonies in perpetually dark places. Uses ultrasonic waves to identify and approach targets.",
+        "height": 8,
+        "weight": 75
+      }
+    }
+  ]
+}

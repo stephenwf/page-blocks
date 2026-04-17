@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vbWFnaWthcnAvcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-magikarp",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 20,
+        "attack": 10,
+        "defense": 55,
+        "specialAttack": 15,
+        "specialDefense": 20,
+        "speed": 80
+      }
+    }
+  ]
+}

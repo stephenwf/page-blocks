@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vZHVndHJpby9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-dugtrio",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 35,
+        "attack": 100,
+        "defense": 50,
+        "specialAttack": 50,
+        "specialDefense": 70,
+        "speed": 120
+      }
+    }
+  ]
+}

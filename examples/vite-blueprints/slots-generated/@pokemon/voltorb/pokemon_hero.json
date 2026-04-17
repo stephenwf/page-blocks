@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vdm9sdG9yYi9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-voltorb",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 100,
+        "name": "voltorb",
+        "types": [
+          "electric"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/100.png",
+        "description": "Usually found in power plants. Easily mistaken for a POKé BALL, they have zapped many people.",
+        "height": 5,
+        "weight": 104
+      }
+    }
+  ]
+}

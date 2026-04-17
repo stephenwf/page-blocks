@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vZHJhdGluaS9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-dratini",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 41,
+        "attack": 64,
+        "defense": 45,
+        "specialAttack": 50,
+        "specialDefense": 50,
+        "speed": 50
+      }
+    }
+  ]
+}

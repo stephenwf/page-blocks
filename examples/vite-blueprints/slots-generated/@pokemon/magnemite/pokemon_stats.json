@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vbWFnbmVtaXRlL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-magnemite",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 25,
+        "attack": 35,
+        "defense": 70,
+        "specialAttack": 95,
+        "specialDefense": 55,
+        "speed": 45
+      }
+    }
+  ]
+}

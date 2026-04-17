@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vc3F1aXJ0bGUvcG9rZW1vbl9oZXJvLmpzb24=",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-squirtle",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 7,
+        "name": "squirtle",
+        "types": [
+          "water"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png",
+        "description": "After birth, its back swells and hardens into a shell. Powerfully sprays foam from its mouth.",
+        "height": 5,
+        "weight": 90
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vcmF0aWNhdGUvcG9rZW1vbl9oZXJvLmpzb24=",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-raticate",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 20,
+        "name": "raticate",
+        "types": [
+          "normal"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/20.png",
+        "description": "It uses its whis­ kers to maintain its balance. It apparently slows down if they are cut off.",
+        "height": 7,
+        "weight": 185
+      }
+    }
+  ]
+}

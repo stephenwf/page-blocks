@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vZHJhZ29uYWlyL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-dragonair",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 61,
+        "attack": 84,
+        "defense": 65,
+        "specialAttack": 70,
+        "specialDefense": 70,
+        "speed": 70
+      }
+    }
+  ]
+}

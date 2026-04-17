@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vaG9yc2VhL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-horsea",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 116,
+        "name": "horsea",
+        "types": [
+          "water"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/116.png",
+        "description": "Known to shoot down flying bugs with precision blasts of ink from the surface of the water.",
+        "height": 4,
+        "weight": 80
+      }
+    }
+  ]
+}

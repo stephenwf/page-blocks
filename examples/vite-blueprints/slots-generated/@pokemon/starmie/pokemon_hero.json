@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vc3Rhcm1pZS9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-starmie",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 121,
+        "name": "starmie",
+        "types": [
+          "water",
+          "psychic"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/121.png",
+        "description": "Its central core glows with the seven colors of the rainbow. Some people value the core as a gem.",
+        "height": 11,
+        "weight": 800
+      }
+    }
+  ]
+}

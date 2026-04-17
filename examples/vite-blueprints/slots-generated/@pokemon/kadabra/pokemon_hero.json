@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24va2FkYWJyYS9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-kadabra",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 64,
+        "name": "kadabra",
+        "types": [
+          "psychic"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/64.png",
+        "description": "It emits special alpha waves from its body that induce headaches just by being close by.",
+        "height": 13,
+        "weight": 565
+      }
+    }
+  ]
+}

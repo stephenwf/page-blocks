@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vZ2FzdGx5L3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-gastly",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 30,
+        "attack": 35,
+        "defense": 30,
+        "specialAttack": 100,
+        "specialDefense": 35,
+        "speed": 80
+      }
+    }
+  ]
+}

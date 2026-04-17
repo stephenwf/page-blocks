@@ -1,0 +1,369 @@
+import { readFile } from 'node:fs/promises';
+import { posix, relative, resolve } from 'node:path';
+import { mkdirp } from 'mkdirp';
+import type { IncomingMessage, ServerResponse } from 'node:http';
+import type { Plugin, UserConfig } from 'vite';
+import { ContextFlatNode, normalizeSlotResponse, PageBlocksStaticManifest, SlotResponse } from '../core';
+import { compileBlueprintFiles } from '../designer';
+import { createFileSystemLoader } from '../file-system';
+import { parseSingleFile } from '../file-system/parse-single-file';
+import { readAllFiles } from '../file-system/utils';
+import { createRequestHandler } from '../node';
+import { createManifestLoader } from './manifest-loader';
+import {
+  pageBlocksStaticFilesManifestDefine,
+  pageBlocksStaticManifestDefine,
+  pageBlocksStaticModeDefine,
+  PageBlocksStaticFilesRuntimeManifest,
+  pageBlocksViteConfigDefine,
+  PageBlocksRuntimeConfig,
+  PageBlocksViteOptions,
+  ResolvedPageBlocksViteOptions,
+} from './shared';
+
+type ViteConfigEnv = {
+  command: 'build' | 'serve';
+  mode: string;
+  isSsrBuild?: boolean;
+};
+
+interface ResolvedPluginOptions extends ResolvedPageBlocksViteOptions {
+  designs?: string | string[];
+  generateScreenshots?: () => Promise<void>;
+}
+
+type StaticSlotSource = {
+  entry: ContextFlatNode;
+  relativePath: string;
+  slot: SlotResponse;
+};
+
+type StaticBuildAsset = {
+  fileName: string;
+  source: string;
+};
+
+type StaticBuildState = {
+  runtimeConfig: PageBlocksRuntimeConfig;
+  manifest?: PageBlocksStaticManifest;
+  staticFilesManifest?: PageBlocksStaticFilesRuntimeManifest;
+  staticAssets?: StaticBuildAsset[];
+};
+
+function toPosixPath(value: string) {
+  return value.replaceAll('\\', '/');
+}
+
+function normalizeBasePath(basePath?: string) {
+  if (!basePath) {
+    return '/';
+  }
+
+  return basePath.endsWith('/') ? basePath : `${basePath}/`;
+}
+
+function normalizeStaticAssetDir(staticAssetDir?: string) {
+  const normalized = toPosixPath(staticAssetDir || 'page-blocks/slots').replace(/^\/+|\/+$/g, '');
+  return normalized || 'page-blocks/slots';
+}
+
+function resolvePluginOptions(
+  root: string,
+  basePath: string | undefined,
+  options: PageBlocksViteOptions = {}
+): ResolvedPluginOptions {
+  return {
+    mode: 'server',
+    readOnly: false,
+    root,
+    slotsDir: resolve(root, options.slotsDir || 'slots'),
+    apiPath: options.apiPath || '/api/page-blocks',
+    contexts: options.contexts?.length ? options.contexts : ['path'],
+    screenshots: options.screenshots,
+    designs: options.designs,
+    defaultContexts: ['path'],
+    basePath: normalizeBasePath(basePath),
+    staticOutput: options.staticOutput || 'inline',
+    staticAssetDir: normalizeStaticAssetDir(options.staticAssetDir),
+    generateScreenshots: options.generateScreenshots,
+  };
+}
+
+async function collectStaticSlotSources(options: ResolvedPluginOptions): Promise<StaticSlotSource[]> {
+  await mkdirp(options.slotsDir);
+
+  const entries: StaticSlotSource[] = [];
+
+  for (const file of Array.from(readAllFiles(options.slotsDir))) {
+    if (!file.endsWith('.json')) {
+      continue;
+    }
+
+    const relativePath = toPosixPath(relative(options.slotsDir, file));
+    const entry = parseSingleFile(relativePath, options.contexts);
+    if (!entry) {
+      continue;
+    }
+
+    const json = JSON.parse(await readFile(file, 'utf8'));
+    entries.push({
+      entry,
+      relativePath,
+      slot: normalizeSlotResponse(entry.id, entry.slot, json),
+    });
+  }
+
+  return entries;
+}
+
+async function buildStaticManifest(options: ResolvedPluginOptions): Promise<PageBlocksStaticManifest> {
+  const entries = await collectStaticSlotSources(options);
+
+  return {
+    contexts: options.contexts,
+    entries: entries.map(({ entry }) => entry),
+    slots: Object.fromEntries(entries.map(({ entry, slot }) => [entry.id, slot])),
+  };
+}
+
+async function buildStaticFilesManifest(options: ResolvedPluginOptions): Promise<{
+  manifest: PageBlocksStaticFilesRuntimeManifest;
+  assets: StaticBuildAsset[];
+}> {
+  const entries = await collectStaticSlotSources(options);
+
+  return {
+    manifest: {
+      contexts: options.contexts,
+      entries: entries.map(({ entry, relativePath }) => ({
+        ...entry,
+        file: posix.join(options.staticAssetDir, relativePath),
+      })),
+    },
+    assets: entries.map(({ relativePath, slot }) => ({
+      fileName: posix.join(options.staticAssetDir, relativePath),
+      source: JSON.stringify(slot, null, 2),
+    })),
+  };
+}
+
+async function readBody(req: IncomingMessage) {
+  const chunks: Uint8Array[] = [];
+
+  for await (const chunk of req) {
+    chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk);
+  }
+
+  return Buffer.concat(chunks).toString('utf8');
+}
+
+function sendJson(
+  res: ServerResponse<IncomingMessage>,
+  status: number,
+  body: unknown
+) {
+  const payload = JSON.stringify(body);
+  res.writeHead(status, {
+    'content-type': 'application/json; charset=utf-8',
+    'cache-control': 'no-store',
+  });
+  res.end(payload);
+}
+
+function isWithinDirectory(root: string, file: string) {
+  const rel = relative(root, file);
+  return rel === '' || (!rel.startsWith('..') && !rel.startsWith('../'));
+}
+
+function toRuntimeConfig(
+  options: ResolvedPluginOptions,
+  env: ViteConfigEnv
+): StaticBuildState | Promise<StaticBuildState> {
+  const isStaticClientBuild = env.command === 'build' && !env.isSsrBuild;
+
+  if (!isStaticClientBuild) {
+    return {
+      runtimeConfig: {
+        mode: 'server',
+        readOnly: Boolean(options.designs),
+        apiPath: options.apiPath,
+        root: options.root,
+        slotsDir: options.slotsDir,
+        contexts: options.contexts,
+        screenshots: options.screenshots,
+        basePath: options.basePath,
+        defaultContexts: options.defaultContexts,
+      },
+    };
+  }
+
+  if (options.staticOutput === 'lazy-files') {
+    return buildStaticFilesManifest(options).then(({ manifest, assets }) => ({
+      runtimeConfig: {
+        mode: 'static-files',
+        readOnly: true,
+        contexts: options.contexts,
+        screenshots: options.screenshots,
+        basePath: options.basePath,
+        defaultContexts: options.defaultContexts,
+      },
+      staticFilesManifest: manifest,
+      staticAssets: assets,
+    }));
+  }
+
+  return buildStaticManifest(options).then((manifest) => ({
+    runtimeConfig: {
+      mode: 'static',
+      readOnly: true,
+      contexts: options.contexts,
+      screenshots: options.screenshots,
+      basePath: options.basePath,
+      defaultContexts: options.defaultContexts,
+    },
+    manifest,
+  }));
+}
+
+export type { PageBlocksViteOptions } from './shared';
+
+export default function pageBlocks(options: PageBlocksViteOptions = {}): Plugin {
+  let resolvedOptions: ResolvedPluginOptions | null = null;
+  let staticAssetsToEmit: StaticBuildAsset[] = [];
+
+  return {
+    name: 'page-blocks:vite',
+    async config(config, env) {
+      const root = resolve(config.root || process.cwd());
+      resolvedOptions = resolvePluginOptions(root, config.base, options);
+
+      const { runtimeConfig, manifest, staticFilesManifest, staticAssets } = await toRuntimeConfig(
+        resolvedOptions,
+        env as ViteConfigEnv
+      );
+      staticAssetsToEmit = staticAssets || [];
+
+      return {
+        define: {
+          [pageBlocksViteConfigDefine]: JSON.stringify(runtimeConfig),
+          [pageBlocksStaticManifestDefine]: manifest ? JSON.stringify(manifest) : 'undefined',
+          [pageBlocksStaticFilesManifestDefine]: staticFilesManifest ? JSON.stringify(staticFilesManifest) : 'undefined',
+          [pageBlocksStaticModeDefine]: runtimeConfig.mode === 'server' ? 'false' : 'true',
+        },
+      } satisfies UserConfig;
+    },
+    generateBundle() {
+      for (const asset of staticAssetsToEmit) {
+        this.emitFile({
+          type: 'asset',
+          fileName: asset.fileName,
+          source: asset.source,
+        });
+      }
+    },
+    configureServer(server) {
+      if (!resolvedOptions) {
+        resolvedOptions = resolvePluginOptions(server.config.root, server.config.base, options);
+      }
+
+      const blueprintMode = Boolean(resolvedOptions.designs);
+      let cachedBlueprintManifest: PageBlocksStaticManifest | null = null;
+      let blueprintManifestStale = blueprintMode;
+      const loader = blueprintMode
+        ? createManifestLoader(() => {
+            if (!cachedBlueprintManifest) {
+              throw new Error('Blueprint manifest was requested before it was compiled.');
+            }
+
+            return cachedBlueprintManifest;
+          })
+        : createFileSystemLoader({
+            path: resolvedOptions.slotsDir,
+            contexts: resolvedOptions.contexts,
+          });
+
+      const handler = createRequestHandler({
+        loader,
+        generateScreenshots: blueprintMode ? undefined : resolvedOptions.generateScreenshots,
+      });
+
+      const refreshBlueprintManifest = async () => {
+        if (!blueprintMode || !blueprintManifestStale) {
+          return;
+        }
+
+        const compiled = await compileBlueprintFiles({
+          root: resolvedOptions!.root,
+          designs: resolvedOptions!.designs!,
+          contexts: resolvedOptions!.contexts,
+          loadModule: (file) => server.ssrLoadModule(file),
+        });
+
+        cachedBlueprintManifest = compiled.manifest;
+        blueprintManifestStale = false;
+      };
+
+      if (blueprintMode) {
+        refreshBlueprintManifest().catch((error) => {
+          server.config.logger.error(`[page-blocks] failed to compile blueprints: ${String(error)}`);
+        });
+      } else {
+        loader.init().catch((error) => {
+          server.config.logger.error(`[page-blocks] failed to initialize slots: ${String(error)}`);
+        });
+      }
+
+      server.middlewares.use(async (req, res, next) => {
+        const url = new URL(req.url || '/', 'http://page-blocks.local');
+
+        if (req.method !== 'POST' || url.pathname !== resolvedOptions!.apiPath) {
+          next();
+          return;
+        }
+
+        try {
+          if (blueprintMode) {
+            await refreshBlueprintManifest();
+          }
+
+          const rawBody = await readBody(req);
+          const body = rawBody ? JSON.parse(rawBody) : {};
+          const response = await handler(body as any);
+          sendJson(res, response.status, response.body);
+        } catch (error) {
+          const message = error instanceof Error ? error.message : 'Unknown error';
+          sendJson(res, 500, { error: message });
+        }
+      });
+
+      if (blueprintMode) {
+        server.watcher.add(resolvedOptions.root);
+        server.watcher.on('all', (_event, file) => {
+          if (!isWithinDirectory(resolvedOptions!.root, file)) {
+            return;
+          }
+
+          if (!/(\.(c|m)?jsx?$|\.tsx?$|\.json)$/i.test(file)) {
+            return;
+          }
+
+          blueprintManifestStale = true;
+          server.ws.send({ type: 'full-reload' });
+        });
+        return;
+      }
+
+      server.watcher.add(resolvedOptions.slotsDir);
+      server.watcher.on('all', (_event, file) => {
+        if (!file.endsWith('.json') || !isWithinDirectory(resolvedOptions!.slotsDir, file)) {
+          return;
+        }
+
+        loader.init(true).catch((error) => {
+          server.config.logger.error(`[page-blocks] failed to refresh slots: ${String(error)}`);
+        });
+        server.ws.send({ type: 'full-reload' });
+      });
+    },
+  };
+}

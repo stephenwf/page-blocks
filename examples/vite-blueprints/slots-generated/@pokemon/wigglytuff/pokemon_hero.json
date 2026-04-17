@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vd2lnZ2x5dHVmZi9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-wigglytuff",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 40,
+        "name": "wigglytuff",
+        "types": [
+          "normal",
+          "fairy"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/40.png",
+        "description": "The body is soft and rubbery. When angered, it will suck in air and inflate itself to an enormous size.",
+        "height": 10,
+        "weight": 120
+      }
+    }
+  ]
+}

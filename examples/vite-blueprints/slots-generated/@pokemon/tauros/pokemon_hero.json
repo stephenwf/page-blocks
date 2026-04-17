@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vdGF1cm9zL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-tauros",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 128,
+        "name": "tauros",
+        "types": [
+          "normal"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/128.png",
+        "description": "When it targets an enemy, it charges furiously while whipping its body with its long tails.",
+        "height": 14,
+        "weight": 884
+      }
+    }
+  ]
+}

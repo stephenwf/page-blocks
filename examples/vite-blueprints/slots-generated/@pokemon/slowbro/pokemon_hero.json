@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vc2xvd2Jyby9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-slowbro",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 80,
+        "name": "slowbro",
+        "types": [
+          "water",
+          "psychic"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/80.png",
+        "description": "The SHELLDER that is latched onto SLOWPOKE's tail is said to feed on the host's left over scraps.",
+        "height": 16,
+        "weight": 785
+      }
+    }
+  ]
+}

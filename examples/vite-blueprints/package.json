@@ -1,0 +1,29 @@
+{
+  "name": "page-blocks-example-vite-blueprints",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm --filter page-blocks build && vite --host 127.0.0.1 --port 5174 --strictPort",
+    "design:sync": "pnpm --filter page-blocks build && tsx ./scripts/design-sync.ts",
+    "build": "pnpm run design:sync && vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 4174 --strictPort",
+    "typecheck": "pnpm --filter page-blocks build && tsc -p ./tsconfig.app.json --noEmit && tsc -p ./tsconfig.server.json --noEmit"
+  },
+  "dependencies": {
+    "page-blocks": "workspace:*",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-query": "^3.39.3",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.2",
+    "@types/react": "^18.2.28",
+    "@types/react-dom": "^18.2.13",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tsx": "^4.19.2",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.10"
+  }
+}

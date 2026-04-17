@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vZHJhZ29uaXRlL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-dragonite",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 91,
+        "attack": 134,
+        "defense": 95,
+        "specialAttack": 100,
+        "specialDefense": 100,
+        "speed": 80
+      }
+    }
+  ]
+}

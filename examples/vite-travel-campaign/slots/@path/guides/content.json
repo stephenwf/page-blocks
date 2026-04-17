@@ -1,0 +1,55 @@
+{
+  "name": "content",
+  "blocks": [
+    {
+      "id": "guides-route-content",
+      "type": "ExperienceShelf",
+      "data": {
+        "eyebrow": "Pick a destination",
+        "title": "Select a city above to read the full guide",
+        "intro": "Each guide covers pacing advice, neighbourhood picks, the best morning-to-evening rhythm, and our recommended stay."
+      },
+      "slots": {
+        "items": {
+          "slot_id": "items",
+          "blocks": [
+            {
+              "id": "guide-note-pacing",
+              "type": "PlanningNote",
+              "data": {
+                "eyebrow": "Editorial approach",
+                "title": "Plan the morning for movement, leave the evening for appetite",
+                "body": "Start each day in one focused district and resist the temptation to cross the city before lunch. The best meals happen when you’re not in transit.",
+                "detail": "Select Lisbon or Kyoto from the city selector above to load a destination-specific version of this guide.",
+                "tone": "ink"
+              }
+            },
+            {
+              "id": "guide-dest-card-lisbon",
+              "type": "DestinationCard",
+              "data": {
+                "destination": "Lisbon",
+                "country": "Portugal",
+                "tagline": "Ride the trams early, then follow the heat toward the waterfront",
+                "image": "/travel/lisbon-tram.svg",
+                "href": "/guides?country=portugal&city=lisbon",
+                "badge": "Popular"
+              }
+            },
+            {
+              "id": "guide-dest-card-kyoto",
+              "type": "DestinationCard",
+              "data": {
+                "destination": "Kyoto",
+                "country": "Japan",
+                "tagline": "Temple gates open early — that’s when the city belongs to you",
+                "image": "/travel/kyoto-garden.svg",
+                "href": "/guides?country=japan&city=kyoto"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -7,21 +7,43 @@ Page blocks are an easy way for developers to create customisable and contextual
 
 ## Getting started
 
+The primary runnable example in this repository is `examples/vite`. It uses the new single-package `page-blocks` workspace package and a React Vite client.
+
+For a more realistic editable scenario, `examples/vite-travel-campaign` demonstrates route-aware travel content with `path`, `country`, `city`, and `season` contexts, nested slots, prop-source search, screenshots, and lazy static output.
+
+There is also `examples/vite-blueprints`, which demonstrates server-side blueprint files compiled through `page-blocks/designer` and served directly by the Vite plugin in development.
+
+```sh
+pnpm --filter page-blocks-example-vite dev
+pnpm --filter page-blocks-example-vite-travel-campaign dev
+```
+
 Currently, Page Blocks is only available for React. However, the core concepts and functionality are not React specific and can be ported to other frameworks.
 
-##### Client packages
+##### Single package
 
-- `@page-blocks/client`
-- `@page-blocks/react`
-- `@page-blocks/react-client`
-- `@page-blocks/react-editor`
+- `page-blocks`
+- `page-blocks/react`
+- `page-blocks/react-client`
+- `page-blocks/react-editor`
+- `page-blocks/node`
+- `page-blocks/file-system`
+- `page-blocks/designer`
+- `page-blocks/vite`
+- `page-blocks/vite/server`
+- `page-blocks/screenshots`
 
-##### Server packages
+The legacy monorepo packages and the `apps/web` Next.js app still exist during the migration, but `examples/vite`, `examples/vite-travel-campaign`, and `examples/vite-blueprints` are the main runnable examples going forward.
 
-- `@page-blocks/node`
-- `@page-blocks/next`
-- `@page-blocks/file-system`
-- `@page-blocks/screenshots`
+### Vite-first setup
+
+The smallest end-to-end setup is:
+
+- a React Vite client that imports `page-blocks/react`, `page-blocks/react-editor`, and `page-blocks/web-components` styles
+- a Node API that wraps `page-blocks/node`
+- a filesystem loader pointed at a local `slots/` directory
+
+See `examples/vite` for the editor-focused Vite walkthrough, `examples/vite-travel-campaign` for a richer multi-context filesystem demo, and `examples/vite-blueprints` for generated slot content backed by blueprint files. Next.js support still exists through `page-blocks/next`, but it is no longer the primary walkthrough.
 
 ### Creating your blocks
 
@@ -31,9 +53,9 @@ called a "block directory". To define props, you need to install `zod`.
 
 First we will create a block.
 
-```js 
+```js
 // blocks/HelloWorld.js
-import { block } from '@page-blocks/react';
+import { block } from 'page-blocks/react';
 import { z } from 'zod';
 
 export const HelloWorld = block({
@@ -57,12 +79,12 @@ groups them together.
 
 ```js
 // blocks/index.js
-import { createDirectory } from '@page-blocks/react';
+import { createDirectory } from 'page-blocks/react';
 import { HelloWorld } from './HelloWorld';
 
 export const directory = createDirectory({ 
   resolver: {
-    type: 'react-query',
+    type: 'tanstack-query',
     endpoint: '/api/page-blocks', // defined later
   },
   blocks: {
@@ -134,15 +156,34 @@ Page Blocks to customise the blocks using the Page Block Editor.
 ### Saving and loading blocks
 
 In the example above we configured a "resolver". This is used to load data for the blocks. In this case we are using the
-"react-query" resolver, which will make a request to the specified endpoint to load the data. The endpoint is a URL that
+"tanstack-query" resolver, which will make a request to the specified endpoint to load the data. The endpoint is a URL that
 will be handled by the Page Blocks server. To configure this endpoint we need to create an API handler.
 
-If you are using Next.js you can use the Next.js integration.
+For a Vite or custom Node setup, use the Node request handler directly.
+
+```js
+// server/page-blocks.js
+import { createRequestHandler } from 'page-blocks/node';
+import { createFileSystemLoader } from 'page-blocks/file-system';
+import { directory } from '../path/to/blocks'; // defined above
+
+export const loader = createFileSystemLoader({
+  path: join(cwd(), 'slots'),
+  contexts: ['page'],
+});
+
+export const handler = createRequestHandler({
+  loader,
+  directory,
+});
+```
+
+If you are using Next.js you can still use the Next.js integration as a secondary path.
 
 ```js
 // app/api/page-blocks/route.js
-import { createNextRequestHandler } from '@page-blocks/next';
-import { createFileSystemLoader } from '@page-blocks/file-system';
+import { createNextRequestHandler } from 'page-blocks/next';
+import { createFileSystemLoader } from 'page-blocks/file-system';
 import { directory } from '../path/to/blocks'; // defined above
 
 export const loader = createFileSystemLoader({
@@ -159,8 +200,8 @@ export const POST = createNextRequestHandler({
 Or using the `./pages` folder
 ```js
 // pages/api/page-blocks.js
-import { createNextRequestHandler } from '@page-blocks/next';
-import { createFileSystemLoader } from '@page-blocks/file-system';
+import { createNextRequestHandler } from 'page-blocks/next';
+import { createFileSystemLoader } from 'page-blocks/file-system';
 import { directory } from '../path/to/blocks'; // defined above
 
 export const loader = createFileSystemLoader({
@@ -184,7 +225,7 @@ If you are using another Node.js framework you can use the node library directly
 
 The handler created takes in JSON request and returns a JSON response and can be used with any Node.js framework.
 ```js
-import { createRequestHandler } from '@page-blocks/node';
+import { createRequestHandler } from 'page-blocks/node';
 import { directory } from '../path/to/blocks'; // defined above
 import { loader } from '../path/to/loader'; // defined above (filesystem loader)
 
@@ -225,15 +266,19 @@ In Next.js you can modify your `_app.js` file to include the editor and a top le
 ```js
 // pages/_app.js
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { PageBlocksEditor } from '@page-blocks/react-edtior';
-import '@page-blocks/react-edtior/dist/index.css'; // import the editor styles
+import { BlockEditorReact } from 'page-blocks/react-editor';
+import { BlockEditor } from 'page-blocks/react-client';
+import 'page-blocks/react-editor/style.css';
+import 'page-blocks/web-components/style.css';
 
 const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }) {
   return (
     <QueryClientProvider client={queryClient}>
-      <PageBlocksEditor />
+      <BlockEditorReact>
+        <BlockEditor options={directory} showToggle />
+      </BlockEditorReact>
       <Component {...pageProps} />
     </QueryClientProvider>
   );
@@ -483,4 +528,3 @@ Planned packages:
 - `@page-blocks/testing-framework`  - inline block testing
 - `@page-blocks/vite-plugin` - Compiler for removing block data in production
 - `@page-blocks/migrations` - component migration support
-

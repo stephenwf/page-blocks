@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vZHJvd3plZS9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-drowzee",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 60,
+        "attack": 48,
+        "defense": 45,
+        "specialAttack": 43,
+        "specialDefense": 90,
+        "speed": 42
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vYXJib2svcG9rZW1vbl9oZXJvLmpzb24=",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-arbok",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 24,
+        "name": "arbok",
+        "types": [
+          "poison"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/24.png",
+        "description": "It is rumored that the ferocious warning markings on its belly differ from area to area.",
+        "height": 35,
+        "weight": 650
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vbmlkb3JpbmEvcG9rZW1vbl9oZXJvLmpzb24=",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-nidorina",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 30,
+        "name": "nidorina",
+        "types": [
+          "poison"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/30.png",
+        "description": "The female's horn develops slowly. Prefers physical attacks such as clawing and biting.",
+        "height": 8,
+        "weight": 200
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vcG9saXdoaXJsL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-poliwhirl",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 65,
+        "attack": 65,
+        "defense": 65,
+        "specialAttack": 50,
+        "specialDefense": 50,
+        "speed": 90
+      }
+    }
+  ]
+}

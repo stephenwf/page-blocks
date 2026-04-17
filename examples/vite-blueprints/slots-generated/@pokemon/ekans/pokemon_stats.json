@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vZWthbnMvcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-ekans",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 35,
+        "attack": 60,
+        "defense": 44,
+        "specialAttack": 40,
+        "specialDefense": 54,
+        "speed": 55
+      }
+    }
+  ]
+}

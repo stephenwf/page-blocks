@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vY3Vib25lL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-cubone",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 50,
+        "attack": 50,
+        "defense": 95,
+        "specialAttack": 40,
+        "specialDefense": 50,
+        "speed": 35
+      }
+    }
+  ]
+}

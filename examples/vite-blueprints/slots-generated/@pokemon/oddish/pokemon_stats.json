@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vb2RkaXNoL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-oddish",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 45,
+        "attack": 50,
+        "defense": 55,
+        "specialAttack": 75,
+        "specialDefense": 65,
+        "speed": 30
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vcGFyYXMvcG9rZW1vbl9oZXJvLmpzb24=",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-paras",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 46,
+        "name": "paras",
+        "types": [
+          "bug",
+          "grass"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/46.png",
+        "description": "Burrows to suck tree roots. The mushrooms on its back grow by draw­ ing nutrients from the bug host.",
+        "height": 3,
+        "weight": 54
+      }
+    }
+  ]
+}

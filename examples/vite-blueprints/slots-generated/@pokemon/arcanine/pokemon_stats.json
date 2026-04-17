@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vYXJjYW5pbmUvcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-arcanine",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 90,
+        "attack": 110,
+        "defense": 80,
+        "specialAttack": 100,
+        "specialDefense": 80,
+        "speed": 95
+      }
+    }
+  ]
+}

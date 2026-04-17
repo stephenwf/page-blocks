@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vZXhlZ2d1dG9yL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-exeggutor",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 103,
+        "name": "exeggutor",
+        "types": [
+          "grass",
+          "psychic"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/103.png",
+        "description": "Legend has it that on rare occasions, one of its heads will drop off and continue on as an EXEGGCUTE.",
+        "height": 20,
+        "weight": 1200
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vYWVyb2RhY3R5bC9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-aerodactyl",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 80,
+        "attack": 105,
+        "defense": 65,
+        "specialAttack": 60,
+        "specialDefense": 75,
+        "speed": 130
+      }
+    }
+  ]
+}

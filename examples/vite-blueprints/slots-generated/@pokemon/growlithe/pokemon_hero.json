@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vZ3Jvd2xpdGhlL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-growlithe",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 58,
+        "name": "growlithe",
+        "types": [
+          "fire"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/58.png",
+        "description": "Very protective of its territory. It will bark and bite to repel intruders from its space.",
+        "height": 7,
+        "weight": 190
+      }
+    }
+  ]
+}

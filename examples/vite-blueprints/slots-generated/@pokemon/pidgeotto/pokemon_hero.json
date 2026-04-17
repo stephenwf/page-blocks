@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vcGlkZ2VvdHRvL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-pidgeotto",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 17,
+        "name": "pidgeotto",
+        "types": [
+          "normal",
+          "flying"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/17.png",
+        "description": "Very protective of its sprawling territorial area, this POKéMON will fiercely peck at any intruder.",
+        "height": 11,
+        "weight": 300
+      }
+    }
+  ]
+}

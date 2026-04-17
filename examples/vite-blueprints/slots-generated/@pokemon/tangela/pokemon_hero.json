@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vdGFuZ2VsYS9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-tangela",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 114,
+        "name": "tangela",
+        "types": [
+          "grass"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/114.png",
+        "description": "The whole body is swathed with wide vines that are similar to sea­ weed. Its vines shake as it walks.",
+        "height": 10,
+        "weight": 350
+      }
+    }
+  ]
+}

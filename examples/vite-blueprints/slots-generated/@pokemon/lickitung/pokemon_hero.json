@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vbGlja2l0dW5nL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-lickitung",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 108,
+        "name": "lickitung",
+        "types": [
+          "normal"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/108.png",
+        "description": "Its tongue can be extended like a chameleon's. It leaves a tingling sensation when it licks enemies.",
+        "height": 12,
+        "weight": 655
+      }
+    }
+  ]
+}

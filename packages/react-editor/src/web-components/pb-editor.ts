@@ -152,6 +152,7 @@ register(
                   client: this.client,
                   blockConfig,
                   data: editingBlock.data,
+                  slotSource: slot.source,
                 })
               );
             });

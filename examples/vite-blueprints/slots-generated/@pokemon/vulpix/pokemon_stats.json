@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vdnVscGl4L3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-vulpix",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 38,
+        "attack": 41,
+        "defense": 40,
+        "specialAttack": 50,
+        "specialDefense": 65,
+        "speed": 65
+      }
+    }
+  ]
+}

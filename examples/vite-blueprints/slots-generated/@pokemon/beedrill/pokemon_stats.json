@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vYmVlZHJpbGwvcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-beedrill",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 65,
+        "attack": 90,
+        "defense": 40,
+        "specialAttack": 45,
+        "specialDefense": 80,
+        "speed": 75
+      }
+    }
+  ]
+}

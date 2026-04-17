@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vcHJpbWVhcGUvcG9rZW1vbl9oZXJvLmpzb24=",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-primeape",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 57,
+        "name": "primeape",
+        "types": [
+          "fighting"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/57.png",
+        "description": "Always furious and tenacious to boot. It will not abandon chasing its quarry until it is caught.",
+        "height": 10,
+        "weight": 320
+      }
+    }
+  ]
+}

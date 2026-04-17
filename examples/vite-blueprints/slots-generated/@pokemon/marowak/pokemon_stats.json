@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vbWFyb3dhay9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-marowak",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 60,
+        "attack": 80,
+        "defense": 110,
+        "specialAttack": 50,
+        "specialDefense": 80,
+        "speed": 45
+      }
+    }
+  ]
+}

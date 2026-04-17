@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24va2FuZ2Fza2hhbi9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-kangaskhan",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 115,
+        "name": "kangaskhan",
+        "types": [
+          "normal"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/115.png",
+        "description": "The infant rarely ventures out of its mother's protective pouch until it is 3 years old.",
+        "height": 22,
+        "weight": 800
+      }
+    }
+  ]
+}

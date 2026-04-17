@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vZG9kcmlvL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-dodrio",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 60,
+        "attack": 110,
+        "defense": 70,
+        "specialAttack": 60,
+        "specialDefense": 60,
+        "speed": 110
+      }
+    }
+  ]
+}

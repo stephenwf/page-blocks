@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vdmljdHJlZWJlbC9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-victreebel",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 71,
+        "name": "victreebel",
+        "types": [
+          "grass",
+          "poison"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/71.png",
+        "description": "Said to live in huge colonies deep in jungles, although no one has ever returned from there.",
+        "height": 17,
+        "weight": 155
+      }
+    }
+  ]
+}

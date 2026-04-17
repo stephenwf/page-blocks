@@ -1,0 +1,17 @@
+{
+  "name": "seasonal_banner",
+  "blocks": [
+    {
+      "id": "seasonal-banner-fallback",
+      "type": "TripHighlightBanner",
+      "data": {
+        "eyebrow": "Seasonal edits",
+        "title": "Every season reshapes the itinerary",
+        "body": "Spring narrows Kyoto to blossom windows. Summer stretches Lisbon into river evenings. Winter pulls both cities indoors and quieter.",
+        "ctaLabel": "See Kyoto in spring",
+        "ctaHref": "/offers?country=japan&city=kyoto&season=spring",
+        "tone": "sand"
+      }
+    }
+  ]
+}

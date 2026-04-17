@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vbWFnbWFyL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-magmar",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 65,
+        "attack": 95,
+        "defense": 57,
+        "specialAttack": 100,
+        "specialDefense": 85,
+        "speed": 93
+      }
+    }
+  ]
+}

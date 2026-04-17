@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vcG9yeWdvbi9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-porygon",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 137,
+        "name": "porygon",
+        "types": [
+          "normal"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/137.png",
+        "description": "A POKéMON that consists entirely of programming code. Capable of moving freely in cyberspace.",
+        "height": 8,
+        "weight": 365
+      }
+    }
+  ]
+}

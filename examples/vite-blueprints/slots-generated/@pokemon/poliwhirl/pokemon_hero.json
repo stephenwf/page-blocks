@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vcG9saXdoaXJsL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-poliwhirl",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 61,
+        "name": "poliwhirl",
+        "types": [
+          "water"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/61.png",
+        "description": "Capable of living in or out of water. When out of water, it sweats to keep its body slimy.",
+        "height": 10,
+        "weight": 200
+      }
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "name": "content",
+  "blocks": [
+    {
+      "id": "offers-route-testimonials",
+      "type": "ExperienceShelf",
+      "data": {
+        "eyebrow": "Traveller reviews",
+        "title": "What our guests say",
+        "intro": "Recent feedback from guests who booked through the same offer set you’re looking at now."
+      },
+      "slots": {
+        "items": {
+          "slot_id": "items",
+          "blocks": [
+            {
+              "id": "offers-testimonial-1",
+              "type": "TestimonialCard",
+              "data": {
+                "quote": "Porto was the biggest surprise. We’d planned two nights and ended up extending to four. The cellar tour across the bridge was the best afternoon of the whole trip.",
+                "traveler": "Rachel & Tom W.",
+                "trip": "Portugal, 7 nights · autumn",
+                "stars": 5
+              }
+            },
+            {
+              "id": "offers-testimonial-2",
+              "type": "TestimonialCard",
+              "data": {
+                "quote": "The rail guidance saved us every single day in Tokyo. Having a curated plan for each district meant we spent time enjoying the city rather than deciphering the metro.",
+                "traveler": "Kenji & Aoi S.",
+                "trip": "Tokyo, 4 nights · summer",
+                "stars": 5
+              }
+            },
+            {
+              "id": "offers-testimonial-3",
+              "type": "TestimonialCard",
+              "data": {
+                "quote": "We changed country in the filter and the page updated with packages that actually made sense for where we were going. Genuinely useful tool.",
+                "traveler": "Sophie L.",
+                "trip": "Japan tour, 10 nights · spring",
+                "stars": 5
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

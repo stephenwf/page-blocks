@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vcHN5ZHVjay9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-psyduck",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 50,
+        "attack": 52,
+        "defense": 48,
+        "specialAttack": 65,
+        "specialDefense": 50,
+        "speed": 55
+      }
+    }
+  ]
+}

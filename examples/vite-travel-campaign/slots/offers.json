@@ -1,0 +1,58 @@
+{
+  "name": "offers",
+  "blocks": [
+    {
+      "id": "offers-featured",
+      "type": "ExperienceShelf",
+      "data": {
+        "eyebrow": "Featured packages",
+        "title": "Most-booked stays this season",
+        "intro": "Hand-picked for neighbourhood access, honest hotel choices, and itinerary logic that leaves room for the unexpected."
+      },
+      "slots": {
+        "items": {
+          "slot_id": "items",
+          "blocks": [
+            {
+              "id": "offer-lisbon-rooftop",
+              "type": "OfferCard",
+              "data": {
+                "eyebrow": "Lisbon · Portugal",
+                "title": "Alfama rooftops and river club check-in",
+                "summary": "Three nights with a riverside hotel, tram pass, and a private food-led walk through Alfama and Mouraria.",
+                "price": "From £640",
+                "meta": "3 nights · breakfast · evening food tour",
+                "href": "/offers?country=portugal&city=lisbon",
+                "image": "/travel/lisbon-tram.svg",
+                "badge": "Best seller"
+              }
+            },
+            {
+              "id": "offer-kyoto-garden",
+              "type": "OfferCard",
+              "data": {
+                "eyebrow": "Kyoto · Japan",
+                "title": "Garden districts and dawn temple entries",
+                "summary": "Stay near Higashiyama with early-entry planning, a tea experience, and a walkable evening route back to Gion.",
+                "price": "From £1,240",
+                "meta": "4 nights · tea ceremony · temple route",
+                "href": "/offers?country=japan&city=kyoto",
+                "image": "/travel/kyoto-garden.svg"
+              }
+            },
+            {
+              "id": "offer-testimonial",
+              "type": "TestimonialCard",
+              "data": {
+                "quote": "The Alfama walking route was so good we did it twice. The food tour picks were genuinely local — no tourist traps in sight.",
+                "traveler": "James K.",
+                "trip": "Lisbon, 3 nights · summer",
+                "stars": 5
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vd2VlemluZy9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-weezing",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 110,
+        "name": "weezing",
+        "types": [
+          "poison"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/110.png",
+        "description": "Where two kinds of poison gases meet, 2 KOFFINGs can fuse into a WEEZING over many years.",
+        "height": 12,
+        "weight": 95
+      }
+    }
+  ]
+}

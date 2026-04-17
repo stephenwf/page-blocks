@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vZWthbnMvcG9rZW1vbl9oZXJvLmpzb24=",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-ekans",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 23,
+        "name": "ekans",
+        "types": [
+          "poison"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/23.png",
+        "description": "Moves silently and stealthily. Eats the eggs of birds, such as PIDGEY and SPEAROW, whole.",
+        "height": 20,
+        "weight": 69
+      }
+    }
+  ]
+}

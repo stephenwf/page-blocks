@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vdGFuZ2VsYS9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-tangela",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 65,
+        "attack": 55,
+        "defense": 115,
+        "specialAttack": 100,
+        "specialDefense": 40,
+        "speed": 60
+      }
+    }
+  ]
+}

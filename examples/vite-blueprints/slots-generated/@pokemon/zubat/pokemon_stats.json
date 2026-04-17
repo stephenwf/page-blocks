@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24venViYXQvcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-zubat",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 40,
+        "attack": 45,
+        "defense": 35,
+        "specialAttack": 30,
+        "specialDefense": 40,
+        "speed": 55
+      }
+    }
+  ]
+}

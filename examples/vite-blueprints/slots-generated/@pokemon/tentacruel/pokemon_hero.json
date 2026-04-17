@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vdGVudGFjcnVlbC9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-tentacruel",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 73,
+        "name": "tentacruel",
+        "types": [
+          "water",
+          "poison"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/73.png",
+        "description": "The tentacles are normally kept short. On hunts, they are extended to ensnare and immobilize prey.",
+        "height": 16,
+        "weight": 550
+      }
+    }
+  ]
+}

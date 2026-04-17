@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vZ29sYmF0L3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-golbat",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 42,
+        "name": "golbat",
+        "types": [
+          "poison",
+          "flying"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/42.png",
+        "description": "Once it strikes, it will not stop draining energy from the victim even if it gets too heavy to fly.",
+        "height": 16,
+        "weight": 550
+      }
+    }
+  ]
+}

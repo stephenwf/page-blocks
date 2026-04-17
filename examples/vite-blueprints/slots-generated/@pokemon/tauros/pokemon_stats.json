@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vdGF1cm9zL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-tauros",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 75,
+        "attack": 100,
+        "defense": 95,
+        "specialAttack": 40,
+        "specialDefense": 70,
+        "speed": 110
+      }
+    }
+  ]
+}

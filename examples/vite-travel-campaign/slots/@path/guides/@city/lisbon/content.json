@@ -1,0 +1,55 @@
+{
+  "name": "content",
+  "blocks": [
+    {
+      "id": "guides-lisbon-shelf",
+      "type": "ExperienceShelf",
+      "data": {
+        "eyebrow": "Lisbon city guide",
+        "title": "Follow the trams up, then let the river pull you west",
+        "intro": "A strong Lisbon day starts uphill in Graça, eases down through Alfama, takes shade in a museum courtyard after lunch, and ends near the water at Santos."
+      },
+      "slots": {
+        "items": {
+          "slot_id": "items",
+          "blocks": [
+            {
+              "id": "lisbon-guide-note",
+              "type": "PlanningNote",
+              "data": {
+                "eyebrow": "Morning pacing",
+                "title": "Ride Tram 28 before 9 am, then move west before the heat settles in",
+                "body": "The miradouros fill quickly. Graça at 8am is peaceful; by 11am it’s a different experience entirely. Budget 40 minutes for the tram, then head downhill at your own pace.",
+                "tone": "sea"
+              }
+            },
+            {
+              "id": "lisbon-guide-offer",
+              "type": "OfferCard",
+              "data": {
+                "eyebrow": "Lisbon · 3 nights",
+                "title": "Alfama rooftops and river club check-in",
+                "summary": "A riverside hotel, tram pass, and a private food-led walk through Alfama and Mouraria. Breakfast included.",
+                "price": "From £640",
+                "meta": "3 nights · breakfast · evening food tour",
+                "href": "/offers?country=portugal&city=lisbon",
+                "image": "/travel/lisbon-tram.svg",
+                "badge": "Best seller"
+              }
+            },
+            {
+              "id": "lisbon-guide-testimonial",
+              "type": "TestimonialCard",
+              "data": {
+                "quote": "The food tour alone was worth the trip. They took us to a tasca that’s been on the same street since 1961 — no menu, just what they cook that day.",
+                "traveler": "Clara M.",
+                "trip": "Lisbon, 3 nights · autumn",
+                "stars": 5
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

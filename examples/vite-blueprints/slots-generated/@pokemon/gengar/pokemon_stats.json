@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vZ2VuZ2FyL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-gengar",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 60,
+        "attack": 65,
+        "defense": 60,
+        "specialAttack": 130,
+        "specialDefense": 75,
+        "speed": 110
+      }
+    }
+  ]
+}

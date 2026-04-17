@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vbWFjaG9rZS9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-machoke",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 80,
+        "attack": 100,
+        "defense": 70,
+        "specialAttack": 50,
+        "specialDefense": 60,
+        "speed": 45
+      }
+    }
+  ]
+}

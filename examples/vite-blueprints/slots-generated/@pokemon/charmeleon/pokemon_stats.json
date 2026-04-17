@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vY2hhcm1lbGVvbi9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-charmeleon",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 58,
+        "attack": 64,
+        "defense": 58,
+        "specialAttack": 80,
+        "specialDefense": 65,
+        "speed": 80
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vZG9kcmlvL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-dodrio",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 85,
+        "name": "dodrio",
+        "types": [
+          "normal",
+          "flying"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/85.png",
+        "description": "Uses its three brains to execute complex plans. While two heads sleep, one head stays awake.",
+        "height": 18,
+        "weight": 852
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vZmxhcmVvbi9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-flareon",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 65,
+        "attack": 130,
+        "defense": 60,
+        "specialAttack": 95,
+        "specialDefense": 110,
+        "speed": 65
+      }
+    }
+  ]
+}

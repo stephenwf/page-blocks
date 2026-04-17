@@ -1,0 +1,50 @@
+{
+  "name": "content",
+  "blocks": [
+    {
+      "id": "feature-shelf-home",
+      "type": "FeatureShelf",
+      "data": {
+        "eyebrow": "Nested slot",
+        "title": "Editable shelf",
+        "intro": "The cards below live inside the FeatureShelf block's local items slot."
+      },
+      "slots": {
+        "items": {
+          "slot_id": "items",
+          "blocks": [
+            {
+              "id": "item-filesystem",
+              "type": "CalloutCard",
+              "data": {
+                "eyebrow": "Filesystem loader",
+                "title": "Local JSON persistence",
+                "body": "Open examples/vite/slots after an edit and you will see the slot data change in place."
+              }
+            },
+            {
+              "id": "item-api",
+              "type": "CalloutCard",
+              "data": {
+                "eyebrow": "Native middleware",
+                "title": "Vite request handler",
+                "body": "The example mounts POST /api/page-blocks directly on Vite's dev server and writes updates into the local slots folder."
+              }
+            },
+            {
+              "id": "item-screenshots",
+              "type": "CalloutCard",
+              "data": {
+                "eyebrow": "Screenshots",
+                "title": "Archive-driven thumbnails",
+                "body": "Generate screenshots from the editor to populate examples/vite/public/blocks for archive previews."
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "id": "Y29udGVudC5qc29u",
+  "slot": "content"
+}

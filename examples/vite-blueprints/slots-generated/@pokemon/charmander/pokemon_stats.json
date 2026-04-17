@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vY2hhcm1hbmRlci9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-charmander",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 39,
+        "attack": 52,
+        "defense": 43,
+        "specialAttack": 60,
+        "specialDefense": 50,
+        "speed": 65
+      }
+    }
+  ]
+}

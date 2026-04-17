@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vdmlsZXBsdW1lL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-vileplume",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 45,
+        "name": "vileplume",
+        "types": [
+          "grass",
+          "poison"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/45.png",
+        "description": "It has the world’s largest petals. With every step, the petals shake out heavy clouds of toxic pollen.",
+        "height": 12,
+        "weight": 186
+      }
+    }
+  ]
+}

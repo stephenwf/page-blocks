@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vdm9sdG9yYi9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-voltorb",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 40,
+        "attack": 30,
+        "defense": 50,
+        "specialAttack": 55,
+        "specialDefense": 55,
+        "speed": 100
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vbWFjaG9wL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-machop",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 70,
+        "attack": 80,
+        "defense": 50,
+        "specialAttack": 35,
+        "specialDefense": 35,
+        "speed": 35
+      }
+    }
+  ]
+}

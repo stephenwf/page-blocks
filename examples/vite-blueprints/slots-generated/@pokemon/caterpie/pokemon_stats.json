@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vY2F0ZXJwaWUvcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-caterpie",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 45,
+        "attack": 30,
+        "defense": 35,
+        "specialAttack": 20,
+        "specialDefense": 20,
+        "speed": 45
+      }
+    }
+  ]
+}

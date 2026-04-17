@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vbWFnbmVtaXRlL3Bva2Vtb25faGVyby5qc29u",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-magnemite",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 81,
+        "name": "magnemite",
+        "types": [
+          "electric",
+          "steel"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/81.png",
+        "description": "Uses anti-gravity to stay suspended. Appears without warning and uses THUNDER WAVE and similar moves.",
+        "height": 3,
+        "weight": 60
+      }
+    }
+  ]
+}

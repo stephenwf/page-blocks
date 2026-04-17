@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vbGFwcmFzL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-lapras",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 130,
+        "attack": 85,
+        "defense": 80,
+        "specialAttack": 85,
+        "specialDefense": 95,
+        "speed": 60
+      }
+    }
+  ]
+}

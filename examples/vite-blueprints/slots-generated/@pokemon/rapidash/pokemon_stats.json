@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vcmFwaWRhc2gvcG9rZW1vbl9zdGF0cy5qc29u",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-rapidash",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 65,
+        "attack": 100,
+        "defense": 70,
+        "specialAttack": 80,
+        "specialDefense": 80,
+        "speed": 105
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vbGlja2l0dW5nL3Bva2Vtb25fc3RhdHMuanNvbg==",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-lickitung",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 90,
+        "attack": 55,
+        "defense": 75,
+        "specialAttack": 60,
+        "specialDefense": 75,
+        "speed": 30
+      }
+    }
+  ]
+}

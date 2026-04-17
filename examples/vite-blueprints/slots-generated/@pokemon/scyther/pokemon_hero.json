@@ -1,0 +1,22 @@
+{
+  "id": "QHBva2Vtb24vc2N5dGhlci9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-scyther",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 123,
+        "name": "scyther",
+        "types": [
+          "bug",
+          "flying"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/123.png",
+        "description": "With ninja-like agility and speed, it can create the illusion that there is more than one.",
+        "height": 15,
+        "weight": 560
+      }
+    }
+  ]
+}

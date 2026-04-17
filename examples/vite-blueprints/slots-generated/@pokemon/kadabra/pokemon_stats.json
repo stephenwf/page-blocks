@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24va2FkYWJyYS9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-kadabra",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 40,
+        "attack": 35,
+        "defense": 30,
+        "specialAttack": 120,
+        "specialDefense": 70,
+        "speed": 105
+      }
+    }
+  ]
+}

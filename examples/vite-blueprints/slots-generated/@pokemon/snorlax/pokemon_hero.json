@@ -1,0 +1,21 @@
+{
+  "id": "QHBva2Vtb24vc25vcmxheC9wb2tlbW9uX2hlcm8uanNvbg==",
+  "slot": "pokemon_hero",
+  "blocks": [
+    {
+      "id": "hero-snorlax",
+      "type": "PokemonHero",
+      "data": {
+        "pokedexNumber": 143,
+        "name": "snorlax",
+        "types": [
+          "normal"
+        ],
+        "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/143.png",
+        "description": "Very lazy. Just eats and sleeps. As its rotund bulk builds, it becomes steadily more slothful.",
+        "height": 21,
+        "weight": 4600
+      }
+    }
+  ]
+}

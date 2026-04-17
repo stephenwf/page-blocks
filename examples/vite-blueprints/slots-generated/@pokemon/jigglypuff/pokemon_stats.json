@@ -1,0 +1,18 @@
+{
+  "id": "QHBva2Vtb24vamlnZ2x5cHVmZi9wb2tlbW9uX3N0YXRzLmpzb24=",
+  "slot": "pokemon_stats",
+  "blocks": [
+    {
+      "id": "stats-jigglypuff",
+      "type": "PokemonStats",
+      "data": {
+        "hp": 115,
+        "attack": 45,
+        "defense": 20,
+        "specialAttack": 45,
+        "specialDefense": 25,
+        "speed": 20
+      }
+    }
+  ]
+}
