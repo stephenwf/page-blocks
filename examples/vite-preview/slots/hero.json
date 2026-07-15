@@ -1,0 +1,13 @@
+{
+  "name": "hero",
+  "version": 1,
+  "blocks": [
+    {
+      "id": "baked-hero",
+      "type": "heading",
+      "data": {
+        "title": "Baked preview snapshot"
+      }
+    }
+  ]
+}

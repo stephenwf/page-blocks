@@ -1,0 +1,20 @@
+{
+  "name": "page-blocks-example-vite-preview",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm --filter page-blocks build && vite --host 127.0.0.1 --port 5174 --strictPort",
+    "build": "pnpm --filter page-blocks build && vite build",
+    "build:preview": "pnpm --filter page-blocks build && PAGE_BLOCKS_CHANNEL=preview vite build --outDir dist-preview",
+    "typecheck": "pnpm --filter page-blocks build && tsc -p ./tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "page-blocks": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.2",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.10"
+  }
+}

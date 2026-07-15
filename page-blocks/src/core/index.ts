@@ -9,3 +9,4 @@ export * from './context-source';
 export * from './utils';
 export * from './slot-manifest';
 export * from './service-protocol';
+export * from './directory-manifest';

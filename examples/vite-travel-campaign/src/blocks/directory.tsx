@@ -8,6 +8,14 @@ import { TestimonialCard } from './testimonial-card.js';
 import { TripHighlightBanner } from './trip-highlight-banner.js';
 
 export const directory = createDirectory({
+  version: '1',
+  contexts: { optional: ['path', 'country', 'campaign'] },
+  slots: {
+    hero: { allowedBlocks: ['CampaignHero'], maxItems: 1 },
+    content: { maxItems: 30 },
+    offers: { allowedBlocks: ['OfferCard'], maxItems: 12 },
+    seasonal_banner: { allowedBlocks: ['TripHighlightBanner'], maxItems: 1 },
+  },
   screenshots: '/blocks',
   blocks: {
     CampaignHero,

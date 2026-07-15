@@ -6,6 +6,7 @@ import {
   normalizeSlotContextValue,
   normalizeSlotResponse,
   PageBlocksMutation,
+  PageBlocksDirectoryContract,
   PageBlocksServiceRequest,
   PageBlocksServiceResponseMap,
   PageBlocksTarget,
@@ -13,7 +14,7 @@ import {
   SlotResponse,
   slotDocumentSchema,
 } from '../core';
-import { PageBlocksConflictError, PageBlocksNotFoundError } from './errors';
+import { PageBlocksConflictError, PageBlocksNotFoundError, PageBlocksServiceError } from './errors';
 import { PageBlocksStore, StoredPageBlocksDocument } from './types';
 
 function cleanDocument(document: SlotDocument): SlotDocument {
@@ -173,7 +174,7 @@ function locatorMatchesSearch(locator: CreateSlot, search: Record<string, string
   });
 }
 
-export function createPageBlocksService(options: { store: PageBlocksStore }) {
+export function createPageBlocksService(options: { store: PageBlocksStore; directory?: PageBlocksDirectoryContract }) {
   const store = options.store;
 
   const service = {
@@ -203,7 +204,15 @@ export function createPageBlocksService(options: { store: PageBlocksStore }) {
     },
 
     async create(scope: string, locator: CreateSlot, document: SlotDocument = { blocks: [] }) {
-      const record = await store.create(scope, locator, cleanDocument(document));
+      const cleaned = cleanDocument(document);
+      try {
+        options.directory?.validateDocument(locator.slot, cleaned);
+      } catch (error) {
+        throw new PageBlocksServiceError(
+          'invalid_request', error instanceof Error ? error.message : 'The document violates the directory policy.', 400
+        );
+      }
+      const record = await store.create(scope, locator, cleaned);
       return resolvedTarget(record, { documentId: record.id, path: [] });
     },
 
@@ -226,6 +235,13 @@ export function createPageBlocksService(options: { store: PageBlocksStore }) {
       const result = applyMutation(slot, mutation);
       if (!result.changed) {
         return { ...resolvedTarget(current, target), block: result.block };
+      }
+      try {
+        options.directory?.validateDocument(current.locator.slot, document);
+      } catch (error) {
+        throw new PageBlocksServiceError(
+          'invalid_request', error instanceof Error ? error.message : 'The document violates the directory policy.', 400
+        );
       }
       const saved = await store.save(scope, target.documentId, expectedVersion, document);
       return { ...resolvedTarget(saved, target), block: result.block };

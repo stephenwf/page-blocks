@@ -17,6 +17,8 @@ declare global {
 }
 
 function createClientStore() {
+  const editorStatus = atom<'idle' | 'saving' | 'saved' | 'offline' | 'expired' | 'conflict' | 'error'>('idle');
+  const editorError = atom<unknown>(undefined);
   const editingMode = atom(false);
   const currentSlot = atom<SlotResponse | undefined>(undefined);
   const currentBlock = atom<BlockInstanceEditor | undefined>(undefined);
@@ -59,6 +61,8 @@ function createClientStore() {
     pendingBlockProps,
     previewBlockProps,
     currentlyAddingBlock,
+    editorStatus,
+    editorError,
   };
 }
 
@@ -71,3 +75,20 @@ export const currentBlockId = clientStore.currentBlockId;
 export const pendingBlockProps = clientStore.pendingBlockProps;
 export const previewBlockProps = clientStore.previewBlockProps;
 export const currentlyAddingBlock = clientStore.currentlyAddingBlock;
+export const editorStatus = clientStore.editorStatus;
+export const editorError = clientStore.editorError;
+
+export async function trackPageBlocksWrite<Result>(run: () => Promise<Result>) {
+  editorStatus.set('saving');
+  editorError.set(undefined);
+  try {
+    const result = await run();
+    editorStatus.set('saved');
+    return result;
+  } catch (error) {
+    editorError.set(error);
+    const status = typeof error === 'object' && error ? (error as { status?: number }).status : undefined;
+    editorStatus.set(status === 401 ? 'expired' : status === 409 ? 'conflict' : status ? 'error' : 'offline');
+    throw error;
+  }
+}

@@ -17,6 +17,8 @@ export const FeatureShelf = block(
       items: {
         label: 'Shelf items',
         description: 'Cards rendered inside the shelf grid.',
+        allowedBlocks: ['CalloutCard'],
+        maxItems: 6,
       },
     },
     examples: [

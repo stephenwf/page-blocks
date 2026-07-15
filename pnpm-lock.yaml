@@ -247,6 +247,22 @@ importers:
         specifier: ^5.4.10
         version: 5.4.21(@types/node@20.5.2)
 
+  examples/vite-preview:
+    dependencies:
+      page-blocks:
+        specifier: workspace:*
+        version: link:../../page-blocks
+    devDependencies:
+      '@types/node':
+        specifier: ^20.5.2
+        version: 20.5.2
+      typescript:
+        specifier: ^5.5.4
+        version: 5.9.3
+      vite:
+        specifier: ^5.4.10
+        version: 5.4.21(@types/node@20.5.2)
+
   examples/vite-travel-campaign:
     dependencies:
       '@nanostores/react':

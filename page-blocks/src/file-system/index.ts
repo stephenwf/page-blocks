@@ -268,3 +268,4 @@ export { parseSingleFile } from './parse-single-file';
 export { buildSlotFilePath, validateSlotLocator } from './slot-path';
 export { resolveWithinRoot } from './utils';
 export { createFileSystemStore } from './store';
+export * from './snapshot';

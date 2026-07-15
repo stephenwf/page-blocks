@@ -5,6 +5,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, test } from 'node:test';
 import React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 import { z } from 'zod';
 import { build } from 'vite';
 
@@ -12,7 +13,8 @@ import { createRemoteLoader, createSlotEditingClient, getPageBlocksRuntime } fro
 import { compileBlueprintModules, designer, syncBlueprintFiles } from 'page-blocks/designer';
 import { createFileSystemLoader } from 'page-blocks/file-system';
 import { queryStaticManifest } from 'page-blocks/core';
-import { block, createDirectory } from 'page-blocks/react';
+import { block, createDirectory, CustomSlot } from 'page-blocks/react';
+import { RenderClientSlot } from 'page-blocks/react-client';
 import pageBlocks from 'page-blocks/vite';
 import { loadPageBlocksSlots, resolvePageBlocksContext } from 'page-blocks/vite/server';
 
@@ -87,6 +89,7 @@ const TestCard = block(
       title: z.string(),
       variant: z.string().optional(),
     }),
+    form: { type: 'object', required: ['title'], properties: { title: { type: 'string' } } },
     mapFromProps: (props) => ({
       headline: props.title,
       variant: props.variant || 'default',
@@ -98,12 +101,40 @@ const TestCard = block(
 );
 
 const testDirectory = createDirectory({
+  version: '2026-07',
+  contexts: { required: ['path'] },
+  slots: { hero: { allowedBlocks: ['TestCard'], maxItems: 3 } },
   blocks: {
     TestCard,
   },
 });
 
 const { design } = designer(testDirectory);
+
+test('React directories expose a serializable policy manifest and one server/client renderer', () => {
+  const serialized = JSON.parse(JSON.stringify(testDirectory.manifest));
+  assert.equal(serialized.version, '2026-07');
+  assert.deepEqual(serialized.contexts.required, ['path']);
+  assert.deepEqual(serialized.slots[0], {
+    name: 'hero', policy: { allowedBlocks: ['TestCard'], maxItems: 3 },
+  });
+  assert.equal(serialized.blocks[0].form.type, 'object');
+
+  const Card = ({ title, context }) => React.createElement('h2', null, `${title}:${context.path}`);
+  const renderProps = {
+    name: 'hero', context: { path: '/about' },
+    options: { blocks: { Card } },
+    metadata: { Card: { label: 'Card' } },
+    slot: {
+      id: 'hero-id', slot: 'hero',
+      blocks: [{ id: 'card-id', type: 'Card', data: { title: 'Hello' } }],
+    },
+  };
+  assert.equal(
+    renderToStaticMarkup(React.createElement(CustomSlot, renderProps)),
+    renderToStaticMarkup(React.createElement(RenderClientSlot, renderProps))
+  );
+});
 
 test('slot editing client merges default path context before explicit context', async () => {
   globalThis.__PAGE_BLOCKS_VITE_CONFIG__ = {

@@ -27,6 +27,7 @@ register(
       #options: DirectoryOptions<any> | null = null;
       queryClient: QueryClient | null = null;
       isMounted = false;
+      cleanups: Array<() => void> = [];
       onRefresh = () => {};
 
       constructor() {
@@ -59,7 +60,7 @@ register(
       }
 
       connectedCallback() {
-        editingMode.listen((isEditing) => {
+        this.cleanups.push(editingMode.listen((isEditing) => {
           if (isEditing) {
             document.body.classList.add('pb-editing');
           } else {
@@ -79,9 +80,9 @@ register(
               }
             }
           }
-        });
+        }));
 
-        currentlyAddingBlock.listen((adding) => {
+        this.cleanups.push(currentlyAddingBlock.listen((adding) => {
           if (!this.client) {
             console.error('Editor not configured correctly. queryClient and options must be set.');
             return;
@@ -105,7 +106,7 @@ register(
             this.addingReactRoot = null as any;
             this.addingContainer.className = '';
           }
-        });
+        }));
 
         // This components might be added at any point to the DOM. It needs to discover the slots that
         // have been added to the page (which contain information about their blocks).
@@ -119,7 +120,7 @@ register(
         //
         // The editor will be constructed with enough information to make API requests to a configured API, which
         // will be local by default and for this implementation.
-        currentBlock.listen((mode) => {
+        this.cleanups.push(currentBlock.listen((mode) => {
           if (!this.options || !this.queryClient || !this.client) {
             console.error('Editor not configured correctly. queryClient and options must be set.');
             return;
@@ -161,9 +162,18 @@ register(
             this.editingReactRoot = null as any;
             this.editingContainer.className = '';
           }
-        });
+        }));
 
         this.shadowRoot!.innerHTML = `<slot></slot>`;
+      }
+
+      disconnectedCallback() {
+        this.cleanups.splice(0).forEach((cleanup) => cleanup());
+        this.addingReactRoot?.unmount();
+        this.editingReactRoot?.unmount();
+        this.addingReactRoot = null;
+        this.editingReactRoot = null;
+        document.body.classList.remove('pb-editing');
       }
 
       onMutation = (req: any, res: any) => {

@@ -9,6 +9,7 @@ import {
 import { isPageBlocksReadOnly, mergePageBlocksContext, resolveDirectoryResolver } from '../vite/runtime';
 import { readPageBlocksResponse } from './errors';
 import { createPageBlocksRemoteClient } from './remote-client';
+import { trackPageBlocksWrite } from './store';
 
 export type SlotEditingClient = ReturnType<typeof createSlotEditingClient>;
 
@@ -37,12 +38,14 @@ export function createSlotEditingClient(
     parent?: { blockId: string; slotId: string }
   ) => {
     if (isPageBlocksReadOnly()) throw new Error('Page Blocks editing is disabled in read-only builds.');
-    const client = remote();
-    const resolvedTarget = target(slotId, parent);
-    const current = await client.get(resolvedTarget);
-    const response = await client.mutate(resolvedTarget, current.document.version, mutation);
-    await notify(request, response);
-    return response;
+    return trackPageBlocksWrite(async () => {
+      const client = remote();
+      const resolvedTarget = target(slotId, parent);
+      const current = await client.get(resolvedTarget);
+      const response = await client.mutate(resolvedTarget, current.document.version, mutation);
+      await notify(request, response);
+      return response;
+    });
   };
 
   return {
@@ -61,19 +64,23 @@ export function createSlotEditingClient(
       if (parent) throw new Error('Cannot create a top-level slot within a block.');
       if (isPageBlocksReadOnly()) throw new Error('Page Blocks editing is disabled in read-only builds.');
       const request = { type: 'create-slot' as const, slot, matches };
-      const response = await remote().create({ slot, matches });
-      await notify(request, response);
-      return response.target;
+      return trackPageBlocksWrite(async () => {
+        const response = await remote().create({ slot, matches });
+        await notify(request, response);
+        return response.target;
+      });
     },
     async deleteSlot(slotId: string, parent?: { blockId: string; slotId: string }) {
       if (isPageBlocksReadOnly()) throw new Error('Page Blocks editing is disabled in read-only builds.');
       const request = { type: 'delete-slot' as const, slotId, parent };
-      const client = remote();
-      const resolvedTarget = target(slotId, parent);
-      const current = await client.get(resolvedTarget);
-      const response = await client.delete(resolvedTarget, current.document.version);
-      await notify(request, response);
-      return { success: true as const };
+      return trackPageBlocksWrite(async () => {
+        const client = remote();
+        const resolvedTarget = target(slotId, parent);
+        const current = await client.get(resolvedTarget);
+        const response = await client.delete(resolvedTarget, current.document.version);
+        await notify(request, response);
+        return { success: true as const };
+      });
     },
     async createBlock(slotId: string, block: any, parent?: { blockId: string; slotId: string }) {
       const response = await mutate(
@@ -119,9 +126,11 @@ export function createSlotEditingClient(
     async generateScreenshots() {
       if (isPageBlocksReadOnly()) throw new Error('Page Blocks editing is disabled in read-only builds.');
       const endpoint = `${resolver().endpoint!.replace(/\/$/, '')}/screenshots`;
-      const response = await fetch(endpoint, { method: 'POST' });
-      await readPageBlocksResponse(response);
-      return { success: true as const };
+      return trackPageBlocksWrite(async () => {
+        const response = await fetch(endpoint, { method: 'POST' });
+        await readPageBlocksResponse(response);
+        return { success: true as const };
+      });
     },
   };
 }

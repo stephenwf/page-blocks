@@ -3,6 +3,12 @@ import { PokemonHero } from './pokemon-banner.js';
 import { PokemonStats } from './pokemon-stats.js';
 
 export const directory = createDirectory({
+  version: '1',
+  contexts: { required: ['pokemon'] },
+  slots: {
+    pokemon_hero: { allowedBlocks: ['PokemonHero'], maxItems: 1 },
+    pokemon_stats: { allowedBlocks: ['PokemonStats'], maxItems: 1 },
+  },
   blocks: {
     PokemonHero,
     PokemonStats,

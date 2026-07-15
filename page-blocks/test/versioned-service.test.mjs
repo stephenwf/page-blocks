@@ -5,7 +5,14 @@ import { join } from 'node:path';
 import { afterEach, test } from 'node:test';
 
 import { createPageBlocksRemoteClient, PageBlocksClientError } from 'page-blocks/client';
-import { createFileSystemStore } from 'page-blocks/file-system';
+import { createFileSystemLoader, createFileSystemStore } from 'page-blocks/file-system';
+import {
+  exportPageBlocksSnapshot,
+  importPageBlocksDirectory,
+  pageBlocksSnapshotManifestFile,
+} from 'page-blocks/file-system';
+import { createDirectoryContract, createDirectoryManifest } from 'page-blocks/core';
+import { z } from 'zod';
 import {
   createPageBlocksHandler,
   createPageBlocksService,
@@ -172,4 +179,78 @@ test('the filesystem store persists revisions and compare-and-swap conflicts', a
   assert.equal(saved.version, 2);
   await assert.rejects(() => store.save('tenant', record.id, 1, { blocks: [] }), /version 2, not 1/);
   assert.equal(JSON.parse(await readFile(join(directory, 'hero.json'), 'utf8')).version, 2);
+});
+
+test('directory contracts validate block props, declared inner slots, and top-level policies', async () => {
+  const manifest = createDirectoryManifest({
+    version: '2026-07',
+    contexts: { required: ['path'], optional: [] },
+    blocks: [{
+      type: 'card', label: 'Card', innerSlots: {}, requiredContexts: [], optionalContexts: [],
+      form: { type: 'object', required: ['title'] },
+    }],
+    slots: [{ name: 'hero', policy: { allowedBlocks: ['card'], maxItems: 1 } }],
+    aliases: { oldCard: 'card' }, migrations: [], presets: [],
+  });
+  const directory = createDirectoryContract(manifest, {
+    card: z.object({ title: z.string().min(1) }),
+  });
+  const service = createPageBlocksService({ store: createMemoryStore([]), directory });
+  const created = await service.create('tenant', { slot: 'hero', matches: [] }, {
+    blocks: [{ id: 'one', type: 'oldCard', data: { title: 'Valid' } }],
+  });
+  assert.equal(created.document.version, 1);
+  await assert.rejects(
+    () => service.mutate('tenant', { documentId: created.document.id, path: [] }, 1, {
+      type: 'create-block', block: { id: 'two', type: 'card', data: { title: 'Too many' } },
+    }),
+    (error) => error.status === 400 && /at most 1/.test(error.message)
+  );
+  await assert.rejects(
+    () => service.create('tenant', { slot: 'hero', matches: [] }, {
+      blocks: [{ id: 'bad', type: 'card', data: { title: '' } }],
+    }),
+    (error) => error.status === 400
+  );
+});
+
+test('snapshot export is deterministic, atomic, checksummed, and round-trips into the matcher', async () => {
+  const parent = await mkdtemp(join(tmpdir(), 'page-blocks-snapshot-'));
+  temporaryDirectories.push(parent);
+  const first = join(parent, 'first');
+  const second = join(parent, 'second');
+  const documents = [
+    {
+      locator: { slot: 'hero', matches: [{ id: 'path', type: 'exact', value: '/about' }] },
+      version: 3,
+      document: { blocks: [{ id: 'about', type: 'card', data: { title: 'About' } }] },
+    },
+    {
+      locator: { slot: 'hero', matches: [] },
+      version: 2,
+      document: { blocks: [{ id: 'global', type: 'card', data: { title: 'Global' } }] },
+    },
+  ];
+  const options = {
+    documents, contexts: ['path'], directoryVersion: '2026-07', sourceRevision: 'revision-42',
+  };
+  const firstManifest = await exportPageBlocksSnapshot({ ...options, targetDirectory: first });
+  const secondManifest = await exportPageBlocksSnapshot({ ...options, targetDirectory: second });
+  assert.deepEqual(firstManifest, secondManifest);
+  assert.equal(
+    await readFile(join(first, pageBlocksSnapshotManifestFile), 'utf8'),
+    await readFile(join(second, pageBlocksSnapshotManifestFile), 'utf8')
+  );
+
+  const imported = await importPageBlocksDirectory({
+    sourceDirectory: first, expectedDirectoryVersion: '2026-07', scope: 'tenant',
+  });
+  assert.deepEqual(imported.documents.map((record) => record.version), [3, 2]);
+  const loader = createFileSystemLoader({ path: first, contexts: ['path'] });
+  assert.equal((await loader.query({ path: '/about/' }, ['hero'])).slots.hero.blocks[0].id, 'about');
+
+  const aboutFile = firstManifest.files.find((file) => file.path.includes('@path'));
+  await writeFile(join(first, aboutFile.path), '{"tampered":true}\n');
+  await assert.rejects(() => importPageBlocksDirectory({ sourceDirectory: first }), /checksum failed/);
+  await assert.rejects(() => exportPageBlocksSnapshot({ ...options, targetDirectory: second }));
 });

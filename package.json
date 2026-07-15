@@ -6,7 +6,7 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "verify": "pnpm --dir page-blocks verify && pnpm run verify:examples",
-    "verify:examples": "pnpm --dir examples/vite typecheck && pnpm --dir examples/vite build && pnpm --dir examples/vite-blueprints typecheck && pnpm --dir examples/vite-blueprints build && pnpm --dir examples/vite-travel-campaign typecheck && pnpm --dir examples/vite-travel-campaign build",
+    "verify:examples": "pnpm --dir examples/vite typecheck && pnpm --dir examples/vite build && pnpm --dir examples/vite-blueprints typecheck && pnpm --dir examples/vite-blueprints build && pnpm --dir examples/vite-travel-campaign typecheck && pnpm --dir examples/vite-travel-campaign build && pnpm --dir examples/vite-preview typecheck && pnpm --dir examples/vite-preview build && pnpm --dir examples/vite-preview build:preview",
     "publish-packages": "turbo run build && changeset version && changeset publish"
   },
   "devDependencies": {

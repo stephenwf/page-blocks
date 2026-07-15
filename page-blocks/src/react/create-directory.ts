@@ -1,4 +1,13 @@
-import { BlockConfig, blockSymbol, DirectoryOptions, InferBlocks } from '../core';
+import {
+  BlockConfig,
+  blockSymbol,
+  createDirectoryContract,
+  createDirectoryManifest,
+  DirectoryOptions,
+  InferBlocks,
+  PageBlocksDirectoryContract,
+  PageBlocksDirectoryManifest,
+} from '../core';
 import { Blocks } from './types';
 import { FC } from 'react';
 import { ComputeSlot, createSlot } from './create-slot';
@@ -17,6 +26,8 @@ export type Directory<Options extends DirectoryOptions<any, any>> = Options & {
   createBlockEditorElement: (query?: any) => HTMLElement;
   SlotContext: FC<SlotContextProps>;
   metadata: Record<keyof Options['blocks'], BlockConfig>;
+  manifest: PageBlocksDirectoryManifest;
+  contract: PageBlocksDirectoryContract;
 };
 
 export function createDirectory<B extends Blocks, Context, O extends DirectoryOptions<B, Context>>(
@@ -50,6 +61,38 @@ export function createDirectory<B extends Blocks, Context, O extends DirectoryOp
   }
 
   const Slot = _Slot as ComputeSlot<InferBlocks<O>>;
+  const manifest = createDirectoryManifest({
+    version: options.version || '1',
+    contexts: {
+      required: options.contexts?.required || [],
+      optional: options.contexts?.optional || [],
+    },
+    blocks: blockKeys.map((key) => {
+      const config = metadata[key];
+      const slotNames = new Set([...(config.slots || []), ...Object.keys(config.slotConfig || {})]);
+      return {
+        type: String(key),
+        label: config.label,
+        ...(config.description ? { description: config.description } : {}),
+        ...(config.icon ? { icon: config.icon } : {}),
+        ...(config.thumbnail ? { thumbnail: config.thumbnail } : {}),
+        ...(config.form ? { form: config.form } : {}),
+        innerSlots: Object.fromEntries(
+          [...slotNames].sort().map((name) => [name, (config.slotConfig as Record<string, any> | undefined)?.[name] || {}])
+        ),
+        requiredContexts: (config.requiredContext || []) as string[],
+        optionalContexts: (config.optionalContext || []) as string[],
+      };
+    }),
+    slots: Object.entries(options.slots || {}).map(([name, policy]) => ({ name, policy })),
+    aliases: options.aliases || {},
+    migrations: options.migrations || [],
+    presets: options.presets || [],
+  });
+  const contract = createDirectoryContract(
+    manifest,
+    Object.fromEntries(blockKeys.flatMap((key) => metadata[key].props ? [[String(key), metadata[key].props!]] : []))
+  );
 
   return {
     ...resolvedOptions,
@@ -61,5 +104,7 @@ export function createDirectory<B extends Blocks, Context, O extends DirectoryOp
     BlockArchive,
     BlockEditor,
     createBlockEditorElement,
+    manifest,
+    contract,
   };
 }

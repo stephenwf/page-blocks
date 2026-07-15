@@ -4,7 +4,12 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, test } from 'node:test';
 
-import { createSlotEditingClient, PageBlocksClientError } from 'page-blocks/client';
+import {
+  createSlotEditingClient,
+  editorStatus,
+  PageBlocksClientError,
+  pendingBlockProps,
+} from 'page-blocks/client';
 import {
   findSlotManifestMatch,
   parseSlotApiResponse,
@@ -195,7 +200,9 @@ test('client errors are typed and mutation callbacks only follow successful writ
   assert.equal(mutations, 0);
   await client.updateSlot('slot-1', { blocks: [] });
   assert.equal(mutations, 1);
+  assert.equal(editorStatus.get(), 'saved');
 
+  pendingBlockProps.set({ title: 'Unsaved' });
   globalThis.fetch = async () => ({
     ok: false,
     status: 409,
@@ -208,6 +215,8 @@ test('client errors are typed and mutation callbacks only follow successful writ
     (error) => error instanceof PageBlocksClientError && error.status === 409 && error.code === 'conflict'
   );
   assert.equal(mutations, 1);
+  assert.equal(editorStatus.get(), 'conflict');
+  assert.deepEqual(pendingBlockProps.get(), { title: 'Unsaved' });
 });
 
 test('static and filesystem adapters share matching conformance fixtures', async () => {

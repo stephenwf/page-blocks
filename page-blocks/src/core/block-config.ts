@@ -8,6 +8,8 @@ type InnerSlotConfig = {
   description?: string;
   minItems?: number;
   maxItems?: number;
+  allowedBlocks?: string[];
+  required?: boolean;
 };
 
 export type BlockConfig<
@@ -21,6 +23,9 @@ export type BlockConfig<
 > = {
   label: string;
   description?: string;
+  icon?: string;
+  thumbnail?: string;
+  form?: import('./protocol').JsonValue;
   props?: Props;
   preload?: (props: Prettify<TypeOf<Props>>, serverContext: any) => Promise<Preload>;
   data?: Prettify<MappedProps<Props>>;
