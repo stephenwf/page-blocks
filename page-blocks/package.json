@@ -1,6 +1,6 @@
 {
   "name": "page-blocks",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Page Blocks libraries in a single package",
   "author": "stephenwf",
   "type": "module",
