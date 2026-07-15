@@ -18,6 +18,10 @@ export default defineConfig([
   config('src/client/index.ts', 'dist/client', {
     platform: 'browser',
   }),
+  config('src/server/index.ts', 'dist/server', {
+    platform: 'node',
+    target: 'node18',
+  }),
   config('src/node/index.ts', 'dist/node', {
     platform: 'node',
     target: 'node18',

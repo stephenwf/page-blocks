@@ -23,6 +23,7 @@ export interface BlueprintSyncAdapter {
   upsertBlueprintSlot(request: CreateSlot & { data: unknown }): Promise<void>;
   deleteBlueprintSlot(request: CreateSlot): Promise<void>;
   listBlueprintSlots(): Promise<Array<{ slot: string; matches: CreateSlot['matches'] }>>;
+  listSlotDocuments(): Promise<Array<{ locator: CreateSlot; document: ReturnType<typeof normalizeSlotResponse> }>>;
 }
 
 type IndexedSlot = {
@@ -154,7 +155,7 @@ export function createFileSystemLoader(options: { path: string; contexts: string
       await this.init();
       const relativePath = buildSlotFilePath(request.slot, request.matches, options.contexts);
       const absolutePath = resolveWithinRoot(root, relativePath);
-      const data = { name: request.slot, blocks: [] };
+      const data = { name: request.slot, blocks: [], version: 1 };
 
       try {
         await atomicWriteFile(absolutePath, formatJson(data), { create: true });
@@ -248,9 +249,22 @@ export function createFileSystemLoader(options: { path: string; contexts: string
         matches: contextFlatNodeToMatches(entry, options.contexts),
       }));
     },
+    async listSlotDocuments() {
+      await loader.init();
+      return Promise.all(
+        parsed.map(async (entry) => ({
+          locator: {
+            slot: entry.slot,
+            matches: contextFlatNodeToMatches(entry, options.contexts),
+          },
+          document: await readIndexedSlot(getIndexedSlot(entry.id)),
+        }))
+      );
+    },
   });
 }
 
 export { parseSingleFile } from './parse-single-file';
 export { buildSlotFilePath, validateSlotLocator } from './slot-path';
 export { resolveWithinRoot } from './utils';
+export { createFileSystemStore } from './store';

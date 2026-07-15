@@ -5,3 +5,4 @@ export * from './slot-editing-client';
 export * from './store';
 export * from './register';
 export * from './errors';
+export * from './remote-client';

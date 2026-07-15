@@ -61,6 +61,16 @@
         "default": "./dist/node/index.cjs"
       }
     },
+    "./server": {
+      "import": {
+        "types": "./dist/server/index.d.mts",
+        "default": "./dist/server/index.mjs"
+      },
+      "require": {
+        "types": "./dist/server/index.d.cts",
+        "default": "./dist/server/index.cjs"
+      }
+    },
     "./next": {
       "import": {
         "types": "./dist/next/index.d.ts",

@@ -166,9 +166,27 @@ test('client errors are typed and mutation callbacks only follow successful writ
       ok: true,
       status: 200,
       async json() {
-        return request.type === 'request-slots'
+        if (request.type === 'query') {
+          return { slots: {}, isEmpty: true, slotNames: [], context: request.context };
+        }
+        if (request.type === 'get') {
+          return {
+            document: {
+              id: 'slot-1', scope: 'local', version: 1,
+              locator: { slot: 'hero', matches: [] }, document: { blocks: [] },
+            },
+            target: { id: 'slot-1', slot: 'hero', blocks: [], version: 1 },
+          };
+        }
+        return request.type === 'query'
           ? { slots: {}, isEmpty: true, slotNames: [], context: request.context }
-          : { success: true };
+          : {
+              document: {
+                id: 'slot-1', scope: 'local', version: 2,
+                locator: { slot: 'hero', matches: [] }, document: { blocks: [] },
+              },
+              target: { id: 'slot-1', slot: 'hero', blocks: [], version: 2 },
+            };
       },
     };
   };

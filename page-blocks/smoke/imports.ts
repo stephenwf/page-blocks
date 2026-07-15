@@ -2,6 +2,7 @@ import * as root from 'page-blocks';
 import * as core from 'page-blocks/core';
 import * as client from 'page-blocks/client';
 import * as nodeHelpers from 'page-blocks/node';
+import * as server from 'page-blocks/server';
 import * as nextHelpers from 'page-blocks/next';
 import * as fileSystem from 'page-blocks/file-system';
 import * as screenshots from 'page-blocks/screenshots';
@@ -24,6 +25,7 @@ void [
   core,
   client,
   nodeHelpers,
+  server,
   nextHelpers,
   fileSystem,
   screenshots,

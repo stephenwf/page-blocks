@@ -13,6 +13,14 @@ export class PageBlocksClientError extends Error {
 }
 
 export async function readPageBlocksResponse(response: Response) {
+  const contentType = response.headers?.get?.('content-type');
+  if (contentType && !contentType.toLowerCase().includes('application/json')) {
+    throw new PageBlocksClientError('The Page Blocks server returned a non-JSON response.', {
+      status: response.status,
+      code: 'invalid_response',
+    });
+  }
+
   let body: unknown;
   try {
     body = await response.json();

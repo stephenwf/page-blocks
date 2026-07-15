@@ -10,11 +10,12 @@ import {
   validateSlotManifestEntries,
 } from '../core';
 import { compileBlueprintFiles } from '../designer';
-import { createFileSystemLoader } from '../file-system';
+import { createFileSystemLoader, createFileSystemStore } from '../file-system';
 import { parseSingleFile } from '../file-system/parse-single-file';
 import { readAllFiles } from '../file-system/utils';
-import { createRequestHandler } from '../node';
+import { createPageBlocksHandler, createPageBlocksService } from '../server';
 import { createManifestLoader } from './manifest-loader';
+import { createManifestStore } from './manifest-store';
 import {
   pageBlocksStaticFilesManifestDefine,
   pageBlocksStaticManifestDefine,
@@ -300,9 +301,21 @@ export default function pageBlocks(options: PageBlocksViteOptions = {}): Plugin 
             contexts: resolvedOptions.contexts,
           });
 
-      const handler = createRequestHandler({
-        loader,
-        generateScreenshots: blueprintMode ? undefined : resolvedOptions.generateScreenshots,
+      const store = blueprintMode
+        ? createManifestStore(() => {
+            if (!cachedBlueprintManifest) throw new Error('Blueprint manifest was requested before it was compiled.');
+            return cachedBlueprintManifest;
+          }, 'local')
+        : createFileSystemStore({
+            path: resolvedOptions.slotsDir,
+            contexts: resolvedOptions.contexts,
+            scope: 'local',
+            loader: loader as ReturnType<typeof createFileSystemLoader>,
+          });
+      const handler = createPageBlocksHandler({
+        service: createPageBlocksService({ store }),
+        scope: 'local',
+        ...(blueprintMode ? {} : { authorize: () => true }),
       });
 
       const refreshBlueprintManifest = async () => {
@@ -334,7 +347,11 @@ export default function pageBlocks(options: PageBlocksViteOptions = {}): Plugin 
       server.middlewares.use(async (req, res, next) => {
         const url = new URL(req.url || '/', 'http://page-blocks.local');
 
-        if (req.method !== 'POST' || url.pathname !== resolvedOptions!.apiPath) {
+        const screenshotPath = `${resolvedOptions!.apiPath.replace(/\/$/, '')}/screenshots`;
+        if (
+          req.method !== 'POST' ||
+          (url.pathname !== resolvedOptions!.apiPath && url.pathname !== screenshotPath)
+        ) {
           next();
           return;
         }
@@ -344,10 +361,26 @@ export default function pageBlocks(options: PageBlocksViteOptions = {}): Plugin 
             await refreshBlueprintManifest();
           }
 
+          if (url.pathname === screenshotPath) {
+            if (blueprintMode || !resolvedOptions!.generateScreenshots) {
+              sendJson(res, 403, { error: { code: 'forbidden', message: 'Screenshot generation is unavailable.' } });
+              return;
+            }
+            await resolvedOptions!.generateScreenshots();
+            sendJson(res, 200, { success: true });
+            return;
+          }
+
           const rawBody = await readBody(req);
-          const body = rawBody ? JSON.parse(rawBody) : {};
-          const response = await handler(body as any);
-          sendJson(res, response.status, response.body);
+          const headers = new Headers();
+          for (const [name, value] of Object.entries(req.headers)) {
+            for (const item of Array.isArray(value) ? value : value ? [value] : []) headers.append(name, item);
+          }
+          const response = await handler(
+            new Request(url, { method: 'POST', headers, body: rawBody || '{}' })
+          );
+          const responseBody = await response.json();
+          sendJson(res, response.status, responseBody);
         } catch (error) {
           const message = error instanceof Error ? error.message : 'Unknown error';
           const status = error instanceof BodyTooLargeError ? 413 : error instanceof SyntaxError ? 400 : 500;

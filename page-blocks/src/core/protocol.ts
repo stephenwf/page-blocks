@@ -170,6 +170,7 @@ export interface SlotDocument {
   name?: string;
   blocks: BlockWithOptionalSlotResponse[];
   options?: JsonValue;
+  version?: number;
   source?: SlotSourceMetadata;
 }
 
@@ -197,6 +198,7 @@ const slotDocumentObjectSchema = z
     name: pageBlocksNameSchema.optional(),
     blocks: z.array(blockResponseSchema).max(pageBlocksProtocolLimits.blocks),
     options: jsonValueSchema.optional(),
+    version: z.number().int().positive().optional(),
     source: slotSourceMetadataSchema.optional(),
   })
   .strict();
