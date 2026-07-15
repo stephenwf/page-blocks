@@ -6,3 +6,4 @@ export * from './store';
 export * from './register';
 export * from './errors';
 export * from './remote-client';
+export * from './runtime-controller';

@@ -66,6 +66,11 @@ export default defineConfig([
     treeshake: false,
     unbundle: true,
   }),
+  config('src/editor/index.ts', 'dist/editor', {
+    platform: 'browser',
+    treeshake: false,
+    unbundle: true,
+  }),
   config('src/web-components/index.ts', 'dist/web-components', {
     platform: 'browser',
     treeshake: false,

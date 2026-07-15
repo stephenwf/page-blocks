@@ -9,6 +9,7 @@ import * as screenshots from 'page-blocks/screenshots';
 import * as reactClient from 'page-blocks/react-client';
 import * as reactHelpers from 'page-blocks/react';
 import * as reactEditor from 'page-blocks/react-editor';
+import * as editor from 'page-blocks/editor';
 import * as vitePlugin from 'page-blocks/vite';
 import * as viteServer from 'page-blocks/vite/server';
 import * as webComponents from 'page-blocks/web-components';
@@ -16,6 +17,7 @@ import * as webComponents from 'page-blocks/web-components';
 import 'page-blocks/react/style.css';
 import 'page-blocks/react/dist/index.css';
 import 'page-blocks/react-editor/style.css';
+import 'page-blocks/editor/style.css';
 import 'page-blocks/react-editor/dist/index.css';
 import 'page-blocks/web-components/style.css';
 import 'page-blocks/web-components/dist/index.css';
@@ -32,6 +34,7 @@ void [
   reactClient,
   reactHelpers,
   reactEditor,
+  editor,
   vitePlugin,
   viteServer,
   webComponents,

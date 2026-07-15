@@ -36,7 +36,11 @@ type ViteConfigEnv = {
 interface ResolvedPluginOptions extends ResolvedPageBlocksViteOptions {
   designs?: string | string[];
   generateScreenshots?: () => Promise<void>;
+  previewBootstrap?: string;
 }
+
+const previewBootstrapId = 'virtual:page-blocks-preview-bootstrap';
+const resolvedPreviewBootstrapId = `\0${previewBootstrapId}`;
 
 type StaticSlotSource = {
   entry: ContextFlatNode;
@@ -79,7 +83,8 @@ function resolvePluginOptions(
   options: PageBlocksViteOptions = {}
 ): ResolvedPluginOptions {
   return {
-    mode: 'server',
+    mode: 'local',
+    configuredMode: options.mode || 'auto',
     readOnly: false,
     root,
     slotsDir: resolve(root, options.slotsDir || 'slots'),
@@ -92,6 +97,7 @@ function resolvePluginOptions(
     staticOutput: options.staticOutput || 'inline',
     staticAssetDir: normalizeStaticAssetDir(options.staticAssetDir),
     generateScreenshots: options.generateScreenshots,
+    previewBootstrap: options.preview?.bootstrap ? resolve(root, options.preview.bootstrap) : undefined,
   };
 }
 
@@ -198,12 +204,14 @@ function toRuntimeConfig(
   options: ResolvedPluginOptions,
   env: ViteConfigEnv
 ): StaticBuildState | Promise<StaticBuildState> {
-  const isStaticClientBuild = env.command === 'build' && !env.isSsrBuild;
+  const mode = options.configuredMode === 'auto'
+    ? env.command === 'serve' ? 'local' : 'static'
+    : options.configuredMode;
 
-  if (!isStaticClientBuild) {
+  if (mode === 'local') {
     return {
       runtimeConfig: {
-        mode: 'server',
+        mode: 'local',
         readOnly: Boolean(options.designs),
         apiPath: options.apiPath,
         root: options.root,
@@ -219,8 +227,10 @@ function toRuntimeConfig(
   if (options.staticOutput === 'lazy-files') {
     return buildStaticFilesManifest(options).then(({ manifest, assets }) => ({
       runtimeConfig: {
-        mode: 'static-files',
-        readOnly: true,
+        mode,
+        staticOutput: 'lazy-files',
+        readOnly: mode === 'static',
+        ...(mode === 'preview' ? { apiPath: options.apiPath } : {}),
         contexts: options.contexts,
         screenshots: options.screenshots,
         basePath: options.basePath,
@@ -233,8 +243,10 @@ function toRuntimeConfig(
 
   return buildStaticManifest(options).then((manifest) => ({
     runtimeConfig: {
-      mode: 'static',
-      readOnly: true,
+      mode,
+      staticOutput: 'inline',
+      readOnly: mode === 'static',
+      ...(mode === 'preview' ? { apiPath: options.apiPath } : {}),
       contexts: options.contexts,
       screenshots: options.screenshots,
       basePath: options.basePath,
@@ -252,6 +264,24 @@ export default function pageBlocks(options: PageBlocksViteOptions = {}): Plugin 
 
   return {
     name: 'page-blocks:vite',
+    resolveId(id) {
+      if (id === previewBootstrapId) return resolvedPreviewBootstrapId;
+    },
+    load(id) {
+      if (id !== resolvedPreviewBootstrapId) return;
+      if (!resolvedOptions?.previewBootstrap) {
+        throw new Error('pageBlocks({ mode: "preview" }) requires preview.bootstrap.');
+      }
+      return [
+        `import bootstrap from ${JSON.stringify(resolvedOptions.previewBootstrap)};`,
+        `import { startPageBlocksPreview } from "page-blocks/client";`,
+        `const loadEditor = async () => {`,
+        `  await import("page-blocks/editor/style.css");`,
+        `  return import("page-blocks/editor");`,
+        `};`,
+        `startPageBlocksPreview(bootstrap, loadEditor);`,
+      ].join('\n');
+    },
     async config(config, env) {
       const root = resolve(config.root || process.cwd());
       resolvedOptions = resolvePluginOptions(root, config.base, options);
@@ -267,9 +297,24 @@ export default function pageBlocks(options: PageBlocksViteOptions = {}): Plugin 
           [pageBlocksViteConfigDefine]: JSON.stringify(runtimeConfig),
           [pageBlocksStaticManifestDefine]: manifest ? JSON.stringify(manifest) : 'undefined',
           [pageBlocksStaticFilesManifestDefine]: staticFilesManifest ? JSON.stringify(staticFilesManifest) : 'undefined',
-          [pageBlocksStaticModeDefine]: runtimeConfig.mode === 'server' ? 'false' : 'true',
+          [pageBlocksStaticModeDefine]: runtimeConfig.mode === 'local' ? 'false' : 'true',
         },
       } satisfies UserConfig;
+    },
+    transformIndexHtml: {
+      order: 'pre',
+      handler() {
+        if (resolvedOptions?.configuredMode !== 'preview') return;
+        if (!resolvedOptions.previewBootstrap) {
+          throw new Error('pageBlocks({ mode: "preview" }) requires preview.bootstrap.');
+        }
+        return [{
+          tag: 'script',
+          attrs: { type: 'module' },
+          children: `import ${JSON.stringify(previewBootstrapId)};`,
+          injectTo: 'head',
+        }];
+      },
     },
     generateBundle() {
       for (const asset of staticAssetsToEmit) {

@@ -6,6 +6,7 @@ const root = resolve(import.meta.dirname, '..');
 const files = [
   ['src/react/styles.css', 'dist/react/style.css'],
   ['src/react-editor/styles.css', 'dist/react-editor/style.css'],
+  ['src/react-editor/styles.css', 'dist/editor/style.css'],
   ['src/web-components/index.css', 'dist/web-components/style.css'],
 ];
 

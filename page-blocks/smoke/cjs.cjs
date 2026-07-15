@@ -3,6 +3,7 @@ const nodeHelpers = require('page-blocks/node');
 const server = require('page-blocks/server');
 const fileSystem = require('page-blocks/file-system');
 const reactHelpers = require('page-blocks/react');
+const editor = require('page-blocks/editor');
 const vitePlugin = require('page-blocks/vite');
 const viteServer = require('page-blocks/vite/server');
 
@@ -12,6 +13,7 @@ for (const [name, value] of Object.entries({
   server,
   fileSystem,
   reactHelpers,
+  editor,
   vitePlugin,
   viteServer,
 })) {

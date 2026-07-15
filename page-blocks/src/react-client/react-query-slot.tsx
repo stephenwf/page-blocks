@@ -1,8 +1,8 @@
 'use client';
 import { useCurrentSlotCache, useVisibleSlots } from './context';
 import { useQuery } from 'react-query';
-import { useEffect } from 'react';
-import { createInvalidator, createRemoteLoader } from '../client';
+import { useEffect, useSyncExternalStore } from 'react';
+import { createInvalidator, createRemoteLoader, getPageBlocksRuntime } from '../client';
 import { Prettify } from '../core';
 import { RenderClientSlot, RenderClientSlotProps } from './render-client-slot';
 import { mergePageBlocksContext } from '../vite/runtime';
@@ -14,6 +14,8 @@ export function ReactQuerySlot(props: ReactQuerySlotProps) {
   const slots = useVisibleSlots();
   const slotsToRequest = slots.includes(props.name) ? slots : [props.name];
   const loader = createRemoteLoader(props.options);
+  const runtime = getPageBlocksRuntime();
+  useSyncExternalStore(runtime.subscribe, runtime.getSnapshot, runtime.getSnapshot);
 
   if (slots.length && !slots.includes(props.name)) {
     console.log('WARNING: Missing slot in the SlotContext `slots` prop: ', props.name, slots);

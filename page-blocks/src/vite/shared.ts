@@ -6,6 +6,7 @@ export const pageBlocksStaticFilesManifestDefine = 'globalThis.__PAGE_BLOCKS_VIT
 export const pageBlocksStaticModeDefine = 'globalThis.__PAGE_BLOCKS_VITE_STATIC_MODE__';
 
 export interface PageBlocksViteOptions {
+  mode?: 'auto' | 'local' | 'static' | 'preview';
   slotsDir?: string;
   apiPath?: string;
   contexts?: string[];
@@ -14,6 +15,9 @@ export interface PageBlocksViteOptions {
   staticOutput?: 'inline' | 'lazy-files';
   staticAssetDir?: string;
   generateScreenshots?: () => Promise<void>;
+  preview?: {
+    bootstrap: string;
+  };
 }
 
 export interface PageBlocksStaticFilesManifestEntry extends ContextFlatNode {
@@ -26,7 +30,8 @@ export interface PageBlocksStaticFilesRuntimeManifest {
 }
 
 export interface PageBlocksRuntimeConfig {
-  mode: 'server' | 'static' | 'static-files';
+  mode: 'local' | 'static' | 'preview';
+  staticOutput?: 'inline' | 'lazy-files';
   readOnly: boolean;
   apiPath?: string;
   root?: string;
@@ -38,6 +43,7 @@ export interface PageBlocksRuntimeConfig {
 }
 
 export interface ResolvedPageBlocksViteOptions extends PageBlocksRuntimeConfig {
+  configuredMode: 'auto' | 'local' | 'static' | 'preview';
   slotsDir: string;
   apiPath: string;
   root: string;

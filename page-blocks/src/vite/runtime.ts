@@ -14,12 +14,13 @@ import {
   PageBlocksStaticRuntimeManifest,
   resolveDefaultPageBlocksContext,
 } from './shared';
+import { getPageBlocksRuntime } from '../client/runtime-controller';
 
 const staticFileResponseCache = new Map<string, SlotResponse>();
 const staticFileRequestCache = new Map<string, Promise<SlotResponse | null>>();
 
 function isStaticRuntimeMode(mode: PageBlocksRuntimeConfig['mode'] | undefined) {
-  return mode === 'static' || mode === 'static-files';
+  return mode === 'static';
 }
 
 export function isPageBlocksStaticMode() {
@@ -39,7 +40,9 @@ export function getPageBlocksStaticFilesManifest() {
 }
 
 export function isPageBlocksReadOnly() {
-  return getPageBlocksViteConfig()?.readOnly || false;
+  const config = getPageBlocksViteConfig();
+  if (config?.mode === 'preview') return !getPageBlocksRuntime().getSnapshot().capabilities.edit;
+  return config?.readOnly || false;
 }
 
 export function resolveDirectoryResolver(
@@ -48,7 +51,8 @@ export function resolveDirectoryResolver(
   const runtimeConfig = getPageBlocksViteConfig();
   const screenshots = options.resolver?.screenshots || options.screenshots || runtimeConfig?.screenshots;
 
-  if (isStaticRuntimeMode(runtimeConfig?.mode)) {
+  const source = getPageBlocksRuntime().getSnapshot().source;
+  if (isStaticRuntimeMode(runtimeConfig?.mode) || (runtimeConfig?.mode === 'preview' && source !== 'remote')) {
     return {
       ...(options.resolver || { type: 'tanstack-query' as const }),
       endpoint: undefined,

@@ -161,6 +161,16 @@
         "default": "./dist/react-editor/index.cjs"
       }
     },
+    "./editor": {
+      "import": {
+        "types": "./dist/editor/index.d.ts",
+        "default": "./dist/editor/index.js"
+      },
+      "require": {
+        "types": "./dist/editor/index.d.cts",
+        "default": "./dist/editor/index.cjs"
+      }
+    },
     "./web-components": {
       "import": {
         "types": "./dist/web-components/index.d.ts",
@@ -182,6 +192,11 @@
       "default": "./dist/react/style.css"
     },
     "./react-editor/style.css": {
+      "types": "./dist/style.d.ts",
+      "import": "./dist/react-editor/style.css",
+      "default": "./dist/react-editor/style.css"
+    },
+    "./editor/style.css": {
       "types": "./dist/style.d.ts",
       "import": "./dist/react-editor/style.css",
       "default": "./dist/react-editor/style.css"
@@ -210,10 +225,13 @@
   "sideEffects": [
     "./dist/react-editor/index.js",
     "./dist/react-editor/index.cjs",
+    "./dist/editor/index.js",
+    "./dist/editor/index.cjs",
     "./dist/web-components/index.js",
     "./dist/web-components/index.cjs",
     "./dist/react/style.css",
     "./dist/react-editor/style.css",
+    "./dist/editor/style.css",
     "./dist/web-components/style.css"
   ],
   "scripts": {

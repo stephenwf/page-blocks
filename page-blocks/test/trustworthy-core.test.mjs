@@ -151,7 +151,7 @@ test('the current dispatcher rejects malformed input and invalidates successful 
 
 test('client errors are typed and mutation callbacks only follow successful writes', async () => {
   globalThis.__PAGE_BLOCKS_VITE_CONFIG__ = {
-    mode: 'server',
+    mode: 'local',
     readOnly: false,
     apiPath: '/api/page-blocks',
     contexts: ['path'],

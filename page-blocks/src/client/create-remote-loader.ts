@@ -1,6 +1,7 @@
 import { DirectoryOptions, SlotQueryResponse } from '../core';
 import { getPageBlocksViteConfig, loadPageBlocksStaticData, queryPageBlocksStaticData, resolveDirectoryResolver } from '../vite/runtime';
 import { createPageBlocksRemoteClient } from './remote-client';
+import { getPageBlocksRuntime } from './runtime-controller';
 
 export type PageBlocksRemoteLoader = ((
   slotContext: Record<string, string>,
@@ -21,11 +22,19 @@ export function createRemoteLoader(options: DirectoryOptions<any, any>) {
 
   const loader = ((slotContext: Record<string, string>, slotsToRequest: string[]) => {
     const runtimeMode = getRuntimeMode();
-    const staticMode = runtimeMode === 'static' || runtimeMode === 'static-files';
+    const runtime = getPageBlocksRuntime();
+    const runtimeSnapshot = runtime.getSnapshot();
+    const staticMode = runtimeMode === 'static' || (runtimeMode === 'preview' && runtimeSnapshot.source === 'baked');
     const resolver = staticMode ? undefined : resolveDirectoryResolver(options);
     const key = [
       '@page-blocks/slot-request',
-      { slotContext, slots: slotsToRequest, endpoint: resolver?.endpoint || runtimeMode || 'static' },
+      {
+        slotContext,
+        slots: slotsToRequest,
+        endpoint: resolver?.endpoint || runtimeMode || 'static',
+        source: runtimeSnapshot.source,
+        generation: runtimeSnapshot.generation,
+      },
     ] as const;
 
     const getData = async () => {
@@ -40,6 +49,9 @@ export function createRemoteLoader(options: DirectoryOptions<any, any>) {
         );
       }
 
+      const remoteClient = runtimeSnapshot.source === 'remote' ? runtime.getRemoteClient() : undefined;
+      if (remoteClient) return remoteClient.query(slotContext, slotsToRequest);
+
       if (!resolver?.endpoint) {
         throw new Error('page-blocks could not resolve a slot loader endpoint for this build.');
       }
@@ -52,12 +64,11 @@ export function createRemoteLoader(options: DirectoryOptions<any, any>) {
 
   loader.getInitialData = (slotContext: Record<string, string>, slotsToRequest: string[]) => {
     const runtimeMode = getRuntimeMode();
-    if (runtimeMode === 'static') {
-      return getStaticResponse(slotContext, slotsToRequest);
-    }
-
-    if (runtimeMode === 'static-files') {
+    if (getPageBlocksViteConfig()?.staticOutput === 'lazy-files') {
       return queryPageBlocksStaticData(slotContext, slotsToRequest);
+    }
+    if (runtimeMode === 'static' || runtimeMode === 'preview') {
+      return getStaticResponse(slotContext, slotsToRequest);
     }
 
     return queryPageBlocksStaticData(slotContext, slotsToRequest);

@@ -8,7 +8,7 @@ import React from 'react';
 import { z } from 'zod';
 import { build } from 'vite';
 
-import { createRemoteLoader, createSlotEditingClient } from 'page-blocks/client';
+import { createRemoteLoader, createSlotEditingClient, getPageBlocksRuntime } from 'page-blocks/client';
 import { compileBlueprintModules, designer, syncBlueprintFiles } from 'page-blocks/designer';
 import { createFileSystemLoader } from 'page-blocks/file-system';
 import { queryStaticManifest } from 'page-blocks/core';
@@ -107,7 +107,7 @@ const { design } = designer(testDirectory);
 
 test('slot editing client merges default path context before explicit context', async () => {
   globalThis.__PAGE_BLOCKS_VITE_CONFIG__ = {
-    mode: 'server',
+    mode: 'local',
     readOnly: false,
     apiPath: '/custom-page-blocks',
     contexts: ['path'],
@@ -205,9 +205,57 @@ test('static remote loader resolves manifest data without fetch', async () => {
   assert.equal(resolved.slots.hero.blocks[0].id, 'about-card');
 });
 
+test('preview runtime starts baked, switches query generations to remote, and can revoke the session', async () => {
+  globalThis.__PAGE_BLOCKS_VITE_CONFIG__ = {
+    mode: 'preview',
+    staticOutput: 'inline',
+    readOnly: false,
+    contexts: ['path'],
+    defaultContexts: ['path'],
+  };
+  globalThis.__PAGE_BLOCKS_VITE_STATIC_MANIFEST__ = {
+    contexts: ['path'],
+    entries: [{ id: 'baked', slot: 'hero', specificity: 0, contexts: [] }],
+    slots: {
+      baked: { id: 'baked', slot: 'hero', blocks: [{ id: 'baked-card', type: 'card', data: {} }] },
+    },
+  };
+
+  let fetchCalls = 0;
+  globalThis.fetch = async () => { fetchCalls += 1; throw new Error('anonymous preview must not fetch'); };
+  const runtime = getPageBlocksRuntime();
+  const bakedLoader = createRemoteLoader({});
+  const [bakedKey, loadBaked] = bakedLoader({}, ['hero']);
+  assert.equal((await loadBaked()).slots.hero.blocks[0].id, 'baked-card');
+  assert.equal(fetchCalls, 0);
+  assert.equal(runtime.getSnapshot().capabilities.edit, false);
+
+  runtime.useRemote({
+    capabilities: { read: true, edit: true },
+    client: {
+      async query(context) {
+        return {
+          slots: { hero: { id: 'remote', slot: 'hero', blocks: [{ id: 'remote-card', type: 'card', data: {} }] } },
+          isEmpty: false, slotNames: ['hero'], context,
+        };
+      },
+    },
+  });
+  const [remoteKey, loadRemote] = createRemoteLoader({})({}, ['hero']);
+  assert.notDeepEqual(remoteKey, bakedKey);
+  assert.equal((await loadRemote()).slots.hero.blocks[0].id, 'remote-card');
+  assert.equal(runtime.getSnapshot().capabilities.edit, true);
+
+  runtime.useStatic();
+  const [restoredKey, loadRestored] = createRemoteLoader({})({}, ['hero']);
+  assert.notDeepEqual(restoredKey, remoteKey);
+  assert.equal((await loadRestored()).slots.hero.blocks[0].id, 'baked-card');
+});
+
 test('static-files remote loader fetches matched slot JSON and caches it by file path', async () => {
   globalThis.__PAGE_BLOCKS_VITE_CONFIG__ = {
-    mode: 'static-files',
+    mode: 'static',
+    staticOutput: 'lazy-files',
     readOnly: true,
     contexts: ['path'],
     basePath: '/preview/',
@@ -269,7 +317,8 @@ test('static-files remote loader fetches matched slot JSON and caches it by file
 
 test('static-files remote loader treats empty slotIds as all matching slots', async () => {
   globalThis.__PAGE_BLOCKS_VITE_CONFIG__ = {
-    mode: 'static-files',
+    mode: 'static',
+    staticOutput: 'lazy-files',
     readOnly: true,
     contexts: ['path'],
     basePath: '/',
@@ -350,7 +399,8 @@ test('static-files remote loader treats empty slotIds as all matching slots', as
 
 test('static-files remote loader fetches fresh slot files when the route context changes', async () => {
   globalThis.__PAGE_BLOCKS_VITE_CONFIG__ = {
-    mode: 'static-files',
+    mode: 'static',
+    staticOutput: 'lazy-files',
     readOnly: true,
     contexts: ['path'],
     basePath: '/',
@@ -667,7 +717,7 @@ test('vite server helpers resolve slots from request paths', async (t) => {
   });
 
   globalThis.__PAGE_BLOCKS_VITE_CONFIG__ = {
-    mode: 'server',
+    mode: 'local',
     readOnly: false,
     slotsDir,
     contexts: ['path'],
@@ -732,7 +782,8 @@ test('vite plugin emits a lightweight lazy-files manifest and matching JSON asse
   const runtimeConfig = JSON.parse(configResult.define['globalThis.__PAGE_BLOCKS_VITE_CONFIG__']);
   const lazyManifest = JSON.parse(configResult.define['globalThis.__PAGE_BLOCKS_VITE_STATIC_FILES_MANIFEST__']);
 
-  assert.equal(runtimeConfig.mode, 'static-files');
+  assert.equal(runtimeConfig.mode, 'static');
+  assert.equal(runtimeConfig.staticOutput, 'lazy-files');
   assert.equal(runtimeConfig.basePath, '/preview/');
   assert.equal(configResult.define['globalThis.__PAGE_BLOCKS_VITE_STATIC_MANIFEST__'], 'undefined');
   assert.equal(configResult.define['globalThis.__PAGE_BLOCKS_VITE_STATIC_MODE__'], 'true');
@@ -810,6 +861,45 @@ test('vite build emits lazy static JSON files outside the bundle payload', async
   assert.equal(bundleText.includes('About hero'), false);
   assert.equal(bundleText.includes('Global hero'), false);
   assert.equal(JSON.parse(lazyHeroJson).blocks[0].id, 'about-card');
+});
+
+test('vite includes the lazy editor boundary only in preview artifacts', async (t) => {
+  const root = await mkdtemp(join(process.cwd(), '.page-blocks-vite-modes-'));
+  const slotsDir = join(root, 'slots');
+  t.after(async () => rm(root, { recursive: true, force: true }));
+
+  await mkdir(slotsDir, { recursive: true });
+  await writeFile(join(slotsDir, 'hero.json'), JSON.stringify({ name: 'hero', blocks: [] }));
+  await writeFile(join(root, 'index.html'), '<main>Page Blocks</main><script type="module" src="/main.js"></script>');
+  await writeFile(join(root, 'main.js'), 'console.log("SITE_ENTRY")');
+  await writeFile(
+    join(root, 'preview-bootstrap.js'),
+    'export default async function previewBootstrap() { console.log("PREVIEW_BOOTSTRAP_MARKER") }'
+  );
+
+  const buildMode = (mode, outDir) => build({
+    configFile: false,
+    root,
+    logLevel: 'silent',
+    plugins: [pageBlocks({
+      mode,
+      ...(mode === 'preview' ? { preview: { bootstrap: './preview-bootstrap.js' } } : {}),
+    })],
+    build: { outDir, emptyOutDir: true },
+  });
+  await buildMode('static', 'dist-static');
+  await buildMode('preview', 'dist-preview');
+
+  const artifactText = async (directory) => {
+    const files = await readFilesRecursive(join(root, directory));
+    return (await Promise.all(files.filter((file) => /\.(?:html|js|css)$/.test(file)).map((file) => readFile(file, 'utf8')))).join('\n');
+  };
+  const staticArtifact = await artifactText('dist-static');
+  const previewArtifact = await artifactText('dist-preview');
+  assert.equal(staticArtifact.includes('PREVIEW_BOOTSTRAP_MARKER'), false);
+  assert.equal(staticArtifact.includes('pb-editor'), false);
+  assert.equal(previewArtifact.includes('PREVIEW_BOOTSTRAP_MARKER'), true);
+  assert.equal(previewArtifact.includes('pb-editor'), true);
 });
 
 test('blueprint compiler builds manifest matches and applies mapFromProps', async () => {

@@ -3,6 +3,7 @@ import * as nodeHelpers from 'page-blocks/node';
 import * as server from 'page-blocks/server';
 import * as fileSystem from 'page-blocks/file-system';
 import * as reactHelpers from 'page-blocks/react';
+import * as editor from 'page-blocks/editor';
 import * as vitePlugin from 'page-blocks/vite';
 import * as viteServer from 'page-blocks/vite/server';
 
@@ -12,6 +13,7 @@ for (const [name, value] of Object.entries({
   server,
   fileSystem,
   reactHelpers,
+  editor,
   vitePlugin,
   viteServer,
 })) {
