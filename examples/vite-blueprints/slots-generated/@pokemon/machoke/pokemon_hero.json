@@ -1,5 +1,5 @@
 {
-  "id": "QHBva2Vtb24vbWFjaG9rZS9wb2tlbW9uX2hlcm8uanNvbg==",
+  "id": "dFDPvklF1aoDRwjXJrvresWuK5txr_caGEeFVTbEeLc",
   "slot": "pokemon_hero",
   "blocks": [
     {
@@ -12,7 +12,7 @@
           "fighting"
         ],
         "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/67.png",
-        "description": "Its muscular body is so powerful, it must wear a power save belt to be able to regulate its motions.",
+        "description": "It happily carries heavy cargo to toughen up. It willingly does hard work for people.",
         "height": 15,
         "weight": 705
       }

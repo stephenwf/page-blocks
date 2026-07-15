@@ -1,5 +1,5 @@
 {
-  "id": "QHBva2Vtb24vZ3lhcmFkb3MvcG9rZW1vbl9oZXJvLmpzb24=",
+  "id": "RaJ-lfQC1k-5EfzfDfCQHzycwpo8TinLNT1eq0GoLoE",
   "slot": "pokemon_hero",
   "blocks": [
     {
@@ -13,7 +13,7 @@
           "flying"
         ],
         "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/130.png",
-        "description": "Once it begins to rampage, a GYARADOS will burn everything down, even in a harsh storm.",
+        "description": "Rarely seen in the wild. Huge and vicious, it is capable of destroying entire cities in a rage.",
         "height": 65,
         "weight": 2350
       }

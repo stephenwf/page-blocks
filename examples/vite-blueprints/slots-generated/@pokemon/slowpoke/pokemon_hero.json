@@ -1,5 +1,5 @@
 {
-  "id": "QHBva2Vtb24vc2xvd3Bva2UvcG9rZW1vbl9oZXJvLmpzb24=",
+  "id": "EjBbQcLwKThkC-t5Cb04xpNRkXLMcylxUw2_r6B_CJc",
   "slot": "pokemon_hero",
   "blocks": [
     {
@@ -13,7 +13,7 @@
           "psychic"
         ],
         "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/79.png",
-        "description": "Incredibly slow and dopey. It takes 5 seconds for it to feel pain when under attack.",
+        "description": "It is always so absent-minded that it won't react, even if its flavorful tail is bitten.",
         "height": 12,
         "weight": 360
       }

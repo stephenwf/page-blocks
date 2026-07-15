@@ -1,5 +1,5 @@
 {
-  "id": "QHBva2Vtb24vYWVyb2RhY3R5bC9wb2tlbW9uX2hlcm8uanNvbg==",
+  "id": "b5bWklrRrrMEQz5heVOGdHXExt419qwwiWpBIboUJIY",
   "slot": "pokemon_hero",
   "blocks": [
     {
@@ -13,7 +13,7 @@
           "flying"
         ],
         "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/142.png",
-        "description": "A Pokémon that roamed the skies in the dinosaur era. Its teeth are like saw blades.",
+        "description": "A ferocious, pre­ historic POKéMON that goes for the enemy's throat with its serrated saw-like fangs.",
         "height": 18,
         "weight": 590
       }

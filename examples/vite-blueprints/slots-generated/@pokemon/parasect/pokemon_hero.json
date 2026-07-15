@@ -1,5 +1,5 @@
 {
-  "id": "QHBva2Vtb24vcGFyYXNlY3QvcG9rZW1vbl9oZXJvLmpzb24=",
+  "id": "55Wx1Z7lbcpNrOuLpSPfpgszKIhzK_mnvxHTjGf1ik8",
   "slot": "pokemon_hero",
   "blocks": [
     {
@@ -13,7 +13,7 @@
           "grass"
         ],
         "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/47.png",
-        "description": "A host-parasite pair in which the parasite mushroom has taken over the host bug. Prefers damp places.",
+        "description": "It stays mostly in dark, damp places, the preference not of the bug, but of the big mush­ rooms on its back.",
         "height": 10,
         "weight": 295
       }

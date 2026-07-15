@@ -1,5 +1,5 @@
 {
-  "id": "QHBva2Vtb24vc3BlYXJvdy9wb2tlbW9uX2hlcm8uanNvbg==",
+  "id": "VHbAM1D2fLbuBZSJkketFHdraqFOi4dLLPkr-zn7pMI",
   "slot": "pokemon_hero",
   "blocks": [
     {
@@ -13,7 +13,7 @@
           "flying"
         ],
         "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/21.png",
-        "description": "It flaps its small wings busily to fly. Using its beak, it searches in grass for prey.",
+        "description": "Eats bugs in grassy areas. It has to flap its short wings at high speed to stay airborne.",
         "height": 3,
         "weight": 20
       }

@@ -1,5 +1,5 @@
 {
-  "id": "QHBva2Vtb24vc3Rhcnl1L3Bva2Vtb25faGVyby5qc29u",
+  "id": "qLiXtdHjhp-B_TuEcCAVfySGiAn30HseY8xuPZn9Gm4",
   "slot": "pokemon_hero",
   "blocks": [
     {
@@ -12,7 +12,7 @@
           "water"
         ],
         "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/120.png",
-        "description": "If its body is torn, it can grow back if the red core remains. The core flashes at midnight.",
+        "description": "An enigmatic POKéMON that can effortlessly regenerate any appendage it loses in battle.",
         "height": 8,
         "weight": 345
       }

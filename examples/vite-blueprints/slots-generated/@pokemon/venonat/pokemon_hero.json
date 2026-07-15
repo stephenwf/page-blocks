@@ -1,5 +1,5 @@
 {
-  "id": "QHBva2Vtb24vdmVub25hdC9wb2tlbW9uX2hlcm8uanNvbg==",
+  "id": "RKDDOqb0oFEFVfEepVUOBooSyY6QedhgvFq6s6y00m0",
   "slot": "pokemon_hero",
   "blocks": [
     {
@@ -13,7 +13,7 @@
           "poison"
         ],
         "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/48.png",
-        "description": "Lives in the shadows of tall trees where it eats insects. It is attracted by light at night.",
+        "description": "Its big eyes are actually clusters of tiny eyes. At night, its kind is drawn by light.",
         "height": 10,
         "weight": 300
       }

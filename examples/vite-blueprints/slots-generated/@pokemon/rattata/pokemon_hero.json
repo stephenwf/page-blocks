@@ -1,5 +1,5 @@
 {
-  "id": "QHBva2Vtb24vcmF0dGF0YS9wb2tlbW9uX2hlcm8uanNvbg==",
+  "id": "IuTZ4MfM0LBgP4Q6WaKk5xUZdJLpo_LigXHhUy4z51Y",
   "slot": "pokemon_hero",
   "blocks": [
     {
@@ -12,7 +12,7 @@
           "normal"
         ],
         "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/19.png",
-        "description": "Bites anything when it attacks. Small and very quick, it is a common sight in many places.",
+        "description": "Living wherever there is food available, it ceaselessly scav­ enges for edibles the entire day.",
         "height": 3,
         "weight": 35
       }

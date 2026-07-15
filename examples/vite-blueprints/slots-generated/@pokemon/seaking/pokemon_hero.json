@@ -1,5 +1,5 @@
 {
-  "id": "QHBva2Vtb24vc2Vha2luZy9wb2tlbW9uX2hlcm8uanNvbg==",
+  "id": "pPv-6w7kOpUhbrk1hkA5zhJ_zXXgTT4Us-xL1rBQChE",
   "slot": "pokemon_hero",
   "blocks": [
     {
@@ -12,7 +12,7 @@
           "water"
         ],
         "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/119.png",
-        "description": "In the autumn spawning season, they can be seen swimming powerfully up rivers and creeks.",
+        "description": "In autumn, its body becomes more fatty in preparing to propose to a mate. It takes on beautiful colors.",
         "height": 13,
         "weight": 390
       }

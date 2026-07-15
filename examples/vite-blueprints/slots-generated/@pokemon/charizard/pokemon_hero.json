@@ -1,5 +1,5 @@
 {
-  "id": "QHBva2Vtb24vY2hhcml6YXJkL3Bva2Vtb25faGVyby5qc29u",
+  "id": "dYMzv4LqdYNcSyqx3o3Z4P_Pllv11Whd0j7m3Ufvf54",
   "slot": "pokemon_hero",
   "blocks": [
     {
@@ -13,7 +13,7 @@
           "flying"
         ],
         "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png",
-        "description": "Spits fire that is hot enough to melt boulders. Known to cause forest fires unintentionally.",
+        "description": "It is said that Charizard’s fire burns hotter if it has experienced harsh battles.",
         "height": 17,
         "weight": 905
       }

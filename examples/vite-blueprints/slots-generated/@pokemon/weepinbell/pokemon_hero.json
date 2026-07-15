@@ -1,5 +1,5 @@
 {
-  "id": "QHBva2Vtb24vd2VlcGluYmVsbC9wb2tlbW9uX2hlcm8uanNvbg==",
+  "id": "FXSNi_bXhDDi4AfwBNePvZAuBmGGuI9gVblf2br8HXk",
   "slot": "pokemon_hero",
   "blocks": [
     {
@@ -13,7 +13,7 @@
           "poison"
         ],
         "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/70.png",
-        "description": "It spits out POISONPOWDER to immobilize the enemy and then finishes it with a spray of ACID.",
+        "description": "A Pokémon that appears to be a plant. It captures unwary prey by dousing them with a toxic powder.",
         "height": 10,
         "weight": 64
       }

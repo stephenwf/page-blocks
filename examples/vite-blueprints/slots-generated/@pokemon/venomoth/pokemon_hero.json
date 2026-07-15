@@ -1,5 +1,5 @@
 {
-  "id": "QHBva2Vtb24vdmVub21vdGgvcG9rZW1vbl9oZXJvLmpzb24=",
+  "id": "oUSCi_hJcfjiSPKK5B1sumErOZuQcQC7veQipNJXeRc",
   "slot": "pokemon_hero",
   "blocks": [
     {
@@ -13,7 +13,7 @@
           "poison"
         ],
         "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/49.png",
-        "description": "The dustlike scales covering its wings are color-coded to indicate the kinds of poison it has.",
+        "description": "The dust-like scales covering its wings are color coded to indicate the kinds of poison it has.",
         "height": 15,
         "weight": 125
       }

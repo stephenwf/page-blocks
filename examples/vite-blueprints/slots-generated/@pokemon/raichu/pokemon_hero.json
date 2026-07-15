@@ -1,5 +1,5 @@
 {
-  "id": "QHBva2Vtb24vcmFpY2h1L3Bva2Vtb25faGVyby5qc29u",
+  "id": "aXdO987R5ocJpGKrSW2V75WaWd8mEONQYhoZrqv5yQU",
   "slot": "pokemon_hero",
   "blocks": [
     {
@@ -12,7 +12,7 @@
           "electric"
         ],
         "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/26.png",
-        "description": "Its long tail serves as a ground to protect itself from its own high-voltage power.",
+        "description": "Its long tail serves as a ground to protect itself from its own high voltage power.",
         "height": 8,
         "weight": 300
       }

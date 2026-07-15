@@ -1,5 +1,5 @@
 {
-  "id": "QHBva2Vtb24vaGl0bW9uY2hhbi9wb2tlbW9uX2hlcm8uanNvbg==",
+  "id": "mEMkMlV5IaMwhZdaeKu47klHVEhKZ6LSsapYcnbnRak",
   "slot": "pokemon_hero",
   "blocks": [
     {
@@ -12,7 +12,7 @@
           "fighting"
         ],
         "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/107.png",
-        "description": "While apparently doing nothing, it fires punches in lightning fast volleys that are impossible to see.",
+        "description": "The arm-twisting punches it throws pulverize even concrete. It rests after three minutes of fighting.",
         "height": 14,
         "weight": 502
       }

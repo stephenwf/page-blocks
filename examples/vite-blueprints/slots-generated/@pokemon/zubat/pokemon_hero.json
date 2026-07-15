@@ -1,5 +1,5 @@
 {
-  "id": "QHBva2Vtb24venViYXQvcG9rZW1vbl9oZXJvLmpzb24=",
+  "id": "ilvMka05u55bAcQl1seYWGTG2VVeBgDWPXPRbNb0rUo",
   "slot": "pokemon_hero",
   "blocks": [
     {
@@ -13,7 +13,7 @@
           "flying"
         ],
         "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/41.png",
-        "description": "Forms colonies in perpetually dark places. Uses ultrasonic waves to identify and approach targets.",
+        "description": "It has no eyes. Instead, it relies on its ultrasonic cries for echolocation to flit about in darkness.",
         "height": 8,
         "weight": 75
       }

@@ -231,8 +231,8 @@ export function normalizeSlotResponse(slotId: string, slotName: string, data: un
   const value = data && typeof data === 'object' && !Array.isArray(data) ? data : {};
   return slotResponseSchema.parse({
     ...value,
-    id: (value as { id?: unknown }).id || slotId,
-    slot: (value as { slot?: unknown; name?: unknown }).slot || (value as { name?: unknown }).name || slotName,
+    id: slotId,
+    slot: slotName,
   });
 }
 

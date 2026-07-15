@@ -1,5 +1,5 @@
 {
-  "id": "QHBva2Vtb24vdmlsZXBsdW1lL3Bva2Vtb25faGVyby5qc29u",
+  "id": "JvqP60GC3BDO2bMq-HNSDWb2vuHe3gVYxCaSt0Zf3wg",
   "slot": "pokemon_hero",
   "blocks": [
     {
@@ -13,7 +13,7 @@
           "poison"
         ],
         "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/45.png",
-        "description": "It has the world’s largest petals. With every step, the petals shake out heavy clouds of toxic pollen.",
+        "description": "The larger its petals, the more toxic pollen it contains. Its big head is heavy and hard to hold up.",
         "height": 12,
         "weight": 186
       }

@@ -212,7 +212,8 @@
     "typecheck": "tsc -p ./tsconfig.json --noEmit && tsc -p ./tsconfig.smoke.json --noEmit",
     "verify:esm": "node ./smoke/esm.mjs",
     "verify:cjs": "node ./smoke/cjs.cjs",
-    "publint": "publint --strict"
+    "publint": "publint --strict",
+    "verify": "pnpm run build && pnpm run typecheck && pnpm run test && pnpm run verify:esm && pnpm run verify:cjs && pnpm run publint"
   },
   "dependencies": {
     "nanostores": "^0.9.4",

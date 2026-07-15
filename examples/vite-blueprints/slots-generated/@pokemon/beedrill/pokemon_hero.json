@@ -1,5 +1,5 @@
 {
-  "id": "QHBva2Vtb24vYmVlZHJpbGwvcG9rZW1vbl9oZXJvLmpzb24=",
+  "id": "kOWtt0XmLD0v0E6DXRJ5SQizHWinClT7COJSsh0lGqE",
   "slot": "pokemon_hero",
   "blocks": [
     {
@@ -13,7 +13,7 @@
           "poison"
         ],
         "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/15.png",
-        "description": "It has three poisonous stingers on its forelegs and its tail. They are used to jab its enemy repeatedly.",
+        "description": "Flies at high speed and attacks using its large venomous stingers on its forelegs and tail.",
         "height": 10,
         "weight": 295
       }

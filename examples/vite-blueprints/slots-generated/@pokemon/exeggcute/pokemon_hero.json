@@ -1,5 +1,5 @@
 {
-  "id": "QHBva2Vtb24vZXhlZ2djdXRlL3Bva2Vtb25faGVyby5qc29u",
+  "id": "jroQGZk2ZoPKO0r9hR6PPd4Fxat1Q6jQb7HvwxcvKik",
   "slot": "pokemon_hero",
   "blocks": [
     {
@@ -13,7 +13,7 @@
           "psychic"
         ],
         "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/102.png",
-        "description": "Often mistaken for eggs. When disturbed, they quickly gather and attack in swarms.",
+        "description": "Using telepathy only they can receive, they always form a cluster of six EXEGGCUTE.",
         "height": 4,
         "weight": 25
       }

@@ -1,5 +1,5 @@
 {
-  "id": "QHBva2Vtb24vcmh5aG9ybi9wb2tlbW9uX2hlcm8uanNvbg==",
+  "id": "Lv3RM9G1wyo24hWjHyq0I3tM93UTfSc9mjEGKS_RJeI",
   "slot": "pokemon_hero",
   "blocks": [
     {
@@ -13,7 +13,7 @@
           "rock"
         ],
         "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/111.png",
-        "description": "A POKéMON with a one-track mind. Once it charges,  it won't stop running until it falls asleep.",
+        "description": "Its massive bones are 1000 times harder than human bones. It can easily knock a trailer flying.",
         "height": 10,
         "weight": 1150
       }

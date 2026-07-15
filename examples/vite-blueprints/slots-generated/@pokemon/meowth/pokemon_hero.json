@@ -1,5 +1,5 @@
 {
-  "id": "QHBva2Vtb24vbWVvd3RoL3Bva2Vtb25faGVyby5qc29u",
+  "id": "cLjM3cJXBoVIVzjSRswubig194PFt-9qoZ1K4HKoJr4",
   "slot": "pokemon_hero",
   "blocks": [
     {
@@ -12,7 +12,7 @@
           "normal"
         ],
         "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/52.png",
-        "description": "It washes its face regularly to keep the coin on its forehead spotless. It doesn’t get along with Galarian Meowth.",
+        "description": "Adores circular objects. Wanders the streets on a nightly basis to look for dropped loose change.",
         "height": 4,
         "weight": 42
       }

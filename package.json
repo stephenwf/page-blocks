@@ -5,6 +5,8 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "verify": "pnpm --dir page-blocks verify && pnpm run verify:examples",
+    "verify:examples": "pnpm --dir examples/vite typecheck && pnpm --dir examples/vite build && pnpm --dir examples/vite-blueprints typecheck && pnpm --dir examples/vite-blueprints build && pnpm --dir examples/vite-travel-campaign typecheck && pnpm --dir examples/vite-travel-campaign build",
     "publish-packages": "turbo run build && changeset version && changeset publish"
   },
   "devDependencies": {

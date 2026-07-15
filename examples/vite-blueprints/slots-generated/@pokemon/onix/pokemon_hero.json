@@ -1,5 +1,5 @@
 {
-  "id": "QHBva2Vtb24vb25peC9wb2tlbW9uX2hlcm8uanNvbg==",
+  "id": "QTAJwxAQbreiD8Y9pATBhOC9vBtcbYtU7lGlX5FzP3A",
   "slot": "pokemon_hero",
   "blocks": [
     {
@@ -13,7 +13,7 @@
           "ground"
         ],
         "spriteUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/95.png",
-        "description": "As it grows, the stone portions of its body harden to become similar to a diamond, but colored black.",
+        "description": "It burrows through the ground at a speed of 50 mph while feeding on large boulders.",
         "height": 88,
         "weight": 2100
       }
