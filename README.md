@@ -1,530 +1,517 @@
-# Page blocks
+# Page Blocks
 
-Page blocks are an easy way for developers to create customisable and contextual "Slots" and "Blocks" to fill those slots that can be edited in a visual interface.
+Page Blocks is a template-owned content layer for React sites. A template defines the blocks, schemas, contexts, and slot policies it supports; content can then be edited locally, baked into a static build, or supplied by an authorized draft service during a deployed preview.
 
-> [!WARNING]  
-> Page blocks is experimental and should only be used for static websites edited locally with the file-system provider.
+> [!WARNING]
+> This repository is working toward its first stable release. The new single-package API is intentionally allowed to make breaking changes until that release.
 
-## Getting started
+## What is supported
 
-The primary runnable example in this repository is `examples/vite`. It uses the new single-package `page-blocks` workspace package and a React Vite client.
+The same block directory can be used in four situations:
 
-For a more realistic editable scenario, `examples/vite-travel-campaign` demonstrates route-aware travel content with `path`, `country`, `city`, and `season` contexts, nested slots, prop-source search, screenshots, and lazy static output.
+| Situation | Content source | Editing |
+| --- | --- | --- |
+| Vite development | JSON files in `slots/` through local middleware | Yes |
+| Static production | Snapshot embedded in the build or emitted as JSON files | No |
+| Anonymous deployed preview | The same baked snapshot as production | No |
+| Authorized deployed preview | A remote versioned service activated in the browser | Yes, when the server authorizes it |
 
-There is also `examples/vite-blueprints`, which demonstrates server-side blueprint files compiled through `page-blocks/designer` and served directly by the Vite plugin in development.
+Static and preview builds are separate artifacts. A static build does not include the preview bootstrap, editor JavaScript, or editor CSS. A preview build includes only a small application-owned bootstrap initially and lazy-loads the editor after the application has established an authorized session.
+
+Page Blocks does not manage users, issue sessions, define tenant rules, or connect directly to a database. Those remain application responsibilities.
+
+## Install and imports
+
+The current repository uses pnpm workspaces:
 
 ```sh
-pnpm --filter page-blocks-example-vite dev
-pnpm --filter page-blocks-example-vite-travel-campaign dev
+pnpm install
+pnpm --filter page-blocks build
 ```
 
-Currently, Page Blocks is only available for React. However, the core concepts and functionality are not React specific and can be ported to other frameworks.
+For an application, install `page-blocks` plus the peer dependencies required by the integration you use. The main public entry points are:
 
-##### Single package
+| Import | Responsibility |
+| --- | --- |
+| `page-blocks/core` | Protocol schemas, slot documents, matching, directory manifests |
+| `page-blocks/react` | React block declarations, directories, slots, shared rendering |
+| `page-blocks/client` | Typed remote client, runtime source controller, editor state |
+| `page-blocks/editor` | Lazy editor entry and mount/unmount lifecycle |
+| `page-blocks/server` | Store/service boundary and fetch-native authorized handler |
+| `page-blocks/file-system` | Local JSON loader/store and snapshot import/export |
+| `page-blocks/vite` | Local middleware, static emission, preview bootstrap injection |
+| `page-blocks/vite/server` | Vite SSR slot-loading helpers |
+| `page-blocks/designer` | Build-time blueprint compilation |
+| `page-blocks/screenshots` | Block archive screenshot generation |
 
-- `page-blocks`
-- `page-blocks/react`
-- `page-blocks/react-client`
-- `page-blocks/react-editor`
-- `page-blocks/node`
-- `page-blocks/file-system`
-- `page-blocks/designer`
-- `page-blocks/vite`
-- `page-blocks/vite/server`
-- `page-blocks/screenshots`
+`page-blocks/react-client`, `page-blocks/react-editor`, `page-blocks/node`, and `page-blocks/next` remain available for compatibility. New deployed integrations should prefer the fetch-native `client` and `server` APIs.
 
-The legacy monorepo packages and the `apps/web` Next.js app still exist during the migration, but `examples/vite`, `examples/vite-travel-campaign`, and `examples/vite-blueprints` are the main runnable examples going forward.
+## Define a block directory
 
-### Vite-first setup
+A block is a React component paired with metadata and, normally, a Zod props schema:
 
-The smallest end-to-end setup is:
-
-- a React Vite client that imports `page-blocks/react`, `page-blocks/react-editor`, and `page-blocks/web-components` styles
-- a Node API that wraps `page-blocks/node`
-- a filesystem loader pointed at a local `slots/` directory
-
-See `examples/vite` for the editor-focused Vite walkthrough, `examples/vite-travel-campaign` for a richer multi-context filesystem demo, and `examples/vite-blueprints` for generated slot content backed by blueprint files. Next.js support still exists through `page-blocks/next`, but it is no longer the primary walkthrough.
-
-### Creating your blocks
-
-Page blocks works by bundling some of your components that are used to build up pages into a single directory. Not all
-components will be blocks. Some will be used to build up the blocks, and will work as normal. This "bundle" of blocks is
-called a "block directory". To define props, you need to install `zod`.
-
-First we will create a block.
-
-```js
-// blocks/HelloWorld.js
+```tsx
+// src/page-blocks/blocks/callout.tsx
 import { block } from 'page-blocks/react';
 import { z } from 'zod';
 
-export const HelloWorld = block({
-  name: 'Hello world block',
-  props: z.object({
-    message: z.text()
-  }),
-}, function HelloWorld(props) {
-    return <div>Hello {message}</div>
-});
+export const Callout = block(
+  {
+    label: 'Callout',
+    description: 'A short heading and message.',
+    props: z.object({
+      heading: z.string().min(1),
+      body: z.string(),
+      tone: z.enum(['neutral', 'accent']).default('neutral'),
+    }),
+  },
+  function Callout({ heading, body, tone }) {
+    return (
+      <aside data-tone={tone}>
+        <h2>{heading}</h2>
+        <p>{body}</p>
+      </aside>
+    );
+  }
+);
 ```
 
-This block is a simple component that takes a message prop and displays it. The block function takes two arguments. The
-first is a block definition, and the second is the component itself. The block definition is used to describe the block
-to the Page Blocks system. The component is the actual component that will be rendered when the block is used.
+The directory is both the React registry and the server-side content contract:
 
-The return type of the block function is a React component. It can be used like any other React component.
-
-In the root of the blocks/ directory we will create a block directory. This is a file that imports yours blocks and
-groups them together.
-
-```js
-// blocks/index.js
+```tsx
+// src/page-blocks/directory.tsx
 import { createDirectory } from 'page-blocks/react';
-import { HelloWorld } from './HelloWorld';
+import { Callout } from './blocks/callout';
+import { FeatureShelf } from './blocks/feature-shelf';
 
-export const directory = createDirectory({ 
-  resolver: {
-    type: 'tanstack-query',
-    endpoint: '/api/page-blocks', // defined later
+export const directory = createDirectory({
+  version: '1',
+  contexts: {
+    required: [],
+    optional: ['path', 'locale'],
   },
-  blocks: {
-    HelloWorld
-  }
+  slots: {
+    hero: {
+      label: 'Hero',
+      allowedBlocks: ['Callout'],
+      maxItems: 1,
+    },
+    content: {
+      label: 'Page content',
+      allowedBlocks: ['Callout', 'FeatureShelf'],
+      maxItems: 20,
+    },
+  },
+  aliases: {
+    OldCallout: 'Callout',
+  },
+  migrations: [
+    { from: '0', to: '1', description: 'Rename OldCallout to Callout.' },
+  ],
+  blocks: { Callout, FeatureShelf },
 });
 
 export const Slot = directory.Slot;
+export const SlotContext = directory.SlotContext;
 ```
 
-> [!WARNING]  
-> If you are using Server Components you will need to follow instructions below to create a specific Slot to use. You can instead export `directory.Blocks`
+`directory.manifest` is serializable and contains the directory version, context vocabulary, block metadata, top-level slot policies, nested-slot policies, aliases, migration metadata, and presets. `directory.contract` validates complete slot documents with the original Zod schemas. Pass that contract to the service so invalid props and illegal block placement are rejected before persistence.
 
-The directory contains some generated and type-safe components and helpers that can be used throughout your project.
+The `aliases` and `migrations` fields describe compatibility; application migration code is still responsible for rewriting stored documents when a schema change needs data transformation.
 
-At this point we can start using the blocks in our pages.
+### Nested slots
 
-```js
-// pages/example.js
-import { Slot } from '../path/to/blocks'; // defined above
+Blocks declare the inner slots they own. The same policy rules work at either level:
 
-export default ExamplePage() {
-  return (
-    <div>
-      <h1>My example page</h1>
-      <Slot.HelloWorld message="Hello world" />
-    </div>
-  );
-}
-```
-We have access to all the blocks we defined in the block directory. We can use them like any other React component. The
-props of the block are inferred from the block definition. The props are also type-safe, and you will get completions
-for the props, even though we have not written any TypeScript.
+```tsx
+import { block, blockSlot } from 'page-blocks/react';
+import { z } from 'zod';
 
-We can also create our first Slot. A slot is a list of blocks. Each slot has a name that identifies which area on the
-page it is. For example: `header` or `sidebar`. These only need to be unique to the page you are building. You can have
-a `header` slot on multiple pages. To define a slot you can use the `Slot` component from the block directory.
-
-```js
-// pages/example.js
-
-export default ExamplePage() {
-  return (
-    <div>
-      <h1>My example page</h1>
-      <Slot name="header" className="bg-white p-3">
-        <Slot.HelloWorld message="Hello world" />  
-      </Slot>
-    </div>
-  );
-}
-```
-
-Slots will be rendered as an HTML element `pb-slot` but you can pass HTML properties to the slot, and they will be
-forwarded to the element. This allows you to style the slot using CSS. Additionally, each block will be "wrapped"
-in a `pb-block` element. In a production project, these will not have custom elements and will be rendered simply as
-if they were `div` elements.
-
-You will need to add the following CSS to your project to ensure they display correctly:
-```css
-pb-block, pb-slot {
-  display: block;
-}
-```
-
-So far we have created a block directory, and used it to render a block and a slot. However, we have not configured
-Page Blocks to customise the blocks using the Page Block Editor.
-
-### Saving and loading blocks
-
-In the example above we configured a "resolver". This is used to load data for the blocks. In this case we are using the
-"tanstack-query" resolver, which will make a request to the specified endpoint to load the data. The endpoint is a URL that
-will be handled by the Page Blocks server. To configure this endpoint we need to create an API handler.
-
-For a Vite or custom Node setup, use the Node request handler directly.
-
-```js
-// server/page-blocks.js
-import { createRequestHandler } from 'page-blocks/node';
-import { createFileSystemLoader } from 'page-blocks/file-system';
-import { directory } from '../path/to/blocks'; // defined above
-
-export const loader = createFileSystemLoader({
-  path: join(cwd(), 'slots'),
-  contexts: ['page'],
-});
-
-export const handler = createRequestHandler({
-  loader,
-  directory,
-});
-```
-
-If you are using Next.js you can still use the Next.js integration as a secondary path.
-
-```js
-// app/api/page-blocks/route.js
-import { createNextRequestHandler } from 'page-blocks/next';
-import { createFileSystemLoader } from 'page-blocks/file-system';
-import { directory } from '../path/to/blocks'; // defined above
-
-export const loader = createFileSystemLoader({
-    path: join(cwd(), 'slots'),
-    contexts: ['page'],
-});
-
-export const POST = createNextRequestHandler({  
-  loader: fileSystemLoader,  
-  directory,
-});
-```
-
-Or using the `./pages` folder
-```js
-// pages/api/page-blocks.js
-import { createNextRequestHandler } from 'page-blocks/next';
-import { createFileSystemLoader } from 'page-blocks/file-system';
-import { directory } from '../path/to/blocks'; // defined above
-
-export const loader = createFileSystemLoader({
-    path: join(cwd(), 'slots'),
-    contexts: ['page'],
-});
-
-export default createNextRequestHandler({  
-  loader: fileSystemLoader,  
-  directory,
-});
-```
-
-
-First we create a loader, this will be used to save and read blocks. At the moment the only loader is the filesystem
-loader which will read block data as JSON from a directory structure on the filesystem.
-
-Next we export the API route using the provided helper.
-
-If you are using another Node.js framework you can use the node library directly.
-
-The handler created takes in JSON request and returns a JSON response and can be used with any Node.js framework.
-```js
-import { createRequestHandler } from 'page-blocks/node';
-import { directory } from '../path/to/blocks'; // defined above
-import { loader } from '../path/to/loader'; // defined above (filesystem loader)
-
-const handler = createRequestHandler({
-  directory,
-  canEdit: () => true,
-  serverContext: () => ({}),
-  loader,
-});
-
-// express
-app.post('/api/page-blocks', async (req, res) => {
-  const response = await handler(req.body);
-  res.status(response.status);
-  res.json(response.body);
-});
-```
-
-You can also use the `loader` directly in NodeJS to save and read blocks.
-
-```js
-import { loader } from '../path/to/loader';
-
-async function example() {
-  const slots = await loader.query({ page: 'example/page' }, ['header', 'footer']);
-  
-  // ... do something, grab some blocks.
-  
-  // Update a blocks props
-  await loader.updateBlockProps('header', block.id, { message: 'Hello world' });
-}
-```
-
-Finally, to enable editing, we need to add the Page Blocks Editor to our page. This component can be included only in
-a local build (hosted servers + authentication coming soon). It will not be included in production builds.
-
-In Next.js you can modify your `_app.js` file to include the editor and a top level React-Query provider.
-```js
-// pages/_app.js
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { BlockEditorReact } from 'page-blocks/react-editor';
-import { BlockEditor } from 'page-blocks/react-client';
-import 'page-blocks/react-editor/style.css';
-import 'page-blocks/web-components/style.css';
-
-const queryClient = new QueryClient();
-
-function MyApp({ Component, pageProps }) {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <BlockEditorReact>
-        <BlockEditor options={directory} showToggle />
-      </BlockEditorReact>
-      <Component {...pageProps} />
-    </QueryClientProvider>
-  );
-}
-```
-
-The editor will be rendered as a floating checkbox in the bottom left corner of the page. Clicking on it will open the
-editing interface.
-
-You should now be able to edit the Slot you created on the example page. This will allow you to change the message
-prop of the HelloWorld block. When you toggle the "editing mode" the slots and the blocks will be visible. You can
-reorder the blocks or edit individual blocks. You need to select "customise" on the slot to switch from the components
-defined in code to the customised components.
-
-In order to customise dynamic pages you need to define a "Slot context". This is a wrapper component that will be used
-to select the correct slot for the page. If you are using a framework like NextJS you can configure the page to
-render the slot configuration on the server.
-
-Below is an example of this all working together.
-
-```js
-// pages/pokemon/[pokemon].jsx
-export const getServerSideProps = async (context) => {
-  return {
-     props: {
-       slots: await loader.query({ pokemon: context.params?.id as string }, ['pokemon_header', 'pokemon_footer']),
+export const FeatureShelf = block(
+  {
+    label: 'Feature shelf',
+    props: z.object({ title: z.string() }),
+    slots: ['items'],
+    slotConfig: {
+      items: {
+        label: 'Shelf items',
+        allowedBlocks: ['Callout'],
+        maxItems: 6,
+      },
     },
-  };
-};
+  },
+  function FeatureShelf(props) {
+    return (
+      <section>
+        <h2>{props.title}</h2>
+        {blockSlot(props.items, { className: 'feature-grid' }, <p>No features yet.</p>)}
+      </section>
+    );
+  }
+);
+```
 
-export default function PokemonPage({ slots }) {
-  const router = useRouter();
+Server and client rendering use the same recursive renderer, including nested slots and fallback children.
+
+## Render slots
+
+Render a top-level slot anywhere in the application:
+
+```tsx
+import { Slot, SlotContext } from './page-blocks/directory';
+
+export function Page() {
   return (
-    <SlotContext 
-      name={'pokemon'} // the name/key of the slot context
-      value={router.query.id} // the value of the slot context (e.g. pikachu)
-      cache={props.slots} // pass the slots from the server
-      slots={['pokemon_header', 'pokemon_footer']} // we list the slots we want to use
-    >
-      <h1>Pokemon</h1>
-      <div>
-        <Slot name="pokemon_header">
-          <Slot.HelloWorld message="Hello world" />
+    <SlotContext name="locale" value="en">
+      <main>
+        <Slot name="hero">
+          <h1>This remains visible when no hero document matches.</h1>
         </Slot>
-      </div>
-      <div> ... some other content ... </div>
-      <Slot name="pokemon_footer" />
+        <Slot name="content" />
+      </main>
     </SlotContext>
   );
 }
 ```
 
-Now, when you customise a slot, the filesystem loader will create a JSON file for the slot at:
+The Vite integration supplies a normalized `path` context from the current request or browser location. Additional `SlotContext` values are merged with it. More exact locators win; invalid duplicate or equal-specificity locators fail during initialization/build rather than being selected nondeterministically.
+
+Import the base styles once in the application:
+
+```ts
+import 'page-blocks/react/style.css';
+import 'page-blocks/web-components/style.css';
 ```
-slots/@pokemon/pikachu/pokemon_header.json
+
+Only a local editor or authorized preview should load editor code and CSS:
+
+```ts
+import 'page-blocks/react-editor/style.css';
 ```
 
-This file will contain the customised blocks. When the page is rendered the blocks will be loaded from the filesystem
-and rendered. If there is not a matching override, the defaults will be used.
+## Filesystem interchange format
 
-## Editor
+Local development and static builds read JSON slot documents. With contexts `['path', 'locale']`, examples include:
 
-Finally you can import the React editor component to show a UI for toggling "edit" mode on your pages.
+```text
+slots/
+  hero.json
+  content.json
+  @path/
+    collections/
+      hero.json
+  @locale/
+    en/
+      content.json
+```
 
-```jsx
-import { BlockEditor } from '@page-blocks/react-client';
-import { BlockEditorReact } from '@page-blocks/react-editor';
+`hero.json` is an unqualified fallback. `@path/collections/hero.json` is an exact `path=/collections` match. Match segments are emitted in the configured context order; `@context:all` and `@context:none` represent the other supported match kinds.
 
-export default function MyPage() {
-  return (
-    <div>
-      ... page contents ...
-      <BlockEditorReact>
-        <BlockEditor />
-      </BlockEditorReact>
-    </div>
-  );
+A document contains blocks and may contain slot options:
+
+```json
+{
+  "name": "hero",
+  "version": 1,
+  "blocks": [
+    {
+      "id": "home-callout",
+      "type": "Callout",
+      "data": {
+        "heading": "Welcome",
+        "body": "This content can be local, baked, or remote.",
+        "tone": "accent"
+      }
+    }
+  ]
 }
 ```
 
-For production you may want to move this to a component wrapped in `React.lazy()` and only load the editor component during development (or when a user is logged in).
+Document IDs returned by the loader/store are opaque. Do not construct them or treat them as filesystem paths. File reads and writes are contained beneath the configured root, duplicate locators are rejected, and writes use same-directory temporary files plus atomic rename.
 
-## Server components
+## Vite modes
 
-NextJS offers React Server Components, and page blocks does work but you can't use the components provided by the `createDirectory()` helper, instead you must create your own `Slot`, `BlockDirectory` and `BlockEditor`
+Configure the plugin after the framework plugins that establish the Vite application:
 
-For server components, its best to have a directory to keep all of your block related code. For this example, we will create a `./blocks` directory to hold everything.
+```ts
+// vite.config.ts
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
+import pageBlocks from 'page-blocks/vite';
 
-First we will create our directory. This is available both on the server and on the client. Because you are limited with server components, you have to define this on its own.
+export default defineConfig({
+  plugins: [
+    react(),
+    pageBlocks({
+      mode: 'auto',
+      slotsDir: 'slots',
+      contexts: ['path', 'locale'],
+      staticOutput: 'inline',
+    }),
+  ],
+});
+```
 
-Like before, this will act like a "bundle" for your components, so include each here.
+| Mode | Serve behavior | Build behavior |
+| --- | --- | --- |
+| `auto` | Local editable filesystem service | Static read-only snapshot |
+| `local` | Local editable filesystem service | Local mode; normally use only for development |
+| `static` | Baked read-only content | Baked read-only content |
+| `preview` | Baked content plus preview bootstrap | Baked content plus preview bootstrap |
 
-```js
-// blocks/directory.js
-import { createDirectory } from '@page-blocks/react';  
-import { Card } from '../components/Card';
-  
-export const directory = createDirectory({  
-  context: {},  
-  resolver: {  
-    type: 'tanstack-query',  
-    endpoint: '/api/page-blocks',  
-    screenshots: '/blocks',
-  },  
-  blocks: {  
-    Card,  
-  },  
+`staticOutput: 'inline'` embeds the normalized manifest and documents in the application bundle. `staticOutput: 'lazy-files'` embeds only the match index and emits documents beneath `page-blocks/slots/` (or `staticAssetDir`) for on-demand fetching.
+
+Useful options are:
+
+- `apiPath`: local/preview endpoint path; defaults to `/api/page-blocks`.
+- `contexts`: deterministic context order; defaults to `['path']`.
+- `slotsDir`: filesystem source; defaults to `slots`.
+- `staticAssetDir`: output directory for `lazy-files`.
+- `designs`: blueprint module paths; local output is read-only when designs own it.
+- `screenshots` and `generateScreenshots`: block archive screenshot integration.
+- `preview.bootstrap`: application module injected only into preview builds.
+
+For Vite SSR or prerendering, load the same baked source on the server:
+
+```ts
+import {
+  loadPageBlocksSlots,
+  resolvePageBlocksContext,
+} from 'page-blocks/vite/server';
+
+export async function loadSlots(request: Request) {
+  const context = resolvePageBlocksContext(request);
+  return loadPageBlocksSlots(context, ['hero', 'content']);
+}
+```
+
+TanStack Start builds should include `page-blocks` in `ssr.noExternal` so Vite's compile-time definitions are visible to the server/prerender environment.
+
+## Dual-source deployed previews
+
+A preview starts on baked content and does not call the content API anonymously. The application bootstrap decides how to exchange or validate a launch token, creates an authenticated client, and then activates the remote source:
+
+```ts
+// src/page-blocks/preview-bootstrap.ts
+import {
+  createPageBlocksRemoteClient,
+  type PageBlocksPreviewBootstrap,
+} from 'page-blocks/client';
+
+const bootstrap: PageBlocksPreviewBootstrap = async ({ runtime, loadEditor }) => {
+  const launchToken = new URL(location.href).searchParams.get('edit');
+  if (!launchToken) return;
+
+  // A production application can exchange this one-time launch token first.
+  runtime.useRemote({
+    client: createPageBlocksRemoteClient({
+      endpoint: '/api/page-blocks',
+      headers: { authorization: `Bearer ${launchToken}` },
+    }),
+    capabilities: { read: true, edit: true },
+  });
+
+  const editor = await loadEditor();
+  document.dispatchEvent(
+    new CustomEvent('page-blocks:editor-ready', { detail: editor })
+  );
+
+  return () => runtime.useStatic();
+};
+
+export default bootstrap;
+```
+
+Select the artifact from environment configuration:
+
+```ts
+pageBlocks({
+  mode: process.env.SITE_CHANNEL === 'preview' ? 'preview' : 'static',
+  slotsDir: 'page-blocks',
+  contexts: ['path'],
+  staticOutput: 'lazy-files',
+  preview: {
+    bootstrap: './src/page-blocks/preview-bootstrap.ts',
+  },
+});
+```
+
+Source switches increment a runtime generation and use distinct query keys, so live consumers do not confuse baked and remote results. Call `runtime.useStatic()` when authorization expires or the editor closes; rendered content remains available from the baked source.
+
+The lazy module exposes `mountPageBlocksEditor()` and returns an `unmount()` handle. Unmounting removes the element, custom-element subscriptions, Nanostore subscriptions, editing mode, and the in-flight-save unload warning. The editor exposes `idle`, `saving`, `saved`, `offline`, `expired`, `conflict`, and `error` through `editorStatus` from `page-blocks/client`; `editorError` holds the associated failure. Failed writes keep pending form props intact, and mutation success events are emitted only after a successful response.
+
+The application should present its own recovery UI for `expired` and `conflict`, including a route back to its dashboard and reload/compare actions appropriate to its revision model.
+
+## Versioned remote service
+
+The service owns commands and mutations; stores only load and compare-and-swap whole documents. A filesystem-backed service is useful locally and as a reference implementation:
+
+```ts
+import { createFileSystemStore } from 'page-blocks/file-system';
+import {
+  createPageBlocksHandler,
+  createPageBlocksService,
+} from 'page-blocks/server';
+import { directory } from './page-blocks/directory';
+
+const store = createFileSystemStore({
+  path: './slots',
+  contexts: ['path'],
+  scope: 'site-123',
 });
 
-// An alternative to `directory.Slot` that just has the blocks
-export const Blocks = directory.Blocks;
-
-```
-
-
-Then we will create a `server.js` file. This will contain all the configuration for our server code.
-```jsx
-// blocks/server.js
-import { join } from 'node:path';  
-import { cwd } from 'node:process';  
-import { createFileSystemLoader } from '@page-blocks/file-system';  
-import { createRequestHandler } from '@page-blocks/node';  
-import { directory } from './directory';
-
-  
-export const fileSystemLoader = createFileSystemLoader({  
-  path: join(cwd(), 'slots'),  
-  contexts: [],  
-});  
-
-// Note: You could also create your next request handler here.
-export const handler = createRequestHandler({  
-  loader: fileSystemLoader,  
-  directory,  
+const service = createPageBlocksService({
+  store,
+  directory: directory.contract,
 });
 
+export const handlePageBlocks = createPageBlocksHandler({
+  service,
+  scope: async (request) => getSiteIdFromRequest(request),
+  authorize: async ({ request, operation, scope }) => {
+    const session = await authenticate(request);
+    if (operation === 'read') return canRead(session, scope);
+    return canEdit(session, scope);
+  },
+});
 ```
 
-Now we need to create custom server + client components.
+`handlePageBlocks` accepts a standard `Request` and returns a standard `Response`, so route glue is deliberately small:
 
-Firs the Slot. This is a "Server component", so it needs to follow the rules on what it can import.
-```js
-// blocks/slot.js
-import { CustomSlot } from '@page-blocks/react';
-import { fileSystemLoader } from './server.js';
-import { directory } from './directory';
-
-export async function Slot() {
-  // Use the filesystem loader from our `server.js` to load the slot.
-  const slotResponse = await fileSystemLoader.query(
-	props.context, 
-	[props.name]
-  );  
-
-  const options = { 
-    resolver: directory.resolver, 
-    blocks: directory.blocks 
-  };  
-
-  // Pass the <CustomSlot /> a name, data, context + directory
-  return (  
-    <CustomSlot 
-      name={props.name} 
-      slot={slotResponse.slots[props.name]} 
-      context={props.context} 
-      options={options}
-    >  
-      {props.children}  
-    </CustomSlot>  
-  );
+```ts
+export async function POST(request: Request) {
+  return handlePageBlocks(request);
 }
 ```
 
-Next is the Block editor.  This is a "Client component" and must have the `'use client';` on the first line. In this component we must also tell the component how to refresh the data once a change has been made. In this example we are using the next/navigation package and hook.
+Requests are runtime-validated before store access, bodies default to a 1 MiB limit, responses use stable error envelopes, and writes are forbidden unless an `authorize` callback explicitly allows them. Omitting `authorize` permits reads and denies writes.
 
-```jsx
-// blocks/block-editor.js
-'use client';  
-  
-import { CustomBlockEditor } from '@page-blocks/react';  
-import { BlockEditorReact } from '@page-blocks/react-editor';
-import { useRouter } from 'next/navigation';    
-import { directory } from './directory';  
-  
-export function BlockEditor(props) {  
-  const router = useRouter();  
-  return (  
-    <BlockEditorReact>  
-      <CustomBlockEditor 
-        options={directory} 
-        onRefresh={() => router.refresh()} 
-        {...props}
-      />  
-    </BlockEditorReact>  
-  );  
-}
+Every saved document has an integer version. Mutations and deletes require `expectedVersion`; a stale version receives `409` and does not overwrite newer content. Nested targets are explicit paths:
+
+```ts
+const target = {
+  documentId: 'opaque-document-id',
+  path: [
+    { blockId: 'feature-shelf', slot: 'items' },
+  ],
+};
+
+await client.mutate(target, 7, {
+  type: 'update-block-props',
+  blockId: 'item-one',
+  props: { heading: 'Updated', body: '...', tone: 'neutral' },
+});
 ```
 
+Create clients with static or refreshable request headers:
 
-### Web Components
+```ts
+import { createPageBlocksRemoteClient } from 'page-blocks/client';
 
-There are 4 custom elements defined. By default they do not have any implementation, which is a key extension point for different frameworks. The production and framework-specific rendering queries for the correct slot on a page, and renders the web components wrapping each block in the slot.
-```html
-<pb-slot slot-name="footer" slot-id="Zm9vdGVyLmpzb24=" slot-size="3">
-  
-  <pb-block block-type="Card" block-id="4kc727" id="pb-4kc727">
-     ... block code ...
-  </pb-block>
-  
-  <pb-block block-type="Card" block-id="chu0x" id="pb-chu0x">
-     ... block code ...
-  </pb-block>
-
-  <pb-block block-type="Card" block-id="5mcvw8" id="pb-5mcvw8">
-     ... block code ...
-  </pb-block>
-</pb-slot>
+const client = createPageBlocksRemoteClient({
+  endpoint: '/api/page-blocks',
+  headers: async () => ({
+    authorization: `Bearer ${await getAccessToken()}`,
+  }),
+});
 ```
 
-These elements will be in the shipped production code, so in theory you could use them for styling using the attribute selector - however you can also pass `className` and `blockClassName` to the `<Slot />` rendering. They should be used for layouts, to keep them separated from your blocks.
+The `PageBlocksStore` interface is intentionally small: `query`, `list`, `get`, `create`, `save`, and `delete`, with an optional transaction wrapper. Database adapters should enforce scope/tenant isolation and compare-and-swap in the same database statement or transaction.
 
-When an editing interface is loaded, like the provided React editor, they will define web components for `pb-slot` and `pb-block`. There is also a framework-less implementation that uses CSS + Vanilla javascript to provide an editing UI. These components dispatch events to between each other to grab contextual information about where the blocks and slots are (slotId, parent slots, context etc.). They then query the page to find a `pb-editor` web component and calls an API it provides. Note: an alternative implementation could use different logic.
+## Deterministic snapshots
 
-The `pb-editor` element acts as an interface to all the editing operations that can be performed. This keeps the integration in one place. You pass it down references to the directory (e.g. available blocks) and from that it will create a "slot editing client" that can be used to make requests for editing slots/blocks. It will then either wait for events on the page to trigger or provide an API for other web components or code to call.
+Snapshots materialize a database revision into the exact directory format consumed by Vite:
 
-For example, when it detects an "add block to slot" event, it will append itself with a `<div />` (not Shadow DOM) and render the React component for adding a slot. It will pass the component the slot editing client and the slotId from the event. This is then styled on shown on the page.
+```ts
+import {
+  exportPageBlocksSnapshot,
+  importPageBlocksDirectory,
+} from 'page-blocks/file-system';
 
-If your configured route has authentication, such as a cookie, you can conditionally load the whole editing interface script tag - and none of the web components will be registered.
+const documents = await databaseStore.list('site-123');
 
-But **why web components**? As frameworks like HTMX has shown, HTML is a powerful and descriptive declarative format that can be output by almost every programming language in some way.  Describing the slots and blocks using declarative web components opens up the pattern to many languages and frameworks - swapping out the slot rendering and editor implementations.
+const manifest = await exportPageBlocksSnapshot({
+  documents,
+  contexts: ['path'],
+  targetDirectory: './build-input/page-blocks',
+  directoryVersion: directory.manifest.version,
+  sourceRevision: 'design-revision-42',
+});
 
-It also allow the slot and block formats to become stable quickly, as it's a simple format to output.
+const imported = await importPageBlocksDirectory({
+  sourceDirectory: './build-input/page-blocks',
+  expectedDirectoryVersion: directory.manifest.version,
+  scope: 'site-123',
+});
+```
 
+Export validates every locator and document before writing, sorts paths deterministically, formats JSON consistently, records SHA-256 checksums, writes into a sibling temporary directory, and atomically renames it into place. The target directory must not already exist. Import rejects unsafe paths, non-files, checksum failures, unsupported manifest data, and unexpected directory versions.
 
-## Roadmap
+The root `page-blocks.snapshot` records format version, directory version, source revision, contexts, paths, and checksums. Keep the snapshot beside the build input; it is the audit record connecting an artifact to an editorial revision.
 
-Planned packages:
-- `@page-blocks/postgres` - postgres storage adapter
-- `@page-blocks/sqlite` - sqlite storage adapter
-- `@page-blocks/vue` - vue block directory support
-- `@page-blocks/astro` - astro block directory support
-- `@page-blocks/solid` - solid block directory support
-- `@page-blocks/default-editor` - preact + bundled editor (no react dependency)
-- `@page-blocks/draftjs` - draftjs prop plugin
-- `@page-blocks/tinymce` - tinymce prop plugin
-- `@page-blocks/attachments` - ability to reference on disk files in blocks  (e.g. markdown / html)
-- `@page-blocks/testing-framework`  - inline block testing
-- `@page-blocks/vite-plugin` - Compiler for removing block data in production
-- `@page-blocks/migrations` - component migration support
+## Security responsibilities
+
+- Treat client capability flags as presentation state, never authorization.
+- Authenticate and authorize every remote request on the server.
+- Derive the content scope/tenant from the authenticated request, not request JSON.
+- Keep preview launch-token exchange and dashboard URLs in the application.
+- Do not expose the filesystem store as a deployed multi-tenant database.
+- Preserve compare-and-swap semantics in custom stores.
+- Validate documents with the template's directory contract before saving.
+- Never interpolate opaque document IDs into paths or SQL.
+
+## Examples
+
+| Example | Purpose |
+| --- | --- |
+| `examples/vite` | Primary local filesystem editor, nested slots, path matching, screenshots |
+| `examples/vite-travel-campaign` | Multi-context route content and lazy static files |
+| `examples/vite-blueprints` | Build-time blueprint generation and static matching |
+| `examples/vite-preview` | Separate static/preview artifacts and authorized runtime switching |
+
+From the repository root:
+
+```sh
+pnpm --filter page-blocks-example-vite dev
+pnpm --filter page-blocks-example-vite-travel-campaign dev
+pnpm --dir examples/vite-preview build
+pnpm --dir examples/vite-preview build:preview
+```
+
+The Exhibition template in `iiif.site` is the TanStack Start/SSR pilot. Keep `page-blocks` in `ssr.noExternal`, use the baked Vite helpers during prerender, and activate the remote runtime only after hydration and authorization.
+
+## Migrating from the legacy API
+
+The first-release work deliberately changes several contracts:
+
+1. Install one `page-blocks` package and use its subpath exports instead of separate workspace packages.
+2. Prefer `auto`, `local`, `static`, or `preview` Vite modes. “Production” no longer means “a remote read-only endpoint.”
+3. Move deployed mutations to `PageBlocksStore` + `createPageBlocksService()` + `createPageBlocksHandler()`.
+4. Send typed service commands through `createPageBlocksRemoteClient()`; do not expose raw loader mutation methods over HTTP.
+5. Supply `expectedVersion` for every mutation/delete and handle `409` explicitly.
+6. Pass `directory.contract` to the service and treat `directory.manifest.version` as the template content-contract version.
+7. Treat filesystem IDs as opaque and use snapshot helpers instead of hand-copying database exports.
+8. Put editor imports behind the preview bootstrap's `loadEditor()` boundary.
+
+Compatibility exports still exist while examples and downstream projects move, but new work should target the surfaces documented above.
+
+## Verification and development
+
+Run the complete package and example gate:
+
+```sh
+pnpm verify
+```
+
+That command builds the package, typechecks source and export smoke fixtures, runs the protocol/service/filesystem/runtime/rendering tests, loads both ESM and CommonJS exports, runs strict `publint`, and typechecks/builds every maintained example including both static and preview artifacts.
+
+Useful narrower commands are:
+
+```sh
+pnpm --dir page-blocks verify
+pnpm --dir examples/vite typecheck
+pnpm --dir examples/vite build
+pnpm --dir examples/vite-preview build:preview
+```
+
+The release workflow runs the same verification gate before publishing.
