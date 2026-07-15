@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BlockEditor as PageBlocksEditor } from 'page-blocks/react-client';
 import { BlockEditorReact } from 'page-blocks/react-editor';
 import { BlockArchive, Slot, directory } from './blocks/directory.js';

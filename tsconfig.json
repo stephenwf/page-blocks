@@ -1,7 +1,21 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-      "jsx": "react-jsx",
-      "lib": ["esnext", "dom"]
+    "jsx": "react-jsx",
+    "lib": ["ES2022", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "rootDir": "./src",
+    "target": "ES2022",
+    "types": [
+      "node"
+    ]
   },
-  "extends": "tsconfig/base.json"
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.d.ts"
+  ]
 }

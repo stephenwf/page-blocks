@@ -22,12 +22,15 @@ Page Blocks does not manage users, issue sessions, define tenant rules, or conne
 
 ## Install and imports
 
-The current repository uses pnpm workspaces:
+Node.js 24 is the recommended development runtime; Node.js 22 is the supported floor. The repository pins pnpm 11.13.0 through `packageManager`, so Corepack can select the same package-manager version locally and in CI:
 
 ```sh
+corepack enable
 pnpm install
-pnpm --filter page-blocks build
+pnpm build
 ```
+
+The repository is one publishable package at its root. The applications under `examples/` are workspace consumers of that package, which keeps their imports representative of a real installation while allowing one command to verify the entire repository.
 
 For an application, install `page-blocks` plus the peer dependencies required by the integration you use. The main public entry points are:
 
@@ -508,7 +511,7 @@ That command builds the package, typechecks source and export smoke fixtures, ru
 Useful narrower commands are:
 
 ```sh
-pnpm --dir page-blocks verify
+pnpm verify:package
 pnpm --dir examples/vite typecheck
 pnpm --dir examples/vite build
 pnpm --dir examples/vite-preview build:preview

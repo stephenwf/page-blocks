@@ -1,6 +1,5 @@
 packages:
-  - "page-blocks"
   - "examples/*"
-  - "apps/*"
-  - "packages/*"
-  - "config/*"
+allowBuilds:
+  esbuild: true
+  sharp: true

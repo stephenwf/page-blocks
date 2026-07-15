@@ -35,6 +35,3 @@ yarn-error.log*
 
 # vercel
 .vercel
-
-# Test apps
-apps/canopy-iiif
