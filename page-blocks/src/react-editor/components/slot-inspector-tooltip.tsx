@@ -17,10 +17,6 @@ function formatMatchValue(match: NonNullable<SlotResponse['source']>['matchedCon
     return match.value || 'Any value';
   }
 
-  if (match.type === 'filter') {
-    return match.value || 'Filtered';
-  }
-
   return match.value || 'Exact';
 }
 

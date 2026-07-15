@@ -215,7 +215,6 @@
     "publint": "publint --strict"
   },
   "dependencies": {
-    "mkdirp": "^3.0.1",
     "nanostores": "^0.9.4",
     "zod": "^3.22.4"
   },

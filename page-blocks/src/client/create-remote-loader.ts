@@ -1,5 +1,6 @@
-import { DirectoryOptions, SlotQueryResponse } from '../core';
+import { DirectoryOptions, SlotQueryResponse, slotQueryResponseSchema } from '../core';
 import { getPageBlocksViteConfig, loadPageBlocksStaticData, queryPageBlocksStaticData, resolveDirectoryResolver } from '../vite/runtime';
+import { PageBlocksClientError, readPageBlocksResponse } from './errors';
 
 export type PageBlocksRemoteLoader = ((
   slotContext: Record<string, string>,
@@ -43,11 +44,21 @@ export function createRemoteLoader(options: DirectoryOptions<any, any>) {
         throw new Error('page-blocks could not resolve a slot loader endpoint for this build.');
       }
 
-      return fetch(resolver.endpoint, {
+      const response = await fetch(resolver.endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ type: 'request-slots', context: slotContext, slots: slotsToRequest }),
-      }).then((res) => res.json()) as Promise<SlotQueryResponse>;
+      });
+      const body = await readPageBlocksResponse(response);
+      try {
+        return slotQueryResponseSchema.parse(body);
+      } catch (error) {
+        throw new PageBlocksClientError('The Page Blocks server returned invalid slot data.', {
+          status: response.status,
+          code: 'invalid_response',
+          details: error,
+        });
+      }
     };
 
     return [key, getData] as const;

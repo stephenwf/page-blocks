@@ -1,6 +1,6 @@
 import { join } from 'node:path';
 import { cwd } from 'node:process';
-import { mkdirp } from 'mkdirp';
+import { mkdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 
 interface ScreenshotGeneratorOptions {
@@ -30,7 +30,7 @@ export function createScreenshotGenerator(options: ScreenshotGeneratorOptions = 
     const viewport = options.viewport || { width: 1280, height: 800 };
     const target = options.target || join(cwd(), 'public/blocks');
 
-    await mkdirp(target);
+    await mkdir(target, { recursive: true });
 
     const browser = await launchBrowser(playwright);
     const page = await browser.newPage();

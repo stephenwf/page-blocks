@@ -6,7 +6,7 @@ import { SourceSearch } from './source-search';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 function generateId() {
-  return Math.random().toString(36).substring(7);
+  return crypto.randomUUID();
 }
 
 function AddBlockContainer(props: {
@@ -82,7 +82,11 @@ export function AddBlockToSlotInner(props: {
   const blocks = props.options.blocks;
   const blockTypes = Object.keys(blocks);
   const screens = props.options.resolver?.screenshots || null;
-  const screenRefresh = screens ? props.client.generateScreenshots : undefined;
+  const screenRefresh = screens
+    ? async () => {
+        await props.client.generateScreenshots();
+      }
+    : undefined;
   const [chosenBlock, setChosenBlock] = useState<string | undefined>(undefined);
 
   const handleChoose = (type: string, config: BlockConfig) => {

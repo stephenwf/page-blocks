@@ -1,15 +1,31 @@
-import { SlotApiRequest } from '../core';
+import { isPageBlocksMutation, parseSlotApiResponse, slotApiRequestSchema } from '../core';
 import { ServerOptions } from './types';
 
 export function createRequestHandler(options: ServerOptions<any>) {
   let init = false;
   const invalidateSlots = options.invalidateSlots;
-  return async (body: SlotApiRequest): Promise<{ body: any; status: number }> => {
-    const json = async (resp: any, status = 200) => {
-      if (invalidateSlots && status < 300) {
+  return async (input: unknown): Promise<{ body: unknown; status: number }> => {
+    const parsed = slotApiRequestSchema.safeParse(input);
+    if (!parsed.success) {
+      return {
+        status: 400,
+        body: {
+          error: {
+            code: 'invalid_request',
+            message: 'The Page Blocks request is invalid.',
+            issues: parsed.error.issues,
+          },
+        },
+      };
+    }
+
+    const body = parsed.data;
+    const json = async (resp: unknown, status = 200) => {
+      const response = status < 300 ? parseSlotApiResponse(body.type, resp) : resp;
+      if (invalidateSlots && status < 300 && isPageBlocksMutation(body.type)) {
         await invalidateSlots();
       }
-      return { body: resp, status };
+      return { body: response, status };
     };
 
     const { type } = body;
@@ -31,8 +47,8 @@ export function createRequestHandler(options: ServerOptions<any>) {
       }
       case 'create-inner-slot': {
         const { slotId, slot, parent } = body;
-        const response = await options.loader.createInnerSlot(slotId, slot, parent);
-        return json(response);
+        await options.loader.createInnerSlot(slotId, slot, parent);
+        return json({ success: true });
       }
       case 'update-slot': {
         const { slotId, data } = body;
@@ -53,9 +69,6 @@ export function createRequestHandler(options: ServerOptions<any>) {
         }
         await options.loader.delete(slotId);
         const response = { success: true };
-        if (invalidateSlots) {
-          await invalidateSlots();
-        }
         return json(response);
       }
       case 'delete-inner-slot': {
@@ -97,8 +110,8 @@ export function createRequestHandler(options: ServerOptions<any>) {
         return json(response);
       }
       case 'update-slot-options': {
-        const { slotId, options, parent } = body;
-        await options.loader.updateSlotOptions(slotId, options, parent);
+        const { slotId, options: slotOptions, parent } = body;
+        await options.loader.updateSlotOptions(slotId, slotOptions, parent);
         const response = { success: true };
         return json(response);
       }
@@ -137,18 +150,13 @@ export function createRequestHandler(options: ServerOptions<any>) {
       }
       case 'generate-screenshots': {
         if (options.generateScreenshots) {
-          try {
-            await options.generateScreenshots();
-          } catch (err) {
-            // Ignore + log.
-            console.log(err);
-          }
+          await options.generateScreenshots();
         }
 
         return json({ success: true });
       }
     }
-
-    throw new Error(`Invalid request type ${type}`);
+    const exhaustive: never = body;
+    throw new Error(`Unhandled Page Blocks request: ${String(exhaustive)}`);
   };
 }

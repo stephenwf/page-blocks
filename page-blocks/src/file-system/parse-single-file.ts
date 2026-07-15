@@ -1,88 +1,106 @@
-import { ContextFlatNode, normalizeSlotContextValue } from '../core';
+import { createHash } from 'node:crypto';
+import { ContextFlatNode, contextNameSchema, normalizeSlotContextValue, pageBlocksNameSchema } from '../core';
 import { modifiers, types } from './constants';
-import { textToBase64 } from './utils';
 
-export function parseSingleFile(path: string, contexts: string[]): ContextFlatNode | null {
+function decodeSegment(value: string) {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    throw new Error(`Invalid encoded Page Blocks path segment "${value}".`);
+  }
+}
+
+function opaqueDocumentId(path: string) {
+  return createHash('sha256').update(path).digest('base64url');
+}
+
+export function parseSingleFile(filePath: string, contexts: string[]): ContextFlatNode | null {
+  const normalizedPath = filePath.replaceAll('\\', '/').replace(/^\.\//, '');
+  if (normalizedPath.startsWith('/') || normalizedPath.split('/').some((part) => part === '..')) {
+    throw new Error(`Slot file path must stay relative: "${filePath}".`);
+  }
+
+  const allParts = normalizedPath.split('/');
+  const fileName = allParts.pop();
+  if (!fileName?.endsWith('.json')) {
+    return null;
+  }
+
+  const slot = fileName.slice(0, -'.json'.length);
+  pageBlocksNameSchema.parse(slot);
+  if (slot === '.' || slot === '..' || /[\\/\0]/.test(slot)) {
+    throw new Error(`Invalid slot name "${slot}" in "${filePath}".`);
+  }
+
   const foundContexts: ContextFlatNode['contexts'] = [];
-  const allParts = path.split('/');
-  const fileName = allParts.pop()!;
-  const parts = allParts;
-  let currentContextSpecificityPower = 0;
   let currentContext = '';
+  let currentContextSpecificityPower = 0;
   let currentContextValueParts: string[] = [];
-  let modifierType = 'exact';
+  let modifierType: (typeof types)[number] = 'exact';
+
   const close = () => {
-    if (currentContext) {
-      let match: ContextFlatNode['contexts'][0]['match'] = { type: 'all' };
-
-      if (modifierType === 'exact') {
-        match = {
-          type: 'exact',
-          value: normalizeSlotContextValue(currentContext, currentContextValueParts.join('/')) || currentContextValueParts.join('/'),
-        };
-      }
-      if (modifierType === 'none') {
-        match = {
-          type: 'none',
-        };
-      }
-
-      // Need to close the current context.
-      foundContexts.push({
-        id: currentContext,
-        specificity: (9 - types.indexOf(modifierType || 'all')) * Math.pow(10, currentContextSpecificityPower),
-        match,
-      });
-      modifierType = 'all';
-      currentContextValueParts = [];
+    if (!currentContext) {
+      return;
     }
+
+    let match: ContextFlatNode['contexts'][number]['match'];
+    if (modifierType === 'exact') {
+      const rawValue = currentContextValueParts.map(decodeSegment).join('/');
+      if (!rawValue && currentContext !== 'path') {
+        throw new Error(`Context "${currentContext}" has an empty exact value in "${filePath}".`);
+      }
+      match = {
+        type: 'exact',
+        value: normalizeSlotContextValue(currentContext, rawValue) ?? rawValue,
+      };
+    } else {
+      match = { type: modifierType };
+    }
+
+    foundContexts.push({
+      id: currentContext,
+      specificity: (9 - types.indexOf(modifierType)) * Math.pow(10, currentContextSpecificityPower),
+      match,
+    });
+    currentContext = '';
+    modifierType = 'exact';
+    currentContextValueParts = [];
   };
 
-  for (const part of parts) {
+  for (const part of allParts) {
     if (part.startsWith('@')) {
       close();
-
-      // This is a context.
-      const [atName, modifier] = part.split(':');
-      const name = atName.slice(1);
-      currentContextSpecificityPower = contexts.indexOf(name);
-      if (!modifiers.includes(modifier)) {
-        modifierType = 'exact';
-        if (modifier) {
-          currentContextValueParts.push(modifier);
-        }
-      } else {
-        modifierType = modifier;
+      const [atName, modifier, ...rest] = part.split(':');
+      if (rest.length || (modifier && !modifiers.includes(modifier as (typeof modifiers)[number]))) {
+        throw new Error(`Unknown context modifier in "${part}".`);
       }
+
+      const name = atName.slice(1);
+      contextNameSchema.parse(name);
+      currentContextSpecificityPower = contexts.indexOf(name);
       if (currentContextSpecificityPower === -1) {
-        // throw new Error(`Unknown context ${name}`);
-        return null;
+        throw new Error(`Unknown context "${name}" in "${filePath}".`);
+      }
+      if (foundContexts.some((context) => context.id === name)) {
+        throw new Error(`Context "${name}" is repeated in "${filePath}".`);
       }
 
       currentContext = name;
-    } else {
-      if (part) {
-        // This is a value.
-        currentContextValueParts.push(part);
-      }
+      modifierType = (modifier || 'exact') as (typeof types)[number];
+      continue;
     }
+
+    if (!currentContext) {
+      throw new Error(`Context value "${part}" has no context in "${filePath}".`);
+    }
+    currentContextValueParts.push(part);
   }
-  // Close the last part.
   close();
 
-  // The last piece should be the file itself.
-  const [slotId, ...slotParts] = fileName.split('.');
-  const format = slotParts.pop();
-  if (!format) {
-    return null;
-  }
-  let specificity = 0;
-  for (const context of foundContexts) {
-    specificity += context.specificity;
-  }
+  const specificity = foundContexts.reduce((total, context) => total + context.specificity, 0);
   return {
-    id: textToBase64(path),
-    slot: slotId,
+    id: opaqueDocumentId(normalizedPath),
+    slot,
     specificity,
     contexts: foundContexts,
   };

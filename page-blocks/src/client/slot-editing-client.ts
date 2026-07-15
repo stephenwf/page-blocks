@@ -2,11 +2,15 @@ import {
   BlockApiRequest,
   CreateSlot,
   DirectoryOptions,
+  isPageBlocksMutation,
+  parseSlotApiResponse,
   QuerySubContextBlocksRequest,
   SlotApiRequest,
+  SlotApiResponseMap,
   SlotRequest,
 } from '../core';
 import { isPageBlocksReadOnly, mergePageBlocksContext, resolveDirectoryResolver } from '../vite/runtime';
+import { PageBlocksClientError, readPageBlocksResponse } from './errors';
 
 export type SlotEditingClient = ReturnType<typeof createSlotEditingClient>;
 
@@ -15,7 +19,9 @@ export function createSlotEditingClient(
   config?: { onMutation?: (req: SlotApiRequest, resp: any) => void | Promise<void> }
 ) {
   //
-  const makeRequest = async (req: SlotApiRequest) => {
+  const makeRequest = async <Type extends SlotApiRequest['type']>(
+    req: Extract<SlotApiRequest, { type: Type }>
+  ): Promise<SlotApiResponseMap[Type]> => {
     if (isPageBlocksReadOnly()) {
       throw new Error('Page Blocks editing is disabled in read-only builds.');
     }
@@ -25,7 +31,7 @@ export function createSlotEditingClient(
       throw new Error('page-blocks could not resolve an editor endpoint for this build.');
     }
 
-    let request = req;
+    let request: SlotApiRequest = req;
     if ('context' in request && request.context && typeof request.context !== 'string') {
       request = {
         ...request,
@@ -33,16 +39,27 @@ export function createSlotEditingClient(
       } as SlotApiRequest;
     }
 
-    const response = await fetch(resolver.endpoint, {
+    const fetchResponse = await fetch(resolver.endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(request),
-    }).then((res) => res.json());
+    });
+    const responseBody = await readPageBlocksResponse(fetchResponse);
+    let response: unknown;
+    try {
+      response = parseSlotApiResponse(request.type, responseBody);
+    } catch (error) {
+      throw new PageBlocksClientError('The Page Blocks server returned an invalid response.', {
+        status: fetchResponse.status,
+        code: 'invalid_response',
+        details: error,
+      });
+    }
 
-    if (config && config.onMutation) {
+    if (config?.onMutation && isPageBlocksMutation(request.type)) {
       await config.onMutation(request, response);
     }
-    return response;
+    return response as SlotApiResponseMap[Type];
   };
 
   return {

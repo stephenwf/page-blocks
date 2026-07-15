@@ -1,2 +1,2 @@
-export const modifiers = ['all', 'none'];
-export const types = ['exact', 'all', 'none', 'filter'];
+export const modifiers = ['all', 'none'] as const;
+export const types = ['exact', 'all', 'none'] as const;

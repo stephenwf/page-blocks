@@ -123,8 +123,10 @@ test('slot editing client merges default path context before explicit context', 
     };
 
     return {
+      ok: true,
+      status: 200,
       async json() {
-        return { ok: true };
+        return { slots: {}, isEmpty: true, slotNames: [], context: request.body.context };
       },
     };
   };
@@ -551,7 +553,7 @@ test('file system loader exposes slot source metadata without persisting it', as
   const heroSlot = response.slots.hero;
 
   assert.deepEqual(heroSlot.source, {
-    filePath: join(slotsDir, '@path/offers/@country/japan/hero.json'),
+    filePath: '@path/offers/@country/japan/hero.json',
     matchedContexts: [
       { id: 'path', type: 'exact', value: '/offers' },
       { id: 'country', type: 'exact', value: 'japan' },
@@ -575,7 +577,7 @@ test('file system loader exposes slot source metadata without persisting it', as
   });
 
   assert.deepEqual(created.source, {
-    filePath: join(slotsDir, '@path/offers/@country/japan/promo.json'),
+    filePath: '@path/offers/@country/japan/promo.json',
     matchedContexts: [
       { id: 'path', type: 'exact', value: '/offers' },
       { id: 'country', type: 'exact', value: 'japan' },
@@ -622,7 +624,7 @@ test('file system loader reuses parent file metadata for inner slots', async (t)
 
   assert.equal(innerSlot.blocks[0].id, 'detail-card');
   assert.deepEqual(innerSlot.source, {
-    filePath: join(slotsDir, 'hero.json'),
+    filePath: 'hero.json',
     matchedContexts: [],
     embeddedIn: {
       slotId: heroSlot.id,

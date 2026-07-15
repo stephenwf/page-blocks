@@ -1,299 +1,248 @@
-import { readFile, unlink, writeFile } from 'fs/promises';
-import { dirname, join, relative, resolve } from 'path';
-import { mkdirp } from 'mkdirp';
-import { existsSync } from 'fs';
-import { base64ToText, readAllFiles, textToBase64 } from './utils';
-import { loaderAdapter } from '../node';
+import { existsSync } from 'node:fs';
+import { mkdir, readFile, unlink } from 'node:fs/promises';
+import { relative, resolve } from 'node:path';
 import {
   BlockWithOptionalSlotResponse,
+  canonicalSlotLocatorKey,
   CreateSlot,
   FullSlotLoader,
   normalizeSlotResponse,
   SlotSourceContextMatch,
   SlotSourceMetadata,
+  validateSlotManifestEntries,
 } from '../core';
-import { ContextFlatNode } from './types';
-import { parseSingleFile } from './parse-single-file';
+import { loaderAdapter } from '../node';
 import { findMatch } from './find-match';
 import { findSubContexts } from './find-sub-contexts';
+import { parseSingleFile } from './parse-single-file';
 import { buildSlotFilePath, contextFlatNodeToMatches } from './slot-path';
+import { ContextFlatNode } from './types';
+import { atomicWriteFile, readAllFiles, resolveWithinRoot } from './utils';
 
 export interface BlueprintSyncAdapter {
-  upsertBlueprintSlot(request: CreateSlot & { data: any }): Promise<void>;
+  upsertBlueprintSlot(request: CreateSlot & { data: unknown }): Promise<void>;
   deleteBlueprintSlot(request: CreateSlot): Promise<void>;
   listBlueprintSlots(): Promise<Array<{ slot: string; matches: CreateSlot['matches'] }>>;
 }
 
-export function createFileSystemLoader(options: {
-  path: string;
-  contexts: string[];
-}): FullSlotLoader & BlueprintSyncAdapter {
-  // @todo use something to watch for changes, maybe as a "watch()" option on the FullSlotLoader.
+type IndexedSlot = {
+  entry: ContextFlatNode;
+  relativePath: string;
+  absolutePath: string;
+};
 
+function formatJson(data: unknown) {
+  return `${JSON.stringify(data, null, 2)}\n`;
+}
+
+export function createFileSystemLoader(options: { path: string; contexts: string[] }): FullSlotLoader & BlueprintSyncAdapter {
+  const root = resolve(options.path);
   let parsed: ContextFlatNode[] = [];
+  let index = new Map<string, IndexedSlot>();
   let fresh = false;
-  const toAbsoluteFilePath = (filePath: string) => resolve(options.path, filePath);
 
-  const sortByContextOrder = <T extends { id: string }>(values: T[]) => {
-    return [...values].sort((left, right) => options.contexts.indexOf(left.id) - options.contexts.indexOf(right.id));
-  };
+  const sortByContextOrder = <T extends { id: string }>(values: T[]) =>
+    [...values].sort((left, right) => options.contexts.indexOf(left.id) - options.contexts.indexOf(right.id));
 
   const toMatchedContexts = (
     entry?: ContextFlatNode | null,
     fallbackMatches?: CreateSlot['matches']
   ): SlotSourceContextMatch[] => {
-    if (entry) {
-      return sortByContextOrder(entry.contexts).map((context) => {
-        if (context.match.type === 'exact') {
-          return { id: context.id, type: 'exact', value: context.match.value };
-        }
-        if (context.match.type === 'filter') {
-          return { id: context.id, type: 'filter', value: context.match.included.join(', ') };
-        }
-        return { id: context.id, type: context.match.type };
-      });
-    }
-
-    if (!fallbackMatches) {
-      return [];
-    }
-
-    return sortByContextOrder(fallbackMatches).map((match) => {
-      if (match.type === 'exact') {
-        return { id: match.id, type: 'exact', value: match.value };
-      }
-      return { id: match.id, type: match.type };
-    });
+    const matches = entry ? entry.contexts.map((context) => ({ id: context.id, ...context.match })) : fallbackMatches || [];
+    return sortByContextOrder(matches).map((match) =>
+      match.type === 'exact'
+        ? { id: match.id, type: 'exact', value: match.value }
+        : { id: match.id, type: match.type }
+    );
   };
 
   const createSourceMetadata = (
-    filePath: string,
+    relativePath: string,
     entry?: ContextFlatNode | null,
     fallbackMatches?: CreateSlot['matches']
   ): SlotSourceMetadata => ({
-    filePath,
+    filePath: relativePath,
     matchedContexts: toMatchedContexts(entry, fallbackMatches),
   });
 
-  const withSlotSource = (slotId: string, slotName: string, data: any, source?: SlotSourceMetadata) =>
-    normalizeSlotResponse(slotId, slotName, {
-      ...data,
-      source,
-    });
-
-  const stripSlotSource = (data: any) => {
+  const stripSlotSource = (data: unknown) => {
     if (!data || typeof data !== 'object' || Array.isArray(data)) {
       return data;
     }
-
-    const { source, ...persisted } = data;
+    const { source: _source, ...persisted } = data as Record<string, unknown>;
     return persisted;
+  };
+
+  const getIndexedSlot = (slotId: string) => {
+    const found = index.get(slotId);
+    if (!found) {
+      throw new Error(`Unknown Page Blocks document id "${slotId}".`);
+    }
+    return found;
+  };
+
+  const readIndexedSlot = async (found: IndexedSlot) => {
+    const data = JSON.parse(await readFile(found.absolutePath, { encoding: 'utf8', flag: 'r' }));
+    return normalizeSlotResponse(found.entry.id, found.entry.slot, {
+      ...data,
+      source: createSourceMetadata(found.relativePath, found.entry),
+    });
   };
 
   const loader = loaderAdapter({
     async init(force = false) {
-      await mkdirp(options.path);
+      await mkdir(root, { recursive: true });
+      if (!force && fresh) {
+        return;
+      }
 
-      if (force || !fresh) {
-        const files = Array.from(readAllFiles(options.path));
-        parsed = [];
-        for await (const file of files) {
-          if (!file.endsWith('.json')) {
-            continue;
-          }
-          const relativePath = relative(options.path, file as string);
-          const single = parseSingleFile(relativePath as string, options.contexts);
-          if (single) {
-            parsed.push(single);
-          }
+      const nextIndex = new Map<string, IndexedSlot>();
+      for (const file of [...readAllFiles(root)].sort()) {
+        if (!file.endsWith('.json')) {
+          continue;
         }
 
-        fresh = true;
+        const relativePath = relative(root, file).replaceAll('\\', '/');
+        const entry = parseSingleFile(relativePath, options.contexts);
+        if (!entry) {
+          continue;
+        }
+        if (nextIndex.has(entry.id)) {
+          throw new Error(`Page Blocks document id collision for "${relativePath}".`);
+        }
+        nextIndex.set(entry.id, {
+          entry,
+          relativePath,
+          absolutePath: resolveWithinRoot(root, relativePath),
+        });
       }
+
+      const nextParsed = [...nextIndex.values()]
+        .map(({ entry }) => entry)
+        .sort((left, right) => canonicalSlotLocatorKey(options.contexts, left).localeCompare(canonicalSlotLocatorKey(options.contexts, right)));
+      validateSlotManifestEntries(options.contexts, nextParsed, (entry) => nextIndex.get(entry.id)?.relativePath || entry.id);
+      index = nextIndex;
+      parsed = nextParsed;
+      fresh = true;
     },
+
     async query(context: Record<string, string>, slotIds?: string[]) {
-      if (!fresh) {
-        await this.init();
-      }
+      await this.init();
       const matches = findMatch(options.contexts, context, parsed, slotIds);
-      const keys = Object.keys(matches.slots);
-      const slots: Record<string, any> = {};
-      const slotNames: string[] = [];
-      for (const key of keys) {
-        const matchedSlot = matches.slots[key];
-        const hash = matchedSlot.id;
-        const fileName = base64ToText(hash);
-        const absoluteFilePath = toAbsoluteFilePath(fileName);
-        const data = await readFile(absoluteFilePath, { flag: 'rs', encoding: 'utf8' });
-        const json = JSON.parse(data);
-        slots[key] = withSlotSource(hash, matchedSlot.slot, json, createSourceMetadata(absoluteFilePath, matchedSlot));
-        slotNames.push(key);
+      const slots: Record<string, Awaited<ReturnType<typeof readIndexedSlot>>> = {};
+
+      for (const [slotName, matchedSlot] of Object.entries(matches.slots)) {
+        slots[slotName] = await readIndexedSlot(getIndexedSlot(matchedSlot.id));
       }
-      return { slots, isEmpty: slotNames.length === 0, slotNames, context } as any;
+      const slotNames = Object.keys(slots);
+      return { slots, isEmpty: slotNames.length === 0, slotNames, context: matches.context };
     },
+
     async find(slotId: string) {
-      if (!fresh) {
-        await this.init();
-      }
-      const fileName = base64ToText(slotId);
-      const absoluteFilePath = toAbsoluteFilePath(fileName);
-      const data = await readFile(absoluteFilePath, 'utf8');
-      const json = JSON.parse(data);
-      const matchedSlot = parsed.find((entry) => entry.id === slotId) || parseSingleFile(fileName, options.contexts);
-      return withSlotSource(
-        slotId,
-        matchedSlot?.slot || json.slot || json.name || slotId,
-        json,
-        createSourceMetadata(absoluteFilePath, matchedSlot)
-      );
+      await this.init();
+      return readIndexedSlot(getIndexedSlot(slotId));
     },
-    async update(slotId: string, data: any) {
-      if (!fresh) {
-        await this.init();
-      }
-      const fileName = base64ToText(slotId);
-      await writeFile(toAbsoluteFilePath(fileName), JSON.stringify(stripSlotSource(data), null, 2));
 
+    async update(slotId: string, data: unknown) {
+      await this.init();
+      const found = getIndexedSlot(slotId);
+      await atomicWriteFile(found.absolutePath, formatJson(stripSlotSource(data)));
       await this.init(true);
     },
+
     async createSlot(request: CreateSlot) {
-      const { matches, slot } = request;
-      const pathToFile = buildSlotFilePath(slot, matches, options.contexts);
+      await this.init();
+      const relativePath = buildSlotFilePath(request.slot, request.matches, options.contexts);
+      const absolutePath = resolveWithinRoot(root, relativePath);
+      const data = { name: request.slot, blocks: [] };
 
-      const data = {
-        // @todo make this customisable?
-        // id: btoa(pathToFile),
-        name: slot,
-        blocks: [],
-      };
-
-      const resolved = join(options.path, pathToFile);
-      await mkdirp(dirname(resolved));
-
-      await writeFile(resolved, JSON.stringify(data, null, 2));
-
-      const parsedSingle = parseSingleFile(relative(options.path, resolved), options.contexts);
-      if (parsedSingle) {
-        parsed.push(parsedSingle);
-      }
-
-      fresh = false;
-
-      return withSlotSource(
-        textToBase64(pathToFile),
-        slot,
-        data,
-        createSourceMetadata(resolve(resolved), parsedSingle, matches)
-      );
-    },
-    async delete(slotId: string) {
-      if (!fresh) {
-        await this.init();
-      }
-      const fileName = base64ToText(slotId);
-      if (fileName.includes('..') || !fileName.endsWith('.json')) {
-        throw new Error('Invalid slotId');
-      }
-
-      parsed = parsed.filter((item) => item.id !== slotId);
-
-      const fullPath = join(options.path, fileName);
-      if (existsSync(fullPath)) {
-        await unlink(fullPath);
+      try {
+        await atomicWriteFile(absolutePath, formatJson(data), { create: true });
+      } catch (error) {
+        if ((error as NodeJS.ErrnoException).code === 'EEXIST') {
+          throw new Error(`A slot already exists at "${relativePath}".`);
+        }
+        throw error;
       }
 
       await this.init(true);
+      const entry = parseSingleFile(relativePath, options.contexts)!;
+      return normalizeSlotResponse(entry.id, entry.slot, {
+        ...data,
+        source: createSourceMetadata(relativePath, entry, request.matches),
+      });
     },
+
+    async delete(slotId: string) {
+      await this.init();
+      const found = getIndexedSlot(slotId);
+      await unlink(found.absolutePath).catch((error: NodeJS.ErrnoException) => {
+        if (error.code !== 'ENOENT') throw error;
+      });
+      await this.init(true);
+    },
+
     async queryContextValues(context: string) {
-      if (!fresh) {
-        await this.init();
-      }
-      const foundValues: string[] = [];
+      await this.init();
+      const values = new Set<string>();
       for (const item of parsed) {
-        for (const ctx of item.contexts) {
-          if (ctx.id === context && ctx.match.type === 'exact') {
-            if (!foundValues.includes(ctx.match.value)) {
-              foundValues.push(ctx.match.value);
-            }
+        for (const match of item.contexts) {
+          if (match.id === context && match.match.type === 'exact') {
+            values.add(match.match.value);
           }
         }
       }
-      return foundValues;
+      return [...values].sort();
     },
-    async querySubContext(context: Record<string, string>): Promise<Array<Record<string, string>>> {
-      if (!fresh) {
-        await this.init();
-      }
 
-      return findSubContexts(context, parsed);
+    async querySubContext(context: Record<string, string>) {
+      await this.init();
+      return findSubContexts(options.contexts, context, parsed);
     },
-    async querySubContextBlocks(
-      context: Record<string, string>,
-      query?: {
-        searchValue?: string;
-        slotIds?: string[];
-        blockTypes?: string[];
-      }
-    ): Promise<Array<{ context: Record<string, string>; blocks: BlockWithOptionalSlotResponse[] }>> {
-      if (!fresh) {
-        await this.init();
-      }
 
-      const allMatches = [];
+    async querySubContextBlocks(context, query) {
+      await this.init();
+      const allMatches: Array<{ context: Record<string, string>; blocks: BlockWithOptionalSlotResponse[] }> = [];
 
-      const foundSubContexts = findSubContexts(context, parsed);
-      for (const subContext of foundSubContexts) {
+      for (const subContext of findSubContexts(options.contexts, context, parsed)) {
         const fullContext = { ...context, ...subContext };
-        const matches = findMatch(options.contexts, context, parsed, query?.slotIds);
-        if (matches) {
-          const slotIds = Object.keys(matches.slots);
-          const foundBlocks = [];
-          for (const slotId of slotIds) {
-            const hash = matches.slots[slotId].id;
-            const fileName = base64ToText(hash);
-            const data = await readFile(join(options.path, fileName), { flag: 'rs', encoding: 'utf8' });
-            const json = JSON.parse(data);
+        const matches = findMatch(options.contexts, fullContext, parsed, query?.slotIds);
+        const foundBlocks: BlockWithOptionalSlotResponse[] = [];
 
-            const blocks = json.blocks.filter((block: any) => {
-              if (query?.blockTypes && !query.blockTypes.includes(block.type)) {
-                return false;
-              }
+        for (const match of Object.values(matches.slots)) {
+          const slot = await readIndexedSlot(getIndexedSlot(match.id));
+          foundBlocks.push(
+            ...slot.blocks.filter((block) => {
+              if (query?.blockTypes && !query.blockTypes.includes(block.type)) return false;
               if (query?.searchValue) {
-                // @todo search value filtering.
+                return JSON.stringify(block.data).toLowerCase().includes(query.searchValue.toLowerCase());
               }
               return true;
-            });
-
-            foundBlocks.push(...blocks);
-          }
-
-          allMatches.push({ context: fullContext, blocks: foundBlocks });
+            })
+          );
         }
+        allMatches.push({ context: fullContext, blocks: foundBlocks });
       }
-
       return allMatches;
     },
   });
 
   return Object.assign(loader, {
-    async upsertBlueprintSlot(request: CreateSlot & { data: any }) {
-      const targetFile = join(options.path, buildSlotFilePath(request.slot, request.matches, options.contexts));
-      await mkdirp(dirname(targetFile));
-      await writeFile(targetFile, JSON.stringify(request.data, null, 2));
+    async upsertBlueprintSlot(request: CreateSlot & { data: unknown }) {
+      const relativePath = buildSlotFilePath(request.slot, request.matches, options.contexts);
+      await atomicWriteFile(resolveWithinRoot(root, relativePath), formatJson(request.data));
       await loader.init(true);
     },
     async deleteBlueprintSlot(request: CreateSlot) {
-      const targetFile = join(options.path, buildSlotFilePath(request.slot, request.matches, options.contexts));
-      if (existsSync(targetFile)) {
-        await unlink(targetFile);
+      const relativePath = buildSlotFilePath(request.slot, request.matches, options.contexts);
+      const target = resolveWithinRoot(root, relativePath);
+      if (existsSync(target)) {
+        await unlink(target);
       }
       await loader.init(true);
     },
     async listBlueprintSlots() {
-      if (!fresh) {
-        await loader.init();
-      }
-
+      await loader.init();
       return parsed.map((entry) => ({
         slot: entry.slot,
         matches: contextFlatNodeToMatches(entry, options.contexts),
@@ -301,3 +250,7 @@ export function createFileSystemLoader(options: {
     },
   });
 }
+
+export { parseSingleFile } from './parse-single-file';
+export { buildSlotFilePath, validateSlotLocator } from './slot-path';
+export { resolveWithinRoot } from './utils';

@@ -8,6 +8,20 @@ import {
 } from '../core';
 
 export function loaderAdapter(loader: SlotLoader & Partial<FullSlotLoader>): FullSlotLoader {
+  const reorder = (blocks: BlockResponse[], blockIds: string[]) => {
+    const currentIds = blocks.map((block) => block.id);
+    if (
+      blockIds.length !== currentIds.length ||
+      new Set(blockIds).size !== blockIds.length ||
+      blockIds.some((id) => !currentIds.includes(id))
+    ) {
+      throw new Error('Block reorder must contain every current block id exactly once.');
+    }
+
+    const byId = new Map(blocks.map((block) => [block.id, block]));
+    return blockIds.map((id) => byId.get(id)!);
+  };
+
   const stripSlotSource = (data: any) => {
     if (!data || typeof data !== 'object' || Array.isArray(data)) {
       return data;
@@ -168,9 +182,7 @@ export function loaderAdapter(loader: SlotLoader & Partial<FullSlotLoader>): Ful
       if (parent) {
         const [parentBlock, updateParentSlot] = await getBlockSlots(parent.slotId, parent.blockId, slotId);
 
-        parentBlock.slots[slotId].blocks = blockIds
-          .map((id: string) => parentBlock.slots[slotId].blocks.find((b: any) => b.id === id))
-          .filter(Boolean) as BlockResponse[];
+        parentBlock.slots[slotId].blocks = reorder(parentBlock.slots[slotId].blocks, blockIds);
 
         await updateParentSlot();
 
@@ -183,9 +195,7 @@ export function loaderAdapter(loader: SlotLoader & Partial<FullSlotLoader>): Ful
 
       const slot = await loader.find(slotId);
       slot.blocks = slot.blocks || [];
-      slot.blocks = blockIds
-        .map((id: string) => slot.blocks.find((b: any) => b.id === id))
-        .filter(Boolean) as BlockResponse[];
+      slot.blocks = reorder(slot.blocks, blockIds);
 
       await loader.update(slotId, slot);
     },
@@ -195,6 +205,7 @@ export function loaderAdapter(loader: SlotLoader & Partial<FullSlotLoader>): Ful
 
         parentBlock.slots[slotId].options = details;
         await updateParentSlot();
+        return;
       }
 
       const slot = await loader.find(slotId);

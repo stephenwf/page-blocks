@@ -1,4 +1,4 @@
-import { SlotQueryResponse, SlotResponse } from './protocol';
+import { SlotQueryResponse, SlotResponse, slotResponseSchema } from './protocol';
 
 export interface ContextFlatNode {
   id: string;
@@ -7,22 +7,7 @@ export interface ContextFlatNode {
   contexts: Array<{
     id: string;
     specificity: number;
-    match:
-      | {
-          type: 'exact';
-          value: string;
-        }
-      | {
-          type: 'all';
-          excluded?: string[];
-        }
-      | {
-          type: 'none';
-        }
-      | {
-          type: 'filter';
-          included: string[];
-        };
+    match: { type: 'exact'; value: string } | { type: 'all' } | { type: 'none' };
   }>;
 }
 
@@ -38,7 +23,7 @@ export function normalizeSlotPathname(pathname: string) {
   }
 
   const value = pathname.startsWith('/') ? pathname : `/${pathname}`;
-  return value.endsWith('/') && value !== '/' ? value.slice(0, -1) : value;
+  return value.endsWith('/') ? value.replace(/\/+$/, '') || '/' : value;
 }
 
 export function normalizeSlotContextValue(contextId: string, value: string | undefined) {
@@ -46,17 +31,122 @@ export function normalizeSlotContextValue(contextId: string, value: string | und
     return value;
   }
 
-  if (contextId === 'path') {
-    return normalizeSlotPathname(value);
-  }
-
-  return value;
+  return contextId === 'path' ? normalizeSlotPathname(value) : value;
 }
 
 export function normalizeSlotContext(contextValues: Record<string, string>) {
   return Object.fromEntries(
-    Object.entries(contextValues).map(([key, value]) => [key, normalizeSlotContextValue(key, value) || value])
+    Object.entries(contextValues).map(([key, value]) => [key, normalizeSlotContextValue(key, value) ?? value])
   );
+}
+
+function contextOrder(contexts: string[], id: string) {
+  const index = contexts.indexOf(id);
+  return index === -1 ? Number.MAX_SAFE_INTEGER : index;
+}
+
+export function canonicalSlotLocatorKey(contexts: string[], node: Pick<ContextFlatNode, 'slot' | 'contexts'>) {
+  const matches = [...node.contexts]
+    .sort((left, right) => contextOrder(contexts, left.id) - contextOrder(contexts, right.id))
+    .map((context) =>
+      context.match.type === 'exact'
+        ? [context.id, context.match.type, normalizeSlotContextValue(context.id, context.match.value)]
+        : [context.id, context.match.type]
+    );
+  return JSON.stringify([node.slot, matches]);
+}
+
+function constraintsOverlap(
+  left: ContextFlatNode['contexts'][number] | undefined,
+  right: ContextFlatNode['contexts'][number] | undefined
+) {
+  if (!left || !right) {
+    return true;
+  }
+
+  if (left.match.type === 'exact' && right.match.type === 'exact') {
+    return (
+      normalizeSlotContextValue(left.id, left.match.value) ===
+      normalizeSlotContextValue(right.id, right.match.value)
+    );
+  }
+
+  if (left.match.type === 'none' || right.match.type === 'none') {
+    return left.match.type === right.match.type;
+  }
+
+  return true;
+}
+
+function locatorsOverlap(left: ContextFlatNode, right: ContextFlatNode) {
+  const leftContexts = new Map(left.contexts.map((context) => [context.id, context]));
+  const rightContexts = new Map(right.contexts.map((context) => [context.id, context]));
+  const contextIds = new Set([...leftContexts.keys(), ...rightContexts.keys()]);
+
+  for (const contextId of contextIds) {
+    if (!constraintsOverlap(leftContexts.get(contextId), rightContexts.get(contextId))) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+export function validateSlotManifestEntries<Node extends ContextFlatNode>(
+  contexts: string[],
+  list: Node[],
+  describe: (node: Node) => string = (node) => node.id
+) {
+  if (new Set(contexts).size !== contexts.length) {
+    throw new Error('Page Blocks contexts must be unique.');
+  }
+
+  const keys = new Map<string, Node>();
+  for (const item of list) {
+    const seen = new Set<string>();
+    for (const context of item.contexts) {
+      if (!contexts.includes(context.id)) {
+        throw new Error(`Unknown context "${context.id}" in ${describe(item)}.`);
+      }
+      if (seen.has(context.id)) {
+        throw new Error(`Context "${context.id}" is repeated in ${describe(item)}.`);
+      }
+      seen.add(context.id);
+    }
+
+    const key = canonicalSlotLocatorKey(contexts, item);
+    const duplicate = keys.get(key);
+    if (duplicate) {
+      throw new Error(`Duplicate slot locator for "${item.slot}": ${describe(duplicate)} and ${describe(item)}.`);
+    }
+    keys.set(key, item);
+  }
+
+  for (let leftIndex = 0; leftIndex < list.length; leftIndex += 1) {
+    const left = list[leftIndex];
+    for (let rightIndex = leftIndex + 1; rightIndex < list.length; rightIndex += 1) {
+      const right = list[rightIndex];
+      if (left.slot !== right.slot || left.specificity !== right.specificity || !locatorsOverlap(left, right)) {
+        continue;
+      }
+      throw new Error(
+        `Ambiguous slot locators for "${left.slot}" at specificity ${left.specificity}: ${describe(left)} and ${describe(right)}.`
+      );
+    }
+  }
+}
+
+function matchesConstraint(context: ContextFlatNode['contexts'][number], values: Record<string, string>) {
+  const hasValue = Object.prototype.hasOwnProperty.call(values, context.id);
+  const value = values[context.id];
+
+  if (context.match.type === 'exact') {
+    return hasValue && normalizeSlotContextValue(context.id, context.match.value) === value;
+  }
+  if (context.match.type === 'all') {
+    return hasValue;
+  }
+  return !hasValue;
 }
 
 export function findSlotManifestMatch<Node extends ContextFlatNode>(
@@ -65,58 +155,85 @@ export function findSlotManifestMatch<Node extends ContextFlatNode>(
   list: Node[],
   slotIds?: string[]
 ) {
+  validateSlotManifestEntries(contexts, list);
   const normalizedContextValues = normalizeSlotContext(contextValues);
-  const slotSpecificity: Record<string, number> = {};
-  const slotMatches: Record<string, Node> = {};
+  const slotMatches = new Map<string, Node>();
 
-  const filteredList = list.filter((item) => {
-    for (const context of item.contexts) {
-      const value = normalizedContextValues[context.id];
-      const allowed =
-        (context.match.type === 'exact' && context.match.value === value) ||
-        (context.match.type === 'all' && value && !context.match.excluded?.includes(value)) ||
-        (context.match.type === 'none' && !value) ||
-        (context.match.type === 'filter' && context.match.included.includes(value));
-
-      if (!allowed) {
-        return false;
-      }
-    }
-
-    return true;
-  });
-
-  for (const item of filteredList) {
-    const existingSpecificity = slotSpecificity[item.slot];
-    if (typeof existingSpecificity !== 'undefined' && existingSpecificity > item.specificity) {
+  for (const item of [...list].sort((left, right) =>
+    canonicalSlotLocatorKey(contexts, left).localeCompare(canonicalSlotLocatorKey(contexts, right))
+  )) {
+    if (!item.contexts.every((context) => matchesConstraint(context, normalizedContextValues))) {
       continue;
     }
 
-    slotSpecificity[item.slot] = item.specificity;
-    slotMatches[item.slot] = item;
+    const existing = slotMatches.get(item.slot);
+    if (!existing || existing.specificity < item.specificity) {
+      slotMatches.set(item.slot, item);
+      continue;
+    }
+    if (existing.specificity === item.specificity && existing.id !== item.id) {
+      throw new Error(
+        `Ambiguous slot match for "${item.slot}" at specificity ${item.specificity}: ${existing.id} and ${item.id}.`
+      );
+    }
   }
 
   const slotsToReturn: Record<string, Node> = {};
-  const slotsToSearch = slotIds?.length ? slotIds : Object.keys(slotMatches);
+  const slotsToSearch = slotIds?.length ? slotIds : [...slotMatches.keys()].sort();
   for (const slotId of slotsToSearch) {
-    const slot = slotMatches[slotId];
+    const slot = slotMatches.get(slotId);
     if (slot) {
       slotsToReturn[slotId] = slot;
     }
   }
 
-  return {
-    context: normalizedContextValues,
-    slots: slotsToReturn,
-  };
+  return { context: normalizedContextValues, slots: slotsToReturn };
 }
 
-export function normalizeSlotResponse(slotId: string, slotName: string, data: any): SlotResponse {
-  return {
-    ...data,
-    id: data.id || slotId,
-    slot: data.slot || data.name || slotName,
-  };
+export function findSlotSubContexts<Node extends ContextFlatNode>(
+  contexts: string[],
+  searchContext: Record<string, string>,
+  list: Node[]
+) {
+  const normalizedSearch = normalizeSlotContext(searchContext);
+  const existing = new Set(Object.keys(normalizedSearch));
+  const matches = new Map<string, Record<string, string>>();
+
+  for (const item of list) {
+    const matchesSearch = item.contexts.every((context) => {
+      if (!existing.has(context.id)) {
+        return true;
+      }
+      return matchesConstraint(context, normalizedSearch);
+    });
+    if (!matchesSearch) {
+      continue;
+    }
+
+    const nextContext: Record<string, string> = {};
+    for (const context of [...item.contexts].sort(
+      (left, right) => contextOrder(contexts, left.id) - contextOrder(contexts, right.id)
+    )) {
+      if (!existing.has(context.id) && context.match.type === 'exact') {
+        nextContext[context.id] = normalizeSlotContextValue(context.id, context.match.value) ?? context.match.value;
+      }
+    }
+
+    if (Object.keys(nextContext).length) {
+      matches.set(JSON.stringify(nextContext), nextContext);
+    }
+  }
+
+  return [...matches.values()].sort((left, right) => JSON.stringify(left).localeCompare(JSON.stringify(right)));
+}
+
+export function normalizeSlotResponse(slotId: string, slotName: string, data: unknown): SlotResponse {
+  const value = data && typeof data === 'object' && !Array.isArray(data) ? data : {};
+  return slotResponseSchema.parse({
+    ...value,
+    id: (value as { id?: unknown }).id || slotId,
+    slot: (value as { slot?: unknown; name?: unknown }).slot || (value as { name?: unknown }).name || slotName,
+  });
 }
 
 export function queryStaticManifest(
@@ -125,22 +242,16 @@ export function queryStaticManifest(
   slotIds?: string[]
 ): SlotQueryResponse {
   const matches = findSlotManifestMatch(manifest.contexts, context, manifest.entries, slotIds);
-  const keys = Object.keys(matches.slots);
   const slots: Record<string, SlotResponse> = {};
-  const slotNames: string[] = [];
 
-  for (const key of keys) {
-    const match = matches.slots[key];
+  for (const [slotName, match] of Object.entries(matches.slots)) {
     const slot = manifest.slots[match.id];
-
-    if (!slot) {
-      continue;
+    if (slot) {
+      slots[slotName] = normalizeSlotResponse(match.id, match.slot, slot);
     }
-
-    slots[key] = normalizeSlotResponse(match.id, match.slot, slot);
-    slotNames.push(key);
   }
 
+  const slotNames = Object.keys(slots);
   return {
     slots,
     isEmpty: slotNames.length === 0,

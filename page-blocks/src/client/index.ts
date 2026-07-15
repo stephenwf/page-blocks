@@ -4,3 +4,4 @@ export * from './create-remote-loader';
 export * from './slot-editing-client';
 export * from './store';
 export * from './register';
+export * from './errors';

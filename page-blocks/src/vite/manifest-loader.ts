@@ -1,7 +1,7 @@
 import {
   type BlockWithOptionalSlotResponse,
   type FullSlotLoader,
-  normalizeSlotContext,
+  findSlotSubContexts,
   queryStaticManifest,
 } from '../core';
 
@@ -18,41 +18,7 @@ export function createManifestLoader(getManifest: () => {
 }): FullSlotLoader {
   const querySubContext = async (searchContext: Record<string, string>) => {
     const manifest = getManifest();
-    const normalizedSearch = normalizeSlotContext(searchContext);
-    const existingKeys = new Set(Object.keys(normalizedSearch));
-    const matches = new Map<string, Record<string, string>>();
-
-    for (const entry of manifest.entries) {
-      const matchesSearch = entry.contexts.every((context: any) => {
-        const expected = normalizedSearch[context.id];
-        if (typeof expected === 'undefined') {
-          return true;
-        }
-
-        return context.match.type === 'exact' && context.match.value === expected;
-      });
-
-      if (!matchesSearch) {
-        continue;
-      }
-
-      const nextContext: Record<string, string> = {};
-      for (const context of entry.contexts) {
-        if (existingKeys.has(context.id) || context.match.type !== 'exact') {
-          continue;
-        }
-
-        nextContext[context.id] = context.match.value;
-      }
-
-      if (!Object.keys(nextContext).length) {
-        continue;
-      }
-
-      matches.set(JSON.stringify(nextContext), nextContext);
-    }
-
-    return [...matches.values()];
+    return findSlotSubContexts(manifest.contexts, searchContext, manifest.entries);
   };
 
   return {

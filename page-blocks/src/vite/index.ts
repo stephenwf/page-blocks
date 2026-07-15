@@ -1,9 +1,14 @@
-import { readFile } from 'node:fs/promises';
+import { mkdir, readFile } from 'node:fs/promises';
 import { posix, relative, resolve } from 'node:path';
-import { mkdirp } from 'mkdirp';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { Plugin, UserConfig } from 'vite';
-import { ContextFlatNode, normalizeSlotResponse, PageBlocksStaticManifest, SlotResponse } from '../core';
+import {
+  ContextFlatNode,
+  normalizeSlotResponse,
+  PageBlocksStaticManifest,
+  SlotResponse,
+  validateSlotManifestEntries,
+} from '../core';
 import { compileBlueprintFiles } from '../designer';
 import { createFileSystemLoader } from '../file-system';
 import { parseSingleFile } from '../file-system/parse-single-file';
@@ -90,7 +95,7 @@ function resolvePluginOptions(
 }
 
 async function collectStaticSlotSources(options: ResolvedPluginOptions): Promise<StaticSlotSource[]> {
-  await mkdirp(options.slotsDir);
+  await mkdir(options.slotsDir, { recursive: true });
 
   const entries: StaticSlotSource[] = [];
 
@@ -113,6 +118,11 @@ async function collectStaticSlotSources(options: ResolvedPluginOptions): Promise
     });
   }
 
+  validateSlotManifestEntries(
+    options.contexts,
+    entries.map(({ entry }) => entry),
+    (entry) => entries.find((candidate) => candidate.entry.id === entry.id)?.relativePath || entry.id
+  );
   return entries;
 }
 
@@ -147,11 +157,19 @@ async function buildStaticFilesManifest(options: ResolvedPluginOptions): Promise
   };
 }
 
-async function readBody(req: IncomingMessage) {
+class BodyTooLargeError extends Error {}
+
+async function readBody(req: IncomingMessage, maximumBytes = 1024 * 1024) {
   const chunks: Uint8Array[] = [];
+  let size = 0;
 
   for await (const chunk of req) {
-    chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk);
+    const bytes = typeof chunk === 'string' ? Buffer.from(chunk) : chunk;
+    size += bytes.byteLength;
+    if (size > maximumBytes) {
+      throw new BodyTooLargeError('Page Blocks request bodies may not exceed 1 MiB.');
+    }
+    chunks.push(bytes);
   }
 
   return Buffer.concat(chunks).toString('utf8');
@@ -332,7 +350,8 @@ export default function pageBlocks(options: PageBlocksViteOptions = {}): Plugin 
           sendJson(res, response.status, response.body);
         } catch (error) {
           const message = error instanceof Error ? error.message : 'Unknown error';
-          sendJson(res, 500, { error: message });
+          const status = error instanceof BodyTooLargeError ? 413 : error instanceof SyntaxError ? 400 : 500;
+          sendJson(res, status, { error: { code: status === 413 ? 'body_too_large' : 'request_failed', message } });
         }
       });
 
