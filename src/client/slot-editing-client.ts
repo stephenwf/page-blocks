@@ -9,6 +9,7 @@ import {
 import { isPageBlocksReadOnly, mergePageBlocksContext, resolveDirectoryResolver } from '../vite/runtime';
 import { readPageBlocksResponse } from './errors';
 import { createPageBlocksRemoteClient } from './remote-client';
+import { getPageBlocksRuntime } from './runtime-controller';
 import { trackPageBlocksWrite } from './store';
 
 export type SlotEditingClient = ReturnType<typeof createSlotEditingClient>;
@@ -22,7 +23,15 @@ export function createSlotEditingClient(
     if (!resolved.endpoint) throw new Error('page-blocks could not resolve an editor endpoint for this build.');
     return resolved;
   };
-  const remote = () => createPageBlocksRemoteClient({ endpoint: resolver().endpoint! });
+  const remote = () => {
+    const runtime = getPageBlocksRuntime();
+    if (runtime.getSnapshot().source === 'remote') {
+      const runtimeClient = runtime.getRemoteClient();
+      if (!runtimeClient) throw new Error('Page Blocks remote runtime has no client.');
+      return runtimeClient;
+    }
+    return createPageBlocksRemoteClient({ endpoint: resolver().endpoint! });
+  };
   const target = (slotId: string, parent?: { blockId: string; slotId: string }): PageBlocksTarget =>
     parent
       ? { documentId: parent.slotId, path: [{ blockId: parent.blockId, slot: slotId }] }
@@ -57,7 +66,12 @@ export function createSlotEditingClient(
       return remote().query(merged, slots);
     },
     async updateSlot(slotId: string, data: any, parent?: { blockId: string; slotId: string }) {
-      await mutate({ type: 'update-slot', slotId, data, parent }, { type: 'replace-slot', document: data }, slotId, parent);
+      await mutate(
+        { type: 'update-slot', slotId, data, parent },
+        { type: 'replace-slot', document: data },
+        slotId,
+        parent
+      );
       return { success: true as const };
     },
     async createSlot(slot: string, matches: CreateSlot['matches'], parent?: { blockId: string; slotId: string }) {
@@ -92,31 +106,66 @@ export function createSlotEditingClient(
       return response.block!;
     },
     async deleteBlock(slotId: string, blockId: string, parent?: { blockId: string; slotId: string }) {
-      await mutate({ type: 'delete-block', slotId, blockId, parent }, { type: 'delete-block', blockId }, slotId, parent);
+      await mutate(
+        { type: 'delete-block', slotId, blockId, parent },
+        { type: 'delete-block', blockId },
+        slotId,
+        parent
+      );
       return { success: true as const };
     },
     async updateBlock(slotId: string, blockId: string, block: any, parent?: { blockId: string; slotId: string }) {
-      await mutate({ type: 'update-block', slotId, blockId, block, parent }, { type: 'update-block', blockId, block }, slotId, parent);
+      await mutate(
+        { type: 'update-block', slotId, blockId, block, parent },
+        { type: 'update-block', blockId, block },
+        slotId,
+        parent
+      );
       return { success: true as const };
     },
     async updateBlockProps(slotId: string, blockId: string, props: any, parent?: { blockId: string; slotId: string }) {
-      await mutate({ type: 'update-block-props', slotId, blockId, props, parent }, { type: 'update-block-props', blockId, props }, slotId, parent);
+      await mutate(
+        { type: 'update-block-props', slotId, blockId, props, parent },
+        { type: 'update-block-props', blockId, props },
+        slotId,
+        parent
+      );
       return { success: true as const };
     },
     async reorderBlocks(slotId: string, blockIds: string[], parent?: { blockId: string; slotId: string }) {
-      await mutate({ type: 'reorder-blocks', slotId, blockIds, parent }, { type: 'reorder-blocks', blockIds }, slotId, parent);
+      await mutate(
+        { type: 'reorder-blocks', slotId, blockIds, parent },
+        { type: 'reorder-blocks', blockIds },
+        slotId,
+        parent
+      );
       return { success: true as const };
     },
     async updateSlotOptions(slotId: string, slotOptions: any, parent?: { blockId: string; slotId: string }) {
-      await mutate({ type: 'update-slot-options', slotId, options: slotOptions, parent }, { type: 'update-slot-options', options: slotOptions }, slotId, parent);
+      await mutate(
+        { type: 'update-slot-options', slotId, options: slotOptions, parent },
+        { type: 'update-slot-options', options: slotOptions },
+        slotId,
+        parent
+      );
       return { success: true as const };
     },
     async moveBlockUp(slotId: string, blockId: string, parent?: { blockId: string; slotId: string }) {
-      await mutate({ type: 'move-block-up', slotId, blockId, parent }, { type: 'move-block-up', blockId }, slotId, parent);
+      await mutate(
+        { type: 'move-block-up', slotId, blockId, parent },
+        { type: 'move-block-up', blockId },
+        slotId,
+        parent
+      );
       return { success: true as const };
     },
     async moveBlockDown(slotId: string, blockId: string, parent?: { blockId: string; slotId: string }) {
-      await mutate({ type: 'move-block-down', slotId, blockId, parent }, { type: 'move-block-down', blockId }, slotId, parent);
+      await mutate(
+        { type: 'move-block-down', slotId, blockId, parent },
+        { type: 'move-block-down', blockId },
+        slotId,
+        parent
+      );
       return { success: true as const };
     },
     queryContextValues: (context: string) => remote().contextValues(context),
@@ -125,6 +174,9 @@ export function createSlotEditingClient(
       remote().subContextBlocks(context, queryOptions),
     async generateScreenshots() {
       if (isPageBlocksReadOnly()) throw new Error('Page Blocks editing is disabled in read-only builds.');
+      if (getPageBlocksRuntime().getSnapshot().source === 'remote') {
+        throw new Error('Page Blocks screenshot generation is only available with the local runtime.');
+      }
       const endpoint = `${resolver().endpoint!.replace(/\/$/, '')}/screenshots`;
       return trackPageBlocksWrite(async () => {
         const response = await fetch(endpoint, { method: 'POST' });

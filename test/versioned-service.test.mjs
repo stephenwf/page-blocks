@@ -4,7 +4,12 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, test } from 'node:test';
 
-import { createPageBlocksRemoteClient, PageBlocksClientError } from 'page-blocks/client';
+import {
+  createPageBlocksRemoteClient,
+  createSlotEditingClient,
+  getPageBlocksRuntime,
+  PageBlocksClientError,
+} from 'page-blocks/client';
 import { createFileSystemLoader, createFileSystemStore } from 'page-blocks/file-system';
 import {
   exportPageBlocksSnapshot,
@@ -167,6 +172,51 @@ test('the typed remote client carries authorization and exposes service errors',
     () => denied.get({ documentId: created.document.id, path: [] }),
     (error) => error instanceof PageBlocksClientError && error.status === 403 && error.code === 'forbidden'
   );
+});
+
+test('the slot editing client inherits the authenticated runtime client', async (t) => {
+  globalThis.__PAGE_BLOCKS_VITE_CONFIG__ = {
+    mode: 'preview',
+    readOnly: false,
+    contexts: [],
+    defaultContexts: [],
+  };
+  const service = createPageBlocksService({
+    store: createMemoryStore([{
+      id: 'document-1', scope: 'tenant', version: 1,
+      locator: { slot: 'hero', matches: [] },
+      document: { blocks: [{ id: 'card', type: 'card', data: { title: 'Before' } }] },
+    }]),
+  });
+  const authorization = [];
+  const handler = createPageBlocksHandler({
+    service,
+    scope: 'tenant',
+    authorize: ({ request }) => {
+      authorization.push(request.headers.get('authorization'));
+      return request.headers.get('authorization') === 'Bearer secret';
+    },
+  });
+  const runtime = getPageBlocksRuntime();
+  runtime.useRemote({
+    capabilities: { read: true, edit: true },
+    client: createPageBlocksRemoteClient({
+      endpoint: 'https://example.test/page-blocks',
+      fetch: (input, init) => handler(new Request(input, init)),
+      headers: { authorization: 'Bearer secret' },
+    }),
+  });
+  t.after(() => runtime.useStatic());
+
+  const editor = createSlotEditingClient({});
+  await editor.updateBlockProps('document-1', 'card', { title: 'After' });
+
+  assert.deepEqual(authorization, ['Bearer secret', 'Bearer secret']);
+  assert.deepEqual(
+    (await service.get('tenant', { documentId: 'document-1', path: [] })).target.blocks[0].data,
+    { title: 'After' }
+  );
+  await assert.rejects(() => editor.generateScreenshots(), /only available with the local runtime/);
 });
 
 test('the filesystem store persists revisions and compare-and-swap conflicts', async () => {
